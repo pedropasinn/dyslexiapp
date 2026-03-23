@@ -60,8 +60,7 @@ function finishTextoReading() {
   document.getElementById('texto-questions').classList.add('visible');
   document.getElementById('checklist-section').style.display = 'block';
 
-  const history = JSON.parse(localStorage.getItem('fluencia_texto') || '[]');
-  history.push({
+  Storage.push('fluencia_texto', {
     date: new Date().toISOString(),
     module: mod.name,
     time: elapsed,
@@ -69,7 +68,6 @@ function finishTextoReading() {
     wpm: wpm,
     words: wordCount,
   });
-  localStorage.setItem('fluencia_texto', JSON.stringify(history));
 }
 
 // ─────────────────────────────────────────
@@ -107,8 +105,6 @@ function saveChecklist() {
       label: selected ? CHECKLIST_LABELS[parseInt(selected.dataset.level)] : 'N/A',
     });
   });
-  const history = JSON.parse(localStorage.getItem('fluencia_checklist') || '[]');
-  history.push({ date: new Date().toISOString(), results });
-  localStorage.setItem('fluencia_checklist', JSON.stringify(history));
+  Storage.push('fluencia_checklist', { date: new Date().toISOString(), results });
   alert('Autoavaliação salva!');
 }

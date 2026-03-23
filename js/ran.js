@@ -54,9 +54,7 @@ function saveRanAttempt() {
     errors: parseInt(document.getElementById('ran-errors').textContent),
     autocorrections: parseInt(document.getElementById('ran-autocorr').textContent),
   };
-  const history = JSON.parse(localStorage.getItem('fluencia_ran') || '[]');
-  history.push(entry);
-  localStorage.setItem('fluencia_ran', JSON.stringify(history));
+  Storage.push('fluencia_ran', entry);
   ranTimerCtrl.reset();
   document.getElementById('ran-start-btn').textContent = 'Iniciar';
   document.getElementById('ran-errors').textContent = '0';
@@ -67,7 +65,7 @@ function saveRanAttempt() {
 
 function renderRanHistory() {
   const container = document.getElementById('ran-history');
-  const history = JSON.parse(localStorage.getItem('fluencia_ran') || '[]');
+  const history = Storage.get('fluencia_ran');
   if (history.length === 0) {
     container.innerHTML = '<div class="history-empty">Nenhuma tentativa registrada ainda.</div>';
     return;

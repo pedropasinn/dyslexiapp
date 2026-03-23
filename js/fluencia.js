@@ -63,13 +63,11 @@ function saveFluenciaAttempt() {
 
   if (fluenciaAttempt === 3) {
     const mod = FLUENCIA_MODULES[fluenciaModule];
-    const history = JSON.parse(localStorage.getItem('fluencia_fluencia') || '[]');
     const times = [];
     for (let i = 1; i <= 3; i++) {
       times.push(document.getElementById(`fluencia-t${i}`).textContent);
     }
-    history.push({ date: new Date().toISOString(), module: mod.name, attempts: times });
-    localStorage.setItem('fluencia_fluencia', JSON.stringify(history));
+    Storage.push('fluencia_fluencia', { date: new Date().toISOString(), module: mod.name, attempts: times });
   }
 }
 

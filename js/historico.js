@@ -7,7 +7,7 @@ function showHistory(type) {
   });
 
   const container = document.getElementById('historico-content');
-  const data = JSON.parse(localStorage.getItem(`fluencia_${type}`) || '[]');
+  const data = Storage.get(`fluencia_${type}`);
 
   if (data.length === 0) {
     container.innerHTML = '<div class="history-empty">Nenhum registro encontrado para esta categoria.</div>';
@@ -54,11 +54,11 @@ function showHistory(type) {
 
 function exportData() {
   const data = {
-    ran: JSON.parse(localStorage.getItem('fluencia_ran') || '[]'),
-    precisao: JSON.parse(localStorage.getItem('fluencia_precisao') || '[]'),
-    fluencia: JSON.parse(localStorage.getItem('fluencia_fluencia') || '[]'),
-    texto: JSON.parse(localStorage.getItem('fluencia_texto') || '[]'),
-    checklist: JSON.parse(localStorage.getItem('fluencia_checklist') || '[]'),
+    ran: Storage.get('fluencia_ran'),
+    precisao: Storage.get('fluencia_precisao'),
+    fluencia: Storage.get('fluencia_fluencia'),
+    texto: Storage.get('fluencia_texto'),
+    checklist: Storage.get('fluencia_checklist'),
     exported: new Date().toISOString(),
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -72,6 +72,6 @@ function exportData() {
 
 function clearHistory() {
   if (!confirm('Deseja realmente limpar todo o histórico? Esta ação não pode ser desfeita.')) return;
-  ['fluencia_ran','fluencia_precisao','fluencia_fluencia','fluencia_texto','fluencia_checklist'].forEach(k => localStorage.removeItem(k));
+  ['fluencia_ran','fluencia_precisao','fluencia_fluencia','fluencia_texto','fluencia_checklist'].forEach(k => Storage.remove(k));
   showHistory('ran');
 }

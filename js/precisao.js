@@ -64,14 +64,12 @@ function handlePrecisaoAnswer(idx, chosen, correct, btnEl) {
     document.getElementById('precisao-correct').textContent = precisaoCorrect;
     document.getElementById('precisao-total').textContent = mod.words.length;
 
-    const history = JSON.parse(localStorage.getItem('fluencia_precisao') || '[]');
-    history.push({
+    Storage.push('fluencia_precisao', {
       date: new Date().toISOString(),
       module: mod.name,
       correct: precisaoCorrect,
       total: mod.words.length,
     });
-    localStorage.setItem('fluencia_precisao', JSON.stringify(history));
   }
 }
 

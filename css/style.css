@@ -28,6 +28,7 @@
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Lora', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --sidebar-w: 300px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
