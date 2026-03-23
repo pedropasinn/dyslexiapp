@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluência — Treino de Leitura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════ -->
+<header>
+  <div class="container">
+    <div class="logo" onclick="showSection('home')">Fluência <span>treino</span></div>
+    <nav id="main-nav">
+      <button onclick="showSection('home')" class="active" data-section="home">Início</button>
+      <button onclick="showSection('ran')" data-section="ran">RAN</button>
+      <button onclick="showSection('precisao')" data-section="precisao">Precisão</button>
+      <button onclick="showSection('decodificacao')" data-section="decodificacao">Decodificação</button>
+      <button onclick="showSection('fluencia')" data-section="fluencia">Fluência</button>
+      <button onclick="showSection('texto')" data-section="texto">Texto</button>
+      <button onclick="showSection('historico')" data-section="historico">Histórico</button>
+      <button onclick="showSection('memoria')" data-section="memoria">Memória</button>
+      <button onclick="showSection('tracking')" data-section="tracking">Tracking</button>
+      <button onclick="showSection('inibicao')" data-section="inibicao">Inibição</button>
+      <button onclick="window.location.href='comunicacao-envolvente.html'" data-section="fce">Comunicação</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     HOME
+     ═══════════════════════════════════════════ -->
+<div class="container">
+  <section id="sec-home" class="section active">
+    <div class="hero">
+      <h1>Fluência — <em>Treino de Leitura</em></h1>
+      <p class="hero-subtitle">Exercícios baseados em evidência para o desenvolvimento da fluência leitora, adaptados ao perfil adulto e intelectual.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card" onclick="showSection('ran')">
+        <div class="card-number">01</div>
+        <h3>RAN — Nomeação Rápida</h3>
+        <p>Nomeie números em grade cronometrada. Treina velocidade de acesso lexical e automaticidade visuo-fonológica.</p>
+        <span class="card-tag">velocidade · atenção</span>
+      </div>
+      <div class="card" onclick="showSection('precisao')">
+        <div class="card-number">02</div>
+        <h3>Precisão — Completar Fonemas</h3>
+        <p>Complete palavras com o fonema correto. Treina discriminação fonológica e consciência ortográfica.</p>
+        <span class="card-tag">precisão · fonologia</span>
+      </div>
+      <div class="card" onclick="showSection('decodificacao')">
+        <div class="card-number">03</div>
+        <h3>Decodificação Progressiva</h3>
+        <p>Leia do modo robô ao orador. Treina a rota sublexical e a transição para leitura fluente.</p>
+        <span class="card-tag">decodificação · prosódia</span>
+      </div>
+      <div class="card" onclick="showSection('fluencia')">
+        <div class="card-number">04</div>
+        <h3>Fluência de Palavras</h3>
+        <p>Leitura cronometrada em três estilos visuais. Treina automaticidade e flexibilidade perceptual.</p>
+        <span class="card-tag">fluência · tempo</span>
+      </div>
+      <div class="card" onclick="showSection('texto')">
+        <div class="card-number">05</div>
+        <h3>Fluência Textual</h3>
+        <p>Leitura de textos com compreensão e cronômetro. Integra decodificação, fluência e compreensão.</p>
+        <span class="card-tag">integração · compreensão</span>
+      </div>
+      <div class="card" onclick="showSection('memoria')">
+        <div class="card-number">06</div>
+        <h3>Memória de Trabalho</h3>
+        <p>Retenha e manipule sequências de dígitos e palavras. Treina o buffer fonológico essencial para a leitura.</p>
+        <span class="card-tag">memória · span</span>
+      </div>
+      <div class="card" onclick="showSection('tracking')">
+        <div class="card-number">07</div>
+        <h3>Rastreamento Ocular</h3>
+        <p>Treine sacadas precisas e retorno de linha. Melhora o tracking visual necessário para leitura fluente.</p>
+        <span class="card-tag">olhos · sacadas</span>
+      </div>
+      <div class="card" onclick="showSection('inibicao')">
+        <div class="card-number">08</div>
+        <h3>Controle Inibitório</h3>
+        <p>Pare de adivinhar palavras. Treine a decodificação completa e a detecção de erros em textos.</p>
+        <span class="card-tag">inibição · precisão</span>
+      </div>
+      <div class="card" onclick="showSection('historico')">
+        <div class="card-number">09</div>
+        <h3>Histórico & Progresso</h3>
+        <p>Acompanhe sua evolução ao longo do tempo. Visualize tempos, acertos e tendências.</p>
+        <span class="card-tag">dados · progresso</span>
+      </div>
+      <div class="card" onclick="window.location.href='comunicacao-envolvente.html'">
+        <div class="card-number">10</div>
+        <h3>Comunicação Envolvente</h3>
+        <p>Curso completo de especialização da voz e fala. Leitura em voz alta, elisão, narração, comerciais e mais.</p>
+        <span class="card-tag">voz · curso · FCE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       RAN
+       ═══════════════════════════════════════════ -->
+  <section id="sec-ran" class="section">
+    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+    <div class="section-header">
+      <h2>RAN — Nomeação Automática Rápida</h2>
+      <p>Leia cada número da esquerda para a direita, linha por linha, o mais rápido que puder. Cronometre do primeiro ao último item.</p>
+    </div>
+
+    <div class="module-selector" id="ran-levels">
+      <button class="module-btn active" onclick="setRanLevel(0)">Nível 1</button>
+      <button class="module-btn" onclick="setRanLevel(1)">Nível 2</button>
+      <button class="module-btn" onclick="setRanLevel(2)">Nível 3</button>
+    </div>
+
+    <div class="info-box">
+      <strong>Instrução:</strong> "Leia cada número da esquerda para a direita, linha por linha, sem pular nenhum. Comece quando disser <em>Já</em>."
+    </div>
+
+    <div class="ran-grid" id="ran-grid"></div>
+
+    <div class="controls">
+      <div class="timer-display" id="ran-timer">00:00.0</div>
+      <button class="btn btn-primary" id="ran-start-btn" onclick="toggleRanTimer()">Iniciar</button>
+      <button class="btn btn-outline" onclick="generateRan()">Nova ficha</button>
+    </div>
+
+    <div class="controls">
+      <div class="counter">
+        <span class="counter-label">Erros</span>
+        <button onclick="adjustCounter('ran-errors', -1)">−</button>
+        <span class="counter-value" id="ran-errors">0</span>
+        <button onclick="adjustCounter('ran-errors', 1)">+</button>
+      </div>
+      <div class="counter">
+        <span class="counter-label">Autocorr.</span>
+        <button onclick="adjustCounter('ran-autocorr', -1)">−</button>
+        <span class="counter-value" id="ran-autocorr">0</span>
+        <button onclick="adjustCounter('ran-autocorr', 1)">+</button>
+      </div>
+      <button class="btn btn-gold btn-sm" onclick="saveRanAttempt()">Salvar tentativa</button>
+    </div>
+
+    <div class="history-section" id="ran-history"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PRECISÃO
+       ═══════════════════════════════════════════ -->
+  <section id="sec-precisao" class="section">
+    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+    <div class="section-header">
+      <h2>Precisão — Completar Fonemas</h2>
+      <p>Complete cada palavra com o fonema correto. Clique na opção que preenche a lacuna.</p>
+    </div>
+
+    <div class="module-selector" id="precisao-modules"></div>
+
+    <div id="precisao-score" class="score-display hidden">
+      <span class="score-num" id="precisao-correct">0</span>
+      <span class="score-total">/ <span id="precisao-total">0</span></span>
+    </div>
+
+    <div class="precisao-grid" id="precisao-grid"></div>
+
+    <div class="controls">
+      <button class="btn btn-outline" onclick="resetPrecisao()">Recomeçar</button>
+      <button class="btn btn-gold" onclick="showPrecisaoAnswers()">Ver gabarito</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       DECODIFICAÇÃO
+       ═══════════════════════════════════════════ -->
+  <section id="sec-decodificacao" class="section">
+    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+    <div class="section-header">
+      <h2>Decodificação Progressiva</h2>
+      <p>Clique em cada palavra para revelá-la progressivamente: robô → orador → maiúsculas.</p>
+    </div>
+
+    <div class="module-selector" id="decode-modules"></div>
+
+    <div class="info-box">
+      <strong>Método:</strong> Clique em cada palavra para avançar. Primeiro leia como um <strong>robô</strong> (sílaba por sílaba), depois como um <strong>orador</strong> (fluente), depois em <strong>MAIÚSCULAS</strong>.
+    </div>
+
+    <div class="controls">
+      <div class="timer-display" id="decode-timer">00:00.0</div>
+      <button class="btn btn-primary" id="decode-start-btn" onclick="toggleDecodeTimer()">Iniciar</button>
+      <button class="btn btn-outline" onclick="resetDecode()">Reiniciar</button>
+    </div>
+
+    <div class="decode-header">
+      <span></span>
+      <span>Robô</span>
+      <span>Orador</span>
+      <span>Maiúsculas</span>
+    </div>
+    <div class="decode-table" id="decode-table"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FLUÊNCIA DE PALAVRAS
+       ═══════════════════════════════════════════ -->
+  <section id="sec-fluencia" class="section">
+    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+    <div class="section-header">
+      <h2>Fluência de Palavras</h2>
+      <p>Leia as palavras o mais rápido possível em cada estilo visual. Registre 3 tentativas.</p>
+    </div>
+
+    <div class="module-selector" id="fluencia-modules"></div>
+
+    <div class="controls">
+      <div class="timer-display" id="fluencia-timer">00:00.0</div>
+      <button class="btn btn-primary" id="fluencia-start-btn" onclick="toggleFluenciaTimer()">Iniciar</button>
+      <button class="btn btn-gold btn-sm" onclick="saveFluenciaAttempt()">Salvar tentativa</button>
+    </div>
+
+    <div class="attempt-tracker" id="fluencia-attempts">
+      <div class="attempt-card active"><span class="attempt-label">Tentativa 1</span><span class="attempt-time" id="fluencia-t1">—</span><span class="attempt-stars" id="fluencia-s1"></span></div>
+      <div class="attempt-card"><span class="attempt-label">Tentativa 2</span><span class="attempt-time" id="fluencia-t2">—</span><span class="attempt-stars" id="fluencia-s2"></span></div>
+      <div class="attempt-card"><span class="attempt-label">Tentativa 3</span><span class="attempt-time" id="fluencia-t3">—</span><span class="attempt-stars" id="fluencia-s3"></span></div>
+    </div>
+
+    <div class="fluencia-columns" id="fluencia-columns"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FLUÊNCIA TEXTUAL
+       ═══════════════════════════════════════════ -->
+  <section id="sec-texto" class="section">
+    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+    <div class="section-header">
+      <h2>Fluência Textual + Compreensão</h2>
+      <p>Leia o texto cronometrando. Após a leitura, responda às perguntas de compreensão.</p>
+    </div>
+
+    <div class="module-selector" id="texto-modules"></div>
+
+    <div class="controls">
+      <div class="timer-display" id="texto-timer">00:00.0</div>
+      <button class="btn btn-primary" id="texto-start-btn" onclick="toggleTextoTimer()">Iniciar leitura</button>
+      <button class="btn btn-rose btn-sm" onclick="finishTextoReading()">Terminei</button>
+    </div>
+
+    <div class="text-passage" id="texto-passage"></div>
+
+    <div class="text-stats" id="texto-stats" style="display:none">
+      <div class="text-stat"><span class="text-stat-value" id="texto-wpm">—</span><span class="text-stat-label">palavras/min</span></div>
+      <div class="text-stat"><span class="text-stat-value" id="texto-words">—</span><span class="text-stat-label">palavras</span></div>
+      <div class="text-stat"><span class="text-stat-value" id="texto-time-final">—</span><span class="text-stat-label">tempo</span></div>
+    </div>
+
+    <div class="questions-container" id="texto-questions"></div>
+
+    <!-- Checklist Metacognitivo -->
+    <div class="checklist" id="checklist-section" style="display:none">
+      <h3>Checklist Metacognitivo</h3>
+      <div id="checklist-items"></div>
+      <div class="mt-3">
+        <button class="btn btn-gold" onclick="saveChecklist()">Salvar autoavaliação</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MEMÓRIA DE TRABALHO
+       ═══════════════════════════════════════════ -->
+  <section id="sec-memoria" class="section">
+    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+    <div class="section-header">
+      <h2>Memória de Trabalho</h2>
+      <p>Retenha sequências na memória e reproduza-as. A dificuldade aumenta progressivamente.</p>
+    </div>
+
+    <div class="module-selector" id="memoria-levels">
+      <button class="module-btn active" onclick="setMemoriaLevel(0)">Span Direto (dígitos)</button>
+      <button class="module-btn" onclick="setMemoriaLevel(1)">Span Inverso (dígitos)</button>
+      <button class="module-btn" onclick="setMemoriaLevel(2)">Span de Palavras</button>
+    </div>
+
+    <div class="info-box" id="memoria-info">
+      <strong>Instrução:</strong> Observe a sequência que aparecerá. Quando ela desaparecer, digite os itens <strong>na mesma ordem</strong>.
+    </div>
+
+    <div class="span-progress" id="memoria-progress"></div>
+
+    <div class="memoria-display" id="memoria-display">
+      <span class="memoria-ready">Pressione "Iniciar" para começar</span>
+    </div>
+
+    <div class="memoria-input-row" id="memoria-inputs"></div>
+
+    <div class="controls" style="justify-content: center;">
+      <button class="btn btn-primary" id="memoria-start-btn" onclick="startMemoria()">Iniciar</button>
+      <button class="btn btn-gold btn-sm" id="memoria-check-btn" onclick="checkMemoria()" style="display:none">Verificar</button>
+    </div>
+
+    <div class="memoria-stats" id="memoria-stats" style="display:none">
+      <div class="memoria-stat"><span class="memoria-stat-value" id="mem-span-max">—</span><span class="memoria-stat-label">span máximo</span></div>
+      <div class="memoria-stat"><span class="memoria-stat-value" id="mem-acertos">—</span><span class="memoria-stat-label">acertos</span></div>
+      <div class="memoria-stat"><span class="memoria-stat-value" id="mem-tentativas">—</span><span class="memoria-stat-label">tentativas</span></div>
+    </div>
+
+    <div class="history-section" id="memoria-history"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       RASTREAMENTO OCULAR
+       ═══════════════════════════════════════════ -->
+  <section id="sec-tracking" class="section">
+    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+    <div class="section-header">
+      <h2>Rastreamento Ocular</h2>
+      <p>Treine sacadas precisas, busca visual e retorno de linha para leitura mais fluente.</p>
+    </div>
+
+    <div class="module-selector" id="tracking-levels">
+      <button class="module-btn active" onclick="setTrackingLevel(0)">Trilha Numérica</button>
+      <button class="module-btn" onclick="setTrackingLevel(1)">Trilha Alternada (A1B2)</button>
+      <button class="module-btn" onclick="setTrackingLevel(2)">Leitura Guiada</button>
+    </div>
+
+    <div class="info-box" id="tracking-info">
+      <strong>Instrução:</strong> Encontre e clique nos números em <strong>ordem crescente</strong> (1, 2, 3...) o mais rápido possível.
+    </div>
+
+    <div class="controls">
+      <div class="timer-display" id="tracking-timer">00:00.0</div>
+      <button class="btn btn-primary" id="tracking-start-btn" onclick="toggleTrackingTimer()">Iniciar</button>
+      <button class="btn btn-outline" onclick="resetTracking()">Nova trilha</button>
+      <div class="counter">
+        <span class="counter-label">Erros</span>
+        <span class="counter-value" id="tracking-errors">0</span>
+      </div>
+    </div>
+
+    <div id="tracking-area"></div>
+
+    <div class="controls" style="display:none" id="tracking-save-row">
+      <button class="btn btn-gold btn-sm" onclick="saveTrackingAttempt()">Salvar tentativa</button>
+    </div>
+
+    <div class="history-section" id="tracking-history"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CONTROLE INIBITÓRIO
+       ═══════════════════════════════════════════ -->
+  <section id="sec-inibicao" class="section">
+    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+    <div class="section-header">
+      <h2>Controle Inibitório</h2>
+      <p>Treine a resistência à adivinhação e force a decodificação completa de cada palavra.</p>
+    </div>
+
+    <div class="module-selector" id="inibicao-levels">
+      <button class="module-btn active" onclick="setInibicaoLevel(0)">Pseudopalavras</button>
+      <button class="module-btn" onclick="setInibicaoLevel(1)">Pares Mínimos</button>
+      <button class="module-btn" onclick="setInibicaoLevel(2)">Caça-erros</button>
+    </div>
+
+    <div class="info-box" id="inibicao-info">
+      <strong>Instrução:</strong> Leia cada pseudopalavra em voz alta, sílaba por sílaba. Clique após ler para marcar como lida.
+    </div>
+
+    <div class="controls" id="inibicao-controls">
+      <div class="timer-display" id="inibicao-timer">00:00.0</div>
+      <button class="btn btn-primary" id="inibicao-start-btn" onclick="toggleInibicaoTimer()">Iniciar</button>
+      <button class="btn btn-outline" onclick="resetInibicao()">Recomeçar</button>
+    </div>
+
+    <div id="inibicao-area"></div>
+
+    <div id="inibicao-score" class="score-display hidden" style="margin-top:1rem">
+      <span class="score-num" id="inibicao-correct">0</span>
+      <span class="score-total">/ <span id="inibicao-total">0</span></span>
+    </div>
+
+    <div class="controls" style="display:none" id="inibicao-save-row">
+      <button class="btn btn-gold btn-sm" onclick="saveInibicaoAttempt()">Salvar tentativa</button>
+    </div>
+
+    <div class="history-section" id="inibicao-history"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       HISTÓRICO
+       ═══════════════════════════════════════════ -->
+  <section id="sec-historico" class="section">
+    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+    <div class="section-header">
+      <h2>Histórico & Progresso</h2>
+      <p>Acompanhe a evolução dos seus tempos e acertos ao longo das sessões.</p>
+    </div>
+
+    <div class="module-selector">
+      <button class="module-btn active" onclick="showHistory('ran')" id="hist-btn-ran">RAN</button>
+      <button class="module-btn" onclick="showHistory('precisao')" id="hist-btn-precisao">Precisão</button>
+      <button class="module-btn" onclick="showHistory('fluencia')" id="hist-btn-fluencia">Fluência</button>
+      <button class="module-btn" onclick="showHistory('texto')" id="hist-btn-texto">Texto</button>
+    </div>
+
+    <div id="historico-content"></div>
+
+    <div class="mt-3">
+      <button class="btn btn-outline btn-sm" onclick="exportData()">Exportar dados (JSON)</button>
+      <button class="btn btn-outline btn-sm" onclick="clearHistory()" style="margin-left:0.5rem; color: var(--rose);">Limpar histórico</button>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ -->
+<footer>
+  <p>Baseado no método do <strong>Dr. Gabriel Brito</strong> (Educar com Evidências)</p>
+  <p style="margin-top:0.3rem;">Adaptado para perfil adulto/intelectual — vocabulário de filosofia, teologia, economia e história</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════ -->
+<script src="js/data.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/ran.js"></script>
+<script src="js/precisao.js"></script>
+<script src="js/decodificacao.js"></script>
+<script src="js/fluencia.js"></script>
+<script src="js/texto.js"></script>
+<script src="js/historico.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

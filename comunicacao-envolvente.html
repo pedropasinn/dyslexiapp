@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comunicação Envolvente — Curso FCE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a1a2e;
+  --navy-light: #2a2a4a;
+  --navy-muted: #3d3d5c;
+  --gold: #d4a574;
+  --gold-light: #e8c9a0;
+  --gold-dark: #b8854a;
+  --cream: #faf8f0;
+  --cream-dark: #f0ead8;
+  --cream-deeper: #e6dfc8;
+  --rose: #c9485b;
+  --rose-light: #d4707f;
+  --green: #5a8a6a;
+  --green-light: #7aaa8a;
+  --text: #2c2c2c;
+  --text-muted: #6b6b6b;
+  --text-light: #999;
+  --shadow-soft: 0 2px 20px rgba(26,26,46,0.06);
+  --shadow-card: 0 4px 30px rgba(26,26,46,0.08);
+  --shadow-hover: 0 8px 40px rgba(26,26,46,0.12);
+  --radius: 6px;
+  --radius-lg: 12px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --sidebar-w: 300px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(212,165,116,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(201,72,91,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(26,26,46,0.02) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height: 1.2; }
+h1 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); letter-spacing: -0.01em; }
+h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+
+/* ═══ HEADER ═══ */
+header {
+  background: var(--navy);
+  color: var(--cream);
+  padding: 0.8rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 20px rgba(26,26,46,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--gold);
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.logo span { color: var(--cream); font-weight: 300; opacity: 0.6; margin-left: 0.3em; }
+
+.header-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--cream);
+  opacity: 0.85;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.back-link {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: rgba(255,255,255,0.65);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.back-link:hover { color: var(--gold-light); border-color: var(--gold); background: rgba(212,165,116,0.08); }
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--gold-light);
+  font-size: 1.4rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 1;
+}
+.menu-toggle:hover { border-color: var(--gold); background: rgba(212,165,116,0.1); }
+
+/* ═══ LAYOUT ═══ */
+.app {
+  display: flex;
+  min-height: calc(100vh - 54px - 80px);
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══ SIDEBAR ═══ */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: white;
+  border-right: 1px solid var(--cream-deeper);
+  overflow-y: auto;
+  height: calc(100vh - 54px);
+  position: sticky;
+  top: 54px;
+  box-shadow: 2px 0 20px rgba(26,26,46,0.04);
+}
+
+.sidebar-group-title {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  padding: 1.2rem 1rem 0.4rem;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid var(--cream-dark);
+  position: relative;
+}
+.sidebar-item:hover { background: var(--cream); }
+.sidebar-item.active {
+  background: rgba(212,165,116,0.08);
+  border-left-color: var(--gold);
+}
+
+.sidebar-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-light);
+  min-width: 24px;
+}
+
+.sidebar-label {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.3;
+  flex: 1;
+}
+.sidebar-item.active .sidebar-label { color: var(--navy); font-weight: 600; }
+
+.sidebar-progress {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+.sidebar-progress.complete { color: var(--green); font-weight: 500; }
+
+/* ═══ CONTENT ═══ */
+.content {
+  flex: 1;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: 900px;
+  min-width: 0;
+}
+
+.module-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--cream-deeper);
+}
+
+.module-header h2 {
+  color: var(--navy);
+  margin-bottom: 0.3rem;
+}
+
+.module-number {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  opacity: 0.4;
+  margin-bottom: 0.2rem;
+}
+
+.apostila-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--navy);
+  color: var(--gold-light);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.apostila-btn:hover {
+  background: var(--navy-light);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-1px);
+}
+.apostila-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* ═══ SECTIONS ═══ */
+.section-block {
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--cream-deeper);
+  font-weight: 600;
+}
+
+/* ═══ VIDEO CARDS ═══ */
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.video-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(26,26,46,0.04);
+  transition: var(--transition);
+}
+.video-card:hover { box-shadow: var(--shadow-card); }
+
+.video-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+.video-card-header:hover { background: var(--cream); }
+
+.video-title {
+  font-size: 0.88rem;
+  color: var(--text);
+  font-weight: 500;
+  flex: 1;
+}
+
+.video-check {
+  font-size: 0.75rem;
+  color: var(--green);
+  font-weight: 700;
+  opacity: 0;
+  transition: var(--transition);
+}
+.video-check.watched { opacity: 1; }
+
+.video-toggle {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  transition: transform var(--transition);
+  user-select: none;
+}
+.video-toggle.open { transform: rotate(180deg); }
+
+.video-player-wrap {
+  display: none;
+  padding: 0 1rem 1rem;
+}
+.video-player-wrap.open { display: block; }
+
+.video-player-wrap iframe {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16/9;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--navy);
+}
+
+/* ═══ FOOTER ═══ */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--cream-deeper);
+  background: white;
+  position: relative;
+  z-index: 1;
+}
+footer strong { color: var(--text); font-weight: 600; }
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.content { animation: fadeIn 0.4s ease; }
+
+/* ═══ APOSTILA CONTENT ═══ */
+.apostila-content {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--cream-deeper);
+}
+.apostila-content h3 {
+  font-family: var(--font-display);
+  color: var(--rose);
+  font-size: 1.3rem;
+  margin: 2rem 0 1rem;
+}
+.apostila-content p {
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+.exercise-block {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-soft);
+  border-left: 3px solid var(--gold);
+}
+.exercise-block .exercise-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gold-dark);
+  margin-bottom: 0.4rem;
+}
+.word-list {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 2;
+  padding: 0.8rem 0;
+}
+.exercise-instruction {
+  background: rgba(212,165,116,0.08);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  border-left: 3px solid var(--gold-light);
+}
+.dialog-line {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+}
+.dialog-line strong {
+  color: var(--navy);
+  min-width: 60px;
+  display: inline-block;
+}
+.commercial-text {
+  background: var(--cream-dark);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .menu-toggle { display: block; }
+  .header-title { display: none; }
+
+  .sidebar {
+    position: fixed;
+    top: 54px;
+    left: 0;
+    height: calc(100vh - 54px);
+    transform: translateX(-100%);
+    transition: transform var(--transition);
+    z-index: 150;
+    box-shadow: 4px 0 30px rgba(26,26,46,0.15);
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    top: 54px;
+    background: rgba(26,26,46,0.3);
+    z-index: 140;
+  }
+  .sidebar-overlay.open { display: block; }
+
+  .content { padding: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Menu">&#9776;</button>
+    <a href="index.html" class="logo">Fluencia <span>treino</span></a>
+  </div>
+  <span class="header-title">Comunicacao Envolvente</span>
+  <div class="header-right">
+    <a href="index.html" class="back-link">&larr; Voltar</a>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="content" id="content"></main>
+</div>
+
+<footer>
+  <p>Curso de Especializacao da Voz e da Fala para Comunicadores</p>
+  <p style="margin-top:0.3rem;"><strong>Prof. Marcio Seixas</strong> — Formula da Comunicacao Envolvente</p>
+</footer>
+
+<script>
+const APOSTILA_BASE = './Curso - Fórmula da Comunicação Envolvente/Apostilas/';
+
+const COURSE_MODULES = [
+  {
+    id: 'boas-vindas', number: '00', title: 'Boas Vindas', apostila: null,
+    sections: [{
+      title: 'Boas Vindas',
+      videos: [
+        { name: 'Boas Vindas - Basic', ytId: 'JkPeyyPp_Fc' },
+        { name: 'Boas Vindas - Premium', ytId: 'xYzKXEr5ba0' },
+        { name: 'Boas Vindas - Standard', ytId: 'q5hg2FlLZ_o' }
+      ]
+    }]
+  },
+  {
+    id: 'workshop', number: '01', title: 'Workshop da Comunicacao Envolvente', apostila: null,
+    sections: [{
+      title: 'Workshop',
+      videos: [
+        { name: '1o Video do Workshop', ytId: 'oIZ7tSYq0bQ' },
+        { name: '2o Video do Workshop', ytId: 'YH2_diQF7F0' },
+        { name: '3o Video do Workshop', ytId: '6PfcBadGQKA' }
+      ]
+    }]
+  },
+  {
+    id: 'leitura-basico', number: '02', title: 'Leitura em Voz Alta — Basico', apostila: 'APOSTILA MÓDULO 1.pdf',
+    apostilaContent: '<h3>Introducao</h3><p>O curso trabalha 5 etapas de pratica de leitura: leitura silenciosa, em voz alta sozinho, diante de alguem de confianca, leitura para criancas e leitura para um grupo. Pratique no minimo 15 minutos por dia. Grave-se lendo. Trabalhe o conceito de <strong>linearidade</strong>: ler sem enfatizar nenhuma palavra.</p><h3>Estrutura</h3><p>O curso tem 5 fases. Materiais necessarios: jornal, revista, livro, historia infantil, textos curtos. O conceito fundamental e a <strong>linearidade basica</strong> &mdash; ler de forma neutra, sem interpretacao, mantendo ritmo constante.</p><h3>Exercicios de Leitura Linear</h3><div class="exercise-instruction">22 textos curtos para ler em 10 segundos cada, de um so folego, de maneira linear. Instrucoes: inspire 3 segundos, leia cada texto em ~10 segundos, sem interpretacao, apenas leitura linear. Tenha agua por perto.</div><div class="exercise-block"><div class="exercise-num">1o</div><p>Pela QUINTA ETAPA do campeonato estadual de motovelocidade serao realizados dois eventos absolutamente emocionantes para a plateia que ira vibrar com as ultrapassagens.</p></div><div class="exercise-block"><div class="exercise-num">2o</div><p>O vereador acusado de peculato foi inocentado pela comissao parlamentar de inquerito que absolveu tambem outros quatro politicos de varios partidos.</p></div><div class="exercise-block"><div class="exercise-num">3o</div><p>Neste domingo a previsao do tempo indica chuvas esparsas com trovoadas desde o sul do estado ate a regiao serrana do Rio de Janeiro.</p></div><div class="exercise-block"><div class="exercise-num">4o</div><p>O procurador geral da republica entrou com acao direta de inconstitucionalidade contra o decreto presidencial que regulamenta a venda de armas de fogo.</p></div><div class="exercise-block"><div class="exercise-num">5o</div><p>O cantor sertanejo que foi internado na semana passada com uma forte dor abdominal passa bem e deve receber alta ate o final desta tarde.</p></div><div class="exercise-block"><div class="exercise-num">6o</div><p>Na pesquisa do IBGE quatro capitais brasileiras registraram queda na producao industrial neste trimestre em comparacao com o mesmo periodo do ano anterior.</p></div><div class="exercise-block"><div class="exercise-num">7o</div><p>O presidente do Banco Central informou que a taxa basica de juros permanece inalterada ate que novos indicadores economicos justifiquem sua modificacao.</p></div><div class="exercise-block"><div class="exercise-num">8o</div><p>Dois traficantes foram presos na madrugada de ontem quando tentavam embarcar num voo internacional com quinze quilos de cocaina escondidos na bagagem.</p></div><div class="exercise-block"><div class="exercise-num">9o</div><p>Termina nesta sexta-feira o prazo para inscricao no concurso publico que vai selecionar duzentos profissionais para o quadro efetivo do Tribunal de Justica.</p></div><div class="exercise-block"><div class="exercise-num">10o</div><p>O candidato favorito nas pesquisas de intencao de voto declarou que se eleito vai priorizar investimentos na area da saude publica e da educacao basica.</p></div><div class="exercise-block"><div class="exercise-num">11o</div><p>Com a presenca de autoridades e artistas famosos foi inaugurada a nova sede do museu de arte moderna que custou aos cofres publicos mais de dez milhoes.</p></div><div class="exercise-block"><div class="exercise-num">12o</div><p>A secretaria de obras vai interditar a partir de segunda-feira a principal via de acesso ao centro da cidade para a conclusao dos trabalhos de pavimentacao.</p></div><div class="exercise-block"><div class="exercise-num">13o</div><p>A agencia nacional de telecomunicacoes aplicou multas milionarias a tres operadoras de telefonia celular por deficiencia na qualidade dos servicos prestados.</p></div><div class="exercise-block"><div class="exercise-num">14o</div><p>A crianca que caiu no poco de vinte metros de profundidade foi resgatada com vida pelos bombeiros depois de quase doze horas de trabalho ininterrupto.</p></div><div class="exercise-block"><div class="exercise-num">15o</div><p>Um eletricista morreu e dois ficaram gravemente feridos quando realizavam reparos na rede de alta tensao no bairro de Santa Cruz zona oeste do Rio.</p></div><div class="exercise-block"><div class="exercise-num">16o</div><p>Moradores de rua foram acolhidos num abrigo provisorio montado pela defesa civil para protege-los da onda de frio que atinge a regiao sul do pais.</p></div><div class="exercise-block"><div class="exercise-num">17o</div><p>Pescadores denunciam que o vazamento de oleo numa plataforma maritima esta causando a mortandade de peixes e contaminacao das praias da regiao dos lagos.</p></div><div class="exercise-block"><div class="exercise-num">18o</div><p>A delegacia de protecao ao meio ambiente prendeu dois homens que mantinham em cativeiro mais de trezentos animais silvestres entre aves e repteis.</p></div><div class="exercise-block"><div class="exercise-num">19o</div><p>O juiz da vara de infancia e juventude determinou a internacao compulsoria de adolescentes envolvidos em atos infracionais graves cometidos na regiao metropolitana.</p></div><div class="exercise-block"><div class="exercise-num">20o</div><p>A companhia de limpeza urbana promete recolher todo o lixo acumulado nas ruas em decorrencia da greve dos garis que durou cinco dias.</p></div><div class="exercise-block"><div class="exercise-num">21o</div><p>Foi encontrado morto em seu apartamento o empresario que estava sendo investigado pela policia federal por envolvimento num esquema de lavagem de dinheiro.</p></div><div class="exercise-block"><div class="exercise-num">22o</div><p>O lider comunitario que organizou a manifestacao contra o aumento da passagem de onibus disse que novas passeatas serao realizadas caso a prefeitura nao recue.</p></div>',
+    sections: [
+      { title: '1. Introducao', videos: [
+        { name: 'Introducao ao Curso', ytId: 'wgescVOui1c' }
+      ]},
+      { title: '2. Estrutura', videos: [
+        { name: 'Estrutura do Curso', ytId: 'JIctCn6RSU0' }
+      ]},
+      { title: '3. Pratica', videos: [
+        { name: 'Pratica dos Exercicios', ytId: '8irSyctr01k' },
+        { name: 'Exercicios 1 a 3 (pags. 13-14)', ytId: 'pp56N24tnIw' },
+        { name: 'Exercicios 4 a 6 (pag. 14)', ytId: 'F97x4NrMuWw' },
+        { name: 'Exercicios 7 a 9 (pags. 14-15)', ytId: '-EM2-7Q2Aug' },
+        { name: 'Exercicios 10 a 12 (pag. 15)', ytId: 'k9G5-DnfZu4' },
+        { name: 'Exercicios 13 a 15 (pag. 16)', ytId: 'Sm86dCoNvWM' },
+        { name: 'Exercicios 16 a 18 (pags. 16-17)', ytId: '2fU0223_Ucc' },
+        { name: 'Exercicios 19 a 21 (pag. 17)', ytId: '-bbzQ85x2rU' },
+        { name: 'Exercicio 22 (pag. 17)', ytId: 'kQk1ocAXc4g' }
+      ]},
+      { title: '4. Encerramento', videos: [
+        { name: 'Consideracoes Finais', ytId: 'z9QGWv_DnNc' }
+      ]}
+    ]
+  },
+  {
+    id: 'leitura-avancado', number: '03', title: 'Leitura em Voz Alta — Avancado', apostila: 'APOSTILA  MÓDULO 2.pdf',
+    apostilaContent: '<h3>Elisao Basica</h3><div class="exercise-instruction">Textos para praticar antielisao. Leia cada texto em ~10 segundos, de um so folego, de forma linear. Inspire 3 segundos antes de cada texto.</div><h3>Textos com 8 segundos</h3><div class="exercise-instruction">Ler cada texto em 8 segundos de um so folego, mantendo linearidade. Mais curtos, exigem mais controle de folego e articulacao.</div><h3>Textos com 6 segundos</h3><div class="exercise-instruction">Ler cada texto em apenas 6 segundos de um so folego. Nivel avancado de controle de folego e velocidade articulatoria.</div><h3>Condicionamento e Agilidade (10s)</h3><div class="exercise-instruction">Textos maiores para leitura em 10 segundos. Aplicando todas as tecnicas aprendidas: linearidade, articulacao precisa, controle de folego.</div><h3>Condicionamento e Agilidade II (8s)</h3><div class="exercise-instruction">Textos intermediarios para leitura em 8 segundos. Desenvolvendo agilidade articulatoria com tecnica.</div><h3>Controle do Folego</h3><div class="exercise-instruction">Exercicios para otimizar o folego durante a leitura. Textos mais longos que exigem gestao inteligente da respiracao.</div>',
+    sections: [
+      { title: '1. Elisao Basica', videos: [
+        { name: 'Elisao e Linearidade', ytId: 'MCwsi6fSC-U' },
+        { name: 'Exercicios 1 a 3 (pag. 5)', ytId: 'jLpH2I6xkJA' },
+        { name: 'Exercicios 4 a 6 (pags. 5-6)', ytId: 'SGhvlA2X3W8' },
+        { name: 'Exercicios 7 a 9 (pag. 6)', ytId: '3S6cdoAcElI' },
+        { name: 'Exercicios 10 a 12 (pag. 7)', ytId: '2ePCPV8i9XE' },
+        { name: 'Exercicios 13 a 15 (pags. 7-8)', ytId: '1ZcJhZpYkmo' },
+        { name: 'Exercicios 16 a 18 (pag. 8)', ytId: 'IjYyfd7wXBc' },
+        { name: 'Exercicios 19 a 21 (pags. 8-9)', ytId: 'Cr42yekU4q0' },
+        { name: 'Exercicio 22 (pag. 9)', ytId: 'TwIBBtw0H2c' }
+      ]},
+      { title: '2. Folego e Articulacao', videos: [
+        { name: 'Controle do Folego e Articulacao', ytId: '69xS_GNotUg' },
+        { name: '(8s) Exercicios 1 a 3 (pags. 10-11)', ytId: '8A159dZ2CK0' },
+        { name: '(8s) Exercicios 4 a 6 (pag. 11)', ytId: 'll23pC4KbS8' },
+        { name: '(8s) Exercicios 7 a 9 (pag. 12)', ytId: '3FDqUTlUKwo' },
+        { name: '(8s) Exercicios 10 a 12 (pags. 12-13)', ytId: '6UDK-hOdfmc' },
+        { name: '(8s) Exercicios 13 a 15 (pag. 13)', ytId: 'aaAh3wCD_xM' },
+        { name: '(8s) Exercicios 16 a 18 (pags. 13-14)', ytId: '06o9dk48pp8' },
+        { name: '(8s) Exercicios 19 e 20 (pag. 14)', ytId: '9OYpEnWpD4I' }
+      ]},
+      { title: '3. Folego e Articulacao II', videos: [
+        { name: '(6s) Exercicios 1 a 3 (pag. 15)', ytId: 'Urgf4CCXJR8' },
+        { name: '(6s) Exercicios 4 a 6 (pag. 16)', ytId: 'g1vOeTqG5SI' },
+        { name: '(6s) Exercicios 7 a 9 (pags. 16-17)', ytId: '-_2DCyogVS8' },
+        { name: '(6s) Exercicios 10 a 12 (pag. 17)', ytId: 'xy2EuRiaPo8' },
+        { name: '(6s) Exercicios 13 a 15 (pags. 17-18)', ytId: 'u2zLs5DBYUk' },
+        { name: '(6s) Exercicios 16 a 18 (pag. 18)', ytId: 'TexfuhZFssk' },
+        { name: '(6s) Exercicios 19 e 20 (pag. 19)', ytId: 'clfQm_7sfCY' }
+      ]},
+      { title: '4. Condicionamento e Agilidade', videos: [
+        { name: 'Aplicando as Tecnicas', ytId: 'uz4aA7xzSVA' },
+        { name: '(10s) Exercicios 1 a 3 (pags. 19-20)', ytId: 'KWTZfb-22Nk' },
+        { name: '(10s) Exercicios 4 a 6 (pags. 20-21)', ytId: 'nr6VRxK9oK8' },
+        { name: '(10s) Exercicios 7 a 9 (pag. 21)', ytId: 'Lt5S8L4LfQw' },
+        { name: '(10s) Exercicio 10 (pag. 22)', ytId: 'E_KsOXMQDEk' }
+      ]},
+      { title: '5. Condicionamento e Agilidade II', videos: [
+        { name: 'Desenvolvendo Agilidade com Tecnica', ytId: 'bZVIpA9xhbc' },
+        { name: '(8s) Exercicios 1 a 3 (pags. 22-23)', ytId: 'iM9R50FnY74' },
+        { name: '(8s) Exercicios 4 a 6 (pag. 23)', ytId: '_inEcnUk5hY' },
+        { name: '(8s) Exercicios 7 a 9 (pag. 24)', ytId: 'RvMWRjIXTuU' },
+        { name: '(8s) Exercicio 10 (pag. 24)', ytId: 'NuTeFq8Uh9E' }
+      ]},
+      { title: '6. Controle do Folego', videos: [
+        { name: 'Otimizando o Folego para a Leitura', ytId: 'y5dL_3vtKlY' },
+        { name: 'Exercicios 1 a 3 (pags. 25-26)', ytId: 'I0nSr_m0WxM' },
+        { name: 'Exercicios 4 e 5 (pag. 26)', ytId: 'xDvS0SJT15s' }
+      ]}
+    ]
+  },
+  {
+    id: 'encontros-consonantais', number: '04', title: 'Modulo 1 — Encontros Consonantais', apostila: 'APOSTILA MÓDULOS 3 a 6.pdf',
+    apostilaContent: '<h3>Encontros Consonantais</h3><div class="exercise-instruction">Combinacoes silabicas para praticar, evitando o som parasita do &ldquo;i&rdquo; (ex: &ldquo;adivogado&rdquo; em vez de &ldquo;advogado&rdquo;). Ler de maneira linear, linha por linha, inspirando entre elas. Em seguida ler o bloco todo num folego so.</div><div class="word-list">TSA &mdash; TSE &mdash; TSI &mdash; TSO &mdash; TSU</div><div class="word-list">PSA &mdash; PSE &mdash; PSI &mdash; PSO &mdash; PSU</div><div class="word-list">BZA &mdash; BZE &mdash; BZI &mdash; BZO &mdash; BZU</div><div class="word-list">DVA &mdash; DVE &mdash; DVI &mdash; DVO &mdash; DVU</div><div class="word-list">BVA &mdash; BVE &mdash; BVI &mdash; BVO &mdash; BVU</div><div class="word-list">KTU &mdash; KTO &mdash; KTI &mdash; KTE &mdash; KTA</div><div class="word-list">PTU &mdash; PTO &mdash; PTI &mdash; PTE &mdash; PTA</div><div class="word-list">FTU &mdash; FTO &mdash; FTI &mdash; FTE &mdash; FTA</div><div class="word-list">GNU &mdash; GNO &mdash; GNI &mdash; GNE &mdash; GNA</div>',
+    sections: [
+      { title: '1. Aula', videos: [
+        { name: 'Encontros Consonantais', ytId: 'rcy3Wd3xpCI' }
+      ]},
+      { title: '2. Exercicios', videos: [
+        { name: 'Exercicios pag. 8 com Audio', ytId: '4MO3u6jWZSI' },
+        { name: 'Exercicios pag. 8 sem Audio', ytId: 'lE6fHB7X6c4' },
+        { name: 'Pratica Aleatoria 1', ytId: 'QN1cXfdTBOQ' },
+        { name: 'Pratica Aleatoria 2', ytId: 'dHBsPru3HbQ' },
+        { name: 'Pratica Aleatoria 3', ytId: 'EKjE8-2xsdM' }
+      ]}
+    ]
+  },
+  {
+    id: 'r-vibrante', number: '05', title: 'Modulo 2 — O R Vibrante', apostila: 'APOSTILA MÓDULOS 3 a 6.pdf',
+    apostilaContent: '<h3>R Vibrante</h3><div class="exercise-instruction">Listas de palavras para praticar o R vibrante (vibracao da ponta da lingua). Ler cada grupo de palavras de um so folego, inspirando entre os blocos.</div><div class="exercise-block"><div class="exercise-num">Bloco 1</div><div class="word-list">ANDAR &mdash; OLHAR &mdash; BATER &mdash; SUBIR &mdash; SAIR &mdash; PEGAR &mdash; SONHAR &mdash; CORRER &mdash; CAIR &mdash; MORAR &mdash; ERRAR &mdash; TORCER</div></div><div class="exercise-block"><div class="exercise-num">Bloco 2</div><div class="word-list">CALAR &mdash; LIGAR &mdash; SORRIR &mdash; OUVIR &mdash; TECER &mdash; DEVER &mdash; COLHER &mdash; PERDER &mdash; TREMER &mdash; QUERER &mdash; VALER &mdash; DOER</div></div><div class="exercise-block"><div class="exercise-num">Bloco 3</div><div class="word-list">REGER &mdash; CRER &mdash; SABER &mdash; VIVER &mdash; DORMIR &mdash; SERVIR &mdash; PARTIR &mdash; DIGERIR &mdash; FERIR &mdash; VESTIR &mdash; SEGUIR &mdash; COBRIR</div></div>',
+    sections: [
+      { title: '1. Aula', videos: [
+        { name: 'O R Vibrante', ytId: 'gE54Sndx7IM' }
+      ]},
+      { title: '2. Exercicios', videos: [
+        { name: 'Seq. 1 com Audio', ytId: 'e3phQsoqQaE' },
+        { name: 'Seq. 1 sem Audio', ytId: 'l4xf1zSms3U' },
+        { name: 'Seq. 2 com Audio', ytId: 'nfIk0LEWNTM' },
+        { name: 'Seq. 2 sem Audio', ytId: 'SID3D65F_xQ' },
+        { name: 'Seq. 3 com Audio', ytId: 'rWPRUd0CEho' },
+        { name: 'Seq. 3 sem Audio', ytId: '7kHTIJhivnQ' }
+      ]}
+    ]
+  },
+  {
+    id: 'dificuldades-relativas', number: '06', title: 'Modulo 3 — Dificuldades Relativas', apostila: 'APOSTILA MÓDULOS 3 a 6.pdf',
+    apostilaContent: '<h3>Dificuldade Relativa</h3><div class="exercise-instruction">Textos complexos com palavras dificeis para ler de um so folego. Treine a articulacao precisa mesmo em alta velocidade. Sao aproximadamente 40 textos.</div><div class="exercise-block"><div class="exercise-num">Texto 1</div><p>Mixado o som pode ser usado para maximizar a alegria barulhenta dos participantes daquela esdruxula festividade junina.</p></div><div class="exercise-block"><div class="exercise-num">Texto 2</div><p>Quanta melancolia no cantico que reverberava na garganta poderosa do almuedao onfalopsico que entoava preces ao entardecer.</p></div><div class="exercise-block"><div class="exercise-num">Texto 3</div><p>O fonema fricativo labiodental sonoro exercita os musculos orbiculares dos labios exigindo do aprendiz disciplina na repeticao dos exercicios propostos.</p></div>',
+    sections: [
+      { title: '1. Aula', videos: [
+        { name: 'Dificuldades Relativas', ytId: 'TxxO9yKB55U' },
+        { name: 'Aula Demonstrativa', ytId: '_yAEcmeiruQ' }
+      ]},
+      { title: '2. Exercicios', videos: [
+        { name: 'Textos 1-4 pag. 10 com Audio', ytId: 'eTfE9QEiJnY' },
+        { name: 'Textos 1-4 pag. 10 sem Audio', ytId: '57PoM9FY1vc' },
+        { name: 'Textos 5-8 pags. 10-11 com Audio', ytId: 'CpguP1x4ZpU' },
+        { name: 'Textos 5-8 pags. 10-11 sem Audio', ytId: 'QxYvhLXao2U' },
+        { name: 'Textos 9-12 pag. 11 com Audio', ytId: 'z4QmFhnZtSU' },
+        { name: 'Textos 9-12 pag. 11 sem Audio', ytId: 'WaaViypzdhg' },
+        { name: 'Textos 13-16 pag. 11 com Audio', ytId: '_83ZEnA81LA' },
+        { name: 'Textos 13-16 pag. 11 sem Audio', ytId: 'u-y1tW5v_fU' },
+        { name: 'Textos 17-20 pag. 12 com Audio', ytId: 'PHVCd52AkNU' },
+        { name: 'Textos 17-20 pag. 12 sem Audio', ytId: 'KQJQj3_Retw' },
+        { name: 'Textos 21-24 pag. 12 com Audio', ytId: 'XFaiLggHr2s' },
+        { name: 'Textos 21-24 pag. 12 sem Audio', ytId: 'ggkU6LZaI-w' },
+        { name: 'Textos 25-28 pag. 13 com Audio', ytId: 'oV1pZNYnTIY' },
+        { name: 'Textos 25-28 pag. 13 sem Audio', ytId: 'cCR1pq81__0' },
+        { name: 'Textos 29-32 pag. 13 com Audio', ytId: 'nJnBXu2U0ko' },
+        { name: 'Textos 29-32 pag. 13 sem Audio', ytId: 'AjZROea_Cn4' },
+        { name: 'Textos 33-36 pag. 14 com Audio', ytId: 'mAeDkGOaM7U' },
+        { name: 'Textos 33-36 pag. 14 sem Audio', ytId: 'sHyGPM-6M88' },
+        { name: 'Textos 37-40 pag. 14 com Audio', ytId: 'oIblDw9gTgI' },
+        { name: 'Textos 37-40 pag. 14 sem Audio', ytId: 'M7qRE5tAH34' }
+      ]}
+    ]
+  },
+  {
+    id: 'r-vibrante-dificuldades', number: '07', title: 'Modulo 4 — R Vibrante com Dific. Relativas', apostila: 'APOSTILA MÓDULOS 3 a 6.pdf',
+    apostilaContent: '<h3>R Vibrante com Dificuldade Relativa</h3><div class="exercise-instruction">Grupos de palavras e frases combinando R vibrante com vocabulario dificil. Ler cada grupo de um so folego, inspirando entre eles.</div><div class="exercise-block"><div class="exercise-num">Grupo 1</div><div class="word-list">Amarelar &mdash; Gratinar &mdash; Grasnar &mdash; Obtemperar &mdash; Produzir</div></div><div class="exercise-block"><div class="exercise-num">Grupo 2</div><div class="word-list">Furtar &mdash; Puncar &mdash; Tercar &mdash; Ascendencia &mdash; Ascensional</div></div><div class="exercise-block"><div class="exercise-num">Grupo 3</div><div class="word-list">Sacrisquiatico &mdash; Fluorescenico &mdash; Quinquagenario</div></div><div class="exercise-block"><div class="exercise-num">Grupo 4</div><div class="word-list">Perscrutar &mdash; Pressupor &mdash; Preterir &mdash; Procrastinar &mdash; Profetizar</div></div><div class="exercise-block"><div class="exercise-num">Grupo 5</div><div class="word-list">Reverberar &mdash; Retrogradar &mdash; Recrudescer &mdash; Regurgitar &mdash; Repatriar</div></div>',
+    sections: [
+      { title: '1. Aula', videos: [
+        { name: 'O R Vibrante com Dificuldades Relativas', ytId: 'zpvYs80SYys' }
+      ]},
+      { title: '2. Exercicios', videos: [
+        { name: 'Seq. 1-3 pag. 15 com Audio', ytId: 'CnIC5FdjNjg' },
+        { name: 'Seq. 1-3 pag. 15 sem Audio', ytId: 'cYlg1j5kqzE' },
+        { name: 'Seq. 4-6 pags. 15-16 com Audio', ytId: 'qMaaVLXcUQE' },
+        { name: 'Seq. 4-6 pags. 15-16 sem Audio', ytId: 'DlTvM2xoBp8' },
+        { name: 'Seq. 7-9 pag. 16 com Audio', ytId: 'lJLu8hDNBRA' },
+        { name: 'Seq. 7-9 pag. 16 sem Audio', ytId: 'IFqe5Jk6FUg' },
+        { name: 'Seq. 10-11 pag. 16 com Audio', ytId: '8c_ogiWfX8w' },
+        { name: 'Seq. 10-11 pag. 16 sem Audio', ytId: 'thnt7bWfbPI' }
+      ]}
+    ]
+  },
+  {
+    id: 'elisao-glote', number: '08', title: 'Modulo 5 — Elisao e Trava de Glote', apostila: 'APOSTILA MÓDULO 7.pdf',
+    apostilaContent: '<h3>Elisao</h3><p>Elisao e o fenomeno de &ldquo;engolir&rdquo; vogais quando duas vogais se encontram entre palavras. Exemplo: &ldquo;QUINTETAPA&rdquo; em vez de &ldquo;QUINTA ETAPA&rdquo;. O treinamento de antielisao e fundamental para comunicacao profissional.</p><h3>Exercicios Antielisao</h3><div class="exercise-instruction">~28 textos mostrando erros comuns de elisao e suas correcoes. Os textos mostram palavras emendadas (com elisao) e depois a forma correta em MAIUSCULAS. Leia de um so folego, de forma linear.</div><div class="exercise-block"><div class="exercise-num">Texto 1</div><p>Pela quintetapa do campeonato... mas prefiro dizer de forma correta que esta e a QUINTA ETAPA do campeonato.</p></div><div class="exercise-block"><div class="exercise-num">Texto 2</div><p>O vereador acusado de peculato foiinocentado... a forma correta: FOI INOCENTADO pela comissao.</p></div><div class="exercise-block"><div class="exercise-num">Texto 3</div><p>Neste domingo a previsao do tempoindicachuvas... correto: TEMPO INDICA CHUVAS esparsas com trovoadas.</p></div>',
+    sections: [
+      { title: '1. Aula', videos: [
+        { name: 'Elisao', ytId: '0SbjxugJDJ4' },
+        { name: 'Ortoepia e Crase', ytId: 'nq0lX-FD5UA' },
+        { name: 'Trava de Glote', ytId: 'ZzBPWPqKN3w' }
+      ]},
+      { title: '2. Exercicios', videos: [
+        { name: 'Textos 1-4 pag. 7 com Audio', ytId: '0XuW1n4F9MQ' },
+        { name: 'Textos 1-4 pag. 7 sem Audio', ytId: 'nl2mmc5nLPI' },
+        { name: 'Textos 5-8 pags. 7-8 com Audio', ytId: '89s8meYxK0g' },
+        { name: 'Textos 5-8 pags. 7-8 sem Audio', ytId: 'uY23KRC9g88' },
+        { name: 'Textos 9-12 pags. 8-9 com Audio', ytId: '9NKMgEaOoew' },
+        { name: 'Textos 9-12 pags. 8-9 sem Audio', ytId: 'Kb2d-KW5ZJk' },
+        { name: 'Textos 13-16 pag. 9 com Audio', ytId: 'l0Q5tnvzLNM' },
+        { name: 'Textos 13-16 pag. 9 sem Audio', ytId: '6K24BFvsVUo' },
+        { name: 'Textos 17-20 pags. 9-10 com Audio', ytId: 'fOO1RMBO90o' },
+        { name: 'Textos 17-20 pags. 9-10 sem Audio', ytId: 'BZ44GzCv04s' },
+        { name: 'Textos 21-24 pag. 10 com Audio', ytId: 'QKNIB_f736g' },
+        { name: 'Textos 21-24 pag. 10 sem Audio', ytId: '9QFhn5LDlX0' },
+        { name: 'Textos 25-28 pag. 11 com Audio', ytId: '9kze4rN8ne0' },
+        { name: 'Textos 25-28 pag. 11 sem Audio', ytId: 'EFYy-rSydwk' }
+      ]},
+      { title: '3. Praticando com Marcio Seixas', videos: [
+        { name: 'Professor Elisanico — Guia', ytId: 'l-C-rY4LwUY' },
+        { name: 'Aluno 1', ytId: 'vYahHDxSJwU' },
+        { name: 'Aluno 2', ytId: 'Bmk5mRWUO5k' },
+        { name: 'Aluno 3', ytId: 'bo-SV15fdUc' },
+        { name: 'Aluno 4', ytId: 'h-b3-alLBMY' },
+        { name: 'Aluno 5', ytId: 'FKBXYeb9taw' },
+        { name: 'Aluno 6', ytId: 'Jr1W1f53_gk' },
+        { name: 'Aluno 7', ytId: 'oIvM-zChMQA' },
+        { name: 'Professor', ytId: 'RAx6xcyQYr0' }
+      ]}
+    ]
+  },
+  {
+    id: 'mineiros-ditongo', number: '09', title: 'Modulo 6 — Mineiros, Gerundismo e Ditongo', apostila: 'APOSTILA MÓDULO 8.pdf',
+    apostilaContent: '<h3>Exercicios de Articulacao Especifica</h3><div class="exercise-instruction">Combatendo o &ldquo;mineirismo&rdquo;: &ldquo;conversano&rdquo;, &ldquo;comeno&rdquo;, &ldquo;abasteceno&rdquo;, &ldquo;descobrino&rdquo;, &ldquo;subino&rdquo;, &ldquo;entendeno&rdquo;, &ldquo;explicano&rdquo;. Ler de maneira linear linha por linha, inspirando entre elas. Em seguida ler todo o bloco num folego so.</div><div class="exercise-block"><div class="exercise-num">Bloco 1</div><div class="word-list">AMACIANDO &mdash; COMPARANDO &mdash; ESTABELECENDO &mdash; CRESCENDO &mdash; INDO &mdash; ABATENDO &mdash; EQUIPANDO &mdash; EQUIPARANDO &mdash; APROXIMANDO &mdash; LENDO &mdash; VOLTANDO &mdash; EXPORTANDO &mdash; IMPORTANDO &mdash; DEGRADANDO &mdash; RINDO</div></div><div class="exercise-block"><div class="exercise-num">Bloco 2</div><div class="word-list">PREFERINDO &mdash; ESCOLHENDO &mdash; PARTICIPANDO &mdash; TREINANDO &mdash; FERINDO &mdash; MARCANDO &mdash; INCOMODANDO &mdash; COMECANDO &mdash; IMPONDO &mdash; BEBENDO &mdash; INVADINDO &mdash; CONQUISTANDO &mdash; DERRAMANDO &mdash; DIGLADIANDO</div></div><div class="exercise-block"><div class="exercise-num">Bloco 3</div><div class="word-list">COLHENDO &mdash; PISANDO &mdash; PLANTANDO &mdash; CRESCENDO &mdash; ESPALHANDO &mdash; ADUBANDO &mdash; ASPERGINDO &mdash; FORTIFICANDO &mdash; CERCANDO &mdash; OLHANDO &mdash; CORTANDO &mdash; AGUANDO &mdash; SEPARANDO &mdash; SELECIONANDO &mdash; PORTANDO</div></div><div class="exercise-block"><div class="exercise-num">Bloco 4</div><div class="word-list">DIRIGINDO &mdash; APRENDENDO &mdash; DEMARCANDO &mdash; COMPRANDO &mdash; OUVINDO &mdash; INOCULANDO &mdash; FERTILIZANDO &mdash; ATENDENDO &mdash; LIMPANDO &mdash; HOMENAGEANDO &mdash; SORRINDO &mdash; CHORANDO &mdash; SECANDO &mdash; FECHANDO</div></div><div class="exercise-block"><div class="exercise-num">Bloco 5</div><div class="word-list">FLECHANDO &mdash; ENFRENTANDO &mdash; COMBATENDO &mdash; BRIGANDO &mdash; BEIJANDO &mdash; RELAXANDO &mdash; RELATANDO &mdash; REPORTANDO &mdash; RISCANDO &mdash; BEIRANDO &mdash; FIXANDO &mdash; RASGANDO &mdash; INQUIRINDO &mdash; DISCURSANDO &mdash; DEPENDENDO</div></div><div class="exercise-block"><div class="exercise-num">Bloco 6</div><div class="word-list">ARFANDO &mdash; GOSTANDO &mdash; DECOLANDO &mdash; PONDO &mdash; TIRANDO &mdash; OLHANDO &mdash; COZINHANDO &mdash; FRITANDO &mdash; RETIRANDO &mdash; SECANDO &mdash; ESPIRRANDO &mdash; PAUTANDO &mdash; TRABALHANDO &mdash; URDINDO &mdash; TRAMANDO &mdash; DEBATENDO</div></div><div class="exercise-block"><div class="exercise-num">Bloco 7</div><div class="word-list">EMBELEZANDO &mdash; EXPERIMENTANDO &mdash; IMPULSIONANDO &mdash; DECOLANDO &mdash; ATERRISSANDO &mdash; IMPREGNANDO &mdash; VISLUMBRANDO &mdash; AMARGANDO &mdash; UMIDIFICANDO &mdash; TRANSPARECENDO &mdash; MINISTRANDO</div></div><div class="exercise-block"><div class="exercise-num">Bloco 8</div><div class="word-list">HUMILHANDO &mdash; PARTICIPANDO &mdash; IMPACTANDO &mdash; CHUVISCANDO &mdash; TEMPORIZANDO &mdash; TROVEJANDO &mdash; ACINZENTANDO &mdash; ESPAIRECENDO &mdash; COINCIDINDO &mdash; PRETENDENDO &mdash; APODRECENDO &mdash; AMADURECENDO</div></div><div class="exercise-block"><div class="exercise-num">Bloco 9</div><div class="word-list">FLEXIBILIZANDO &mdash; COMPREENDENDO &mdash; DESCONSIDERANDO &mdash; ESPARGINDO &mdash; AMEALHANDO &mdash; ACUMULANDO &mdash; DEMARCANDO &mdash; DEAMBULANDO &mdash; SINGRANDO &mdash; VELEJANDO &mdash; ASSISTINDO</div></div><div class="exercise-block"><div class="exercise-num">Textos com gerundio</div><p>FUI CHEGANDO AO GUICHET E TIRANDO DA BOLSA OS INGRESSOS PARA O PORTEIRO QUE ESTAVA RESMUNGANDO MESMO ASSIM ACABOU INDICANDO O MEU LUGAR NA PLATEIA.</p><p>A CRIANCA CHEGOU FUNGANDO, CHORANDO POR CAUSA DA FEBRE QUE FICOU ATORMENTANDO A POBREZINHA A NOITE INTEIRA NO EXATO MOMENTO QUE EU ESTAVA PREPARANDO A MESA DE LANCHE.</p></div><h3>Exercicios Antigerundismo</h3><div class="exercise-instruction">Ler todos os blocos num folego so, de maneira linear. Exercicios de conjugacao para erradicar o gerundismo.</div><div class="exercise-block"><div class="exercise-num">Conjugacao 1</div><p>Eu vou fazer, tu vais fazer, ele vai fazer, ela vai fazer, nos vamos fazer, vos ides fazer, eles vao fazer de tudo para debelar o gerundismo.</p></div><div class="exercise-block"><div class="exercise-num">Conjugacao 2</div><p>Eu vou enviar, tu vais enviar, ele vai enviar, ela vai enviar, nos vamos enviar, vos ides enviar, eles vao enviar o gerundismo para o buraco de onde ele nao deveria ter saido.</p></div><div class="exercise-block"><div class="exercise-num">Conjugacao 3</div><p>Eu vou evitar, tu vais evitar, ele vai evitar, ela vai evitar, nos vamos evitar, vos ides evitar, eles vao evitar a todo custo falar com gerundismo.</p></div><div class="exercise-block"><div class="exercise-num">Conjugacao 4</div><p>Eu vou tentar, tu vais tentar, ele vai tentar, nos vamos tentar, vos ides tentar, eles vao tentar de tudo para erradicar o gerundismo do seu modo de falar.</p></div><div class="exercise-block"><div class="exercise-num">Conjugacao 5</div><p>Eu nao vou falar, tu nao vais falar, ele nao vai falar, ela nao vai falar, nos nao vamos falar, vos nao ides falar, eles nao vao mais falar com gerundismo.</p></div><div class="exercise-block"><div class="exercise-num">Conjugacao 6</div><p>Eu vou estudar, tu vais estudar, ele vai estudar, ela vai estudar, nos vamos estudar, vos ides estudar, eles vao estudar diariamente esses exercicios para erradicar o gerundismo do vocabulario.</p></div><div class="exercise-block"><div class="exercise-num">Mais conjugacoes</div><p>Eu vou enviar / descontar / fornecer / conhecer / mostrar / esperar / assistir / ler / abastecer / preparar / comprar / comparar / viajar / comecar / determinar / anotar / distribuir &mdash; todas conjugadas em todas as pessoas sem gerundismo.</p></div><h3>Como Evitar a Morte do Ditongo</h3><div class="exercise-instruction">Ler linha por linha, inspirando lentamente ao final de cada frase. Em seguida ler as tres linhas de um so folego. Pronuncie claramente os ditongos: -eiro, -eira, etc.</div><div class="exercise-block"><div class="exercise-num">Grupo 1</div><div class="word-list">Carneiro, terreiro, berreiro, banheiro, janeiro, fevereiro<br>Solteiro, colhereiro, tesoureiro, companheiro, fevereiro, janeiro<br>Dinheiro, cabeleireiro, celeiro, travesseiro, janeiro, fevereiro</div></div><div class="exercise-block"><div class="exercise-num">Grupo 2</div><div class="word-list">Funileiro, futriqueiro, fogueteiro, prateleira, coleira, poleiro, enfermeiro<br>Leiteiro, primeiro, ferramenteiro, fevereiro, alcoviteiro, biscoiteiro<br>Queijeiro, caloteiro, bananeira, pedreira, beira, feira, fevereiro, janeiro</div></div><div class="exercise-block"><div class="exercise-num">Grupo 3</div><div class="word-list">Empreiteira, feiticeira, cadeira, ceifadeira, torradeira, sopeira<br>Trapaceira, barateira, fileira, cerzideira, costureira, trepadeira, altaneira<br>Palmeira, gaveteiro, masseira, carreira, celeiro, cafezeiro, arrozeiro</div></div><div class="exercise-block"><div class="exercise-num">Grupo 4</div><div class="word-list">Roseira, furadeira, tornozeleira, aguaceiro, fumaceira, braseiro, despenhadeiro<br>Desfiladeiro, pesqueiro, ligeiro, atoleiro, passageiro, fogareiro, papeleiro<br>Britadeira, brigadeiro, cozinheiro, confeiteiro, espreguicadeira, abacateiro</div></div><div class="exercise-block"><div class="exercise-num">Grupo 5</div><div class="word-list">Cerejeira, coqueiro, mangueira, matreiro, marmeleiro, atoleiro, parteiro, macieira<br>Enceradeira, britadeira, ameixa, roqueira, feira, beira estradeira, pipoqueira<br>Churrasqueira, merendeira, rendeira, videira, parideira, jaqueira</div></div><div class="exercise-block"><div class="exercise-num">Grupo 6</div><div class="word-list">Goiabeira, obreira, pinheiro, laranjeira, espinheiro, galinheiro, bombeiro<br>Geleira, parafusadeira, carpideira, caldeira, atadeiro, arruaceiro, presepeiro<br>Estreito, biboqueira, borracheiro, bueiro, cajueiro, cachoeira, cuneiforme</div></div><div class="exercise-block"><div class="exercise-num">Grupo 7</div><div class="word-list">Formigueiro, canhoneiro, tropeiro, fuleiro, terceiro, domingueiro, bravateiro, vaqueiro<br>Verdadeiro, paradeiro, casamenteiro, guerrilheiro, ensarilheiro, pantaneiro<br>Leiloeiro, relojoeiro, marmiteiro, pedreiro, ladrilheiro, engenheiro</div></div><h3>Frases com Ditongos</h3><div class="exercise-block"><p>O ENGENHEIRO Lauro Aurelio MOREIRA reclamou do trabalho executado pelo LADRILHEIRO em sua casa.</p></div><div class="exercise-block"><p>O CAVALEIRO teve sua marcha interrompida pela PORTEIRA que estava LIGEIRAMENTE emperrada.</p></div><div class="exercise-block"><p>O CARPINTEIRO nao entregou o movel INTEIRAMENTE montado e ainda esqueceu de limpa-lo.</p></div><div class="exercise-block"><p>O ENFERMEIRO Paulo Emilio PEREIRA deu uma SEMENTEIRA de presente para sua mae.</p></div><div class="exercise-block"><p>O FOGAREIRO estava repleto de alcool quando a LAVADEIRA colocou as toalhas para secar.</p></div><div class="exercise-block"><p>A ESCAVADEIRA trabalhava PRIMEIRO em ritmo lento, depois de forma LIGEIRA.</p></div><div class="exercise-block"><p>O PESQUEIRO de trutas estava lotado de clientes que usavam PENEIRAS para capturar os filhotes.</p></div><div class="exercise-block"><p>O LANTERNEIRO tentou consertar o carro velho e enferrujado do PADEIRO OLIVEIRA.</p></div><div class="exercise-block"><p>Pilotar uma COLHEITADEIRA e para profissionais e nao para um MARINHEIRO de primeira viagem.</p></div><div class="exercise-block"><p>ABACATEIRO carregado de frutos em JANEIRO e um fato excepcional na cidade de JUAZEIRO.</p></div><div class="exercise-block"><p>Manoel SILVEIRA mexeu num VESPEIRO achando que tinha descoberto uma casa de abelhas.</p></div><div class="exercise-block"><p>Escapou do ATOLEIRO mas nao conseguiu se desviar do buraco na SOLEIRA da porta.</p></div><div class="exercise-block"><p>O excelente reporter ANDRE TRIGUEIRO se desenvolveu depressa mas PRIMEIRO estagiou numa emissora de radio.</p></div><div class="exercise-block"><p>Todo pimpao e FAGUEIRO o CORNETEIRO saiu do refeitorio para tocar a alvorada.</p></div><div class="exercise-block"><p>Numa gleba generosa havia pelo menos 10 LARANJEIRAS e 12 MACIEIRAS vertendo frutos.</p></div><div class="exercise-block"><p>FOGUETEIRO respeitado pelos organizadores de festas juninas passou o ano INTEIRO confeccionando novos baloes.</p></div><div class="exercise-block"><p>Pediu feijao TROPEIRO ao garcom que distraido trouxe uma SOPEIRA repleta de nabos INTEIROS.</p></div><div class="exercise-block"><p>O FAROLEIRO Oto RIBEIRO trabalhando como SINALEIRO optou por ser PADEIRO.</p></div><div class="exercise-block"><p>O FORRAGEIRO preferido do plantel foi substituido por raiz de PESSEGUEIRO e folhas de GOIABEIRA.</p></div><div class="exercise-block"><p>EMPREITEIRO assoberbado de trabalho nao consegue atender as exigencias do ENGENHEIRO MEIRA Santos.</p></div><div class="exercise-block"><p>MINEIROS fanaticos pelo CRUZEIRO infernizam os torcedores do PINHEIROS Futebol Clube.</p></div><div class="exercise-block"><p>PETROLEIROS embarcados reivindicam CARTEIRA assinada em solidariedade aos COMPANHEIROS.</p></div><div class="exercise-block"><p>O JORNALEIRO entregava as revistas sempre no horario certo ao contrario do CARTEIRO.</p></div><div class="exercise-block"><p>TROPEIRO corajoso nao teve a audacia de se aproximar da beira do DESFILADEIRO.</p></div><div class="exercise-block"><p>CEREJEIRAS em flor sao lindas mas o COQUEIRO nao consegue despertar tanto fascinio.</p></div><div class="exercise-block"><p>O BRASEIRO finalmente ficou incandescente para que o CHURRASQUEIRO pudesse executar seu trabalho.</p></div><div class="exercise-block"><p>A MERENDEIRA que era RENDEIRA nas horas vagas oferecia as criancas um BRIGADEIRO delicioso.</p></div><div class="exercise-block"><p>Todo mes de dezembro a VIDEIRA da casa da PIPOQUEIRA ficava carregada de cachos.</p></div><div class="exercise-block"><p>A MANTEGUEIRA ficava suja porque a mulher SOLTEIRA abria a embalagem de MANEIRA errada.</p></div><div class="exercise-block"><p>As historias da FEITICEIRA atrapalhada divertiam as criancas quando ela ficava presa no ATOLEIRO.</p></div>',
+    sections: [
+      { title: '1. Aula — Mineiros e Ditongo', videos: [
+        { name: 'Mineiros e Como Evitar a Morte do Ditongo', ytId: 'pSs1VZjBPXw' }
+      ]},
+      { title: '2. Aula — Gerundismo', videos: [
+        { name: 'Gerundismo', ytId: 'EYFWr4_C4rI' }
+      ]},
+      { title: '3. Exercicios — Mineiros', videos: [
+        { name: 'Seq. 1-3 pag. 5 com Audio', ytId: 'u8De5BHOI2Y' },
+        { name: 'Seq. 1-3 pag. 5 sem Audio', ytId: 'SIu3mODlTzc' },
+        { name: 'Seq. 4-6 pags. 5-6 com Audio', ytId: 'd_XPvNvP6nI' },
+        { name: 'Seq. 4-6 pags. 5-6 sem Audio', ytId: 'uJCtKyGVAIU' },
+        { name: 'Seq. 7-9 pag. 6 com Audio', ytId: 'msFGLlHPmZU' },
+        { name: 'Seq. 7-9 pag. 6 sem Audio', ytId: '4A9wKbeIfpQ' },
+        { name: 'Seq. 10-11 pag. 6 com Audio', ytId: 'STyHAwPzrNY' },
+        { name: 'Seq. 10-11 pag. 6 sem Audio', ytId: 'FYK3NwvVbYs' },
+        { name: 'Textos 1-3 pags. 6-7 com Audio', ytId: 'nS3d6FAMivg' },
+        { name: 'Textos 1-3 pags. 6-7 sem Audio', ytId: 'axEvgq71_1M' },
+        { name: 'Textos 4-6 pag. 7 com Audio', ytId: 'kA_dh6p5LS0' },
+        { name: 'Textos 4-6 pag. 7 sem Audio', ytId: 'iD3RczKltdk' },
+        { name: 'Texto 7 pag. 7 com Audio', ytId: 'C0vOSd_e38Q' },
+        { name: 'Texto 7 pag. 7 sem Audio', ytId: '5LENg78O5b0' }
+      ]},
+      { title: '4. Exercicios — Ditongo', videos: [
+        { name: 'Seq. 1-3 pag. 11 com Audio', ytId: 'SJ8R4FMyu-E' },
+        { name: 'Seq. 1-3 pag. 11 sem Audio', ytId: 'nE6NTvhVRTU' },
+        { name: 'Seq. 4-5 pag. 11 com Audio', ytId: 'PHbrLA-6NW4' },
+        { name: 'Seq. 4-5 pag. 11 sem Audio', ytId: '0IibSOymgfM' },
+        { name: 'Seq. 6-7 pag. 12 com Audio', ytId: 'k4v2sCTdKM4' },
+        { name: 'Seq. 6-7 pag. 12 sem Audio', ytId: '_j4aeup7DVc' },
+        { name: 'Textos 1-3 pag. 13 com Audio', ytId: 'snX-0yTN5VM' },
+        { name: 'Textos 1-3 pag. 13 sem Audio', ytId: '4QhVnlGz0eI' },
+        { name: 'Textos 4-6 pag. 13 com Audio', ytId: 'K3O5eJUly3Q' },
+        { name: 'Textos 4-6 pag. 13 sem Audio', ytId: '0ane1aThoVo' },
+        { name: 'Textos 7-9 pag. 13 com Audio', ytId: 'kl1iZq83lFg' },
+        { name: 'Textos 7-9 pag. 13 sem Audio', ytId: '2OcIpnge67M' },
+        { name: 'Textos 10-12 pag. 14 com Audio', ytId: 'ZBm3pON4YAc' },
+        { name: 'Textos 10-12 pag. 14 sem Audio', ytId: 'zBVsa-vyRFY' },
+        { name: 'Textos 13-15 pag. 14 com Audio', ytId: 'EUmz2Ji8A1c' },
+        { name: 'Textos 13-15 pag. 14 sem Audio', ytId: '7YHPNNlqFbo' },
+        { name: 'Textos 16-18 pag. 14 com Audio', ytId: 'ZtX9Ef6wnII' },
+        { name: 'Textos 16-18 pag. 14 sem Audio', ytId: 'GtN-8NWb7S8' },
+        { name: 'Textos 19-21 pags. 14-15 com Audio', ytId: 'fFTFDPv3NhM' },
+        { name: 'Textos 19-21 pags. 14-15 sem Audio', ytId: 'tjT03ogkYPo' },
+        { name: 'Textos 22-24 pag. 15 com Audio', ytId: 'E3wVPdapAvU' },
+        { name: 'Textos 22-24 pag. 15 sem Audio', ytId: 'kgEOh42yxLs' },
+        { name: 'Textos 25-27 pag. 15 com Audio', ytId: '_7C4T5BD38k' },
+        { name: 'Textos 25-27 pag. 15 sem Audio', ytId: 'S-S1SEwQE84' },
+        { name: 'Textos 28-30 pags. 15-16 com Audio', ytId: '-fRXyRNLUWk' },
+        { name: 'Textos 28-30 pags. 15-16 sem Audio', ytId: 'AkL9tsFwXnk' }
+      ]}
+    ]
+  },
+  {
+    id: 'narracao', number: '10', title: 'Modulo 7 — Narracao', apostila: 'APOSTILA MÓDULO 9.pdf',
+    apostilaContent: '<h3>Exercicios de Narracao</h3><div class="exercise-instruction">Textos narrativos para praticar narracao com voz envolvente. Leia cada texto aplicando as tecnicas de linearidade, articulacao e interpretacao aprendidas nos modulos anteriores.</div><div class="exercise-block"><div class="exercise-num">Texto 1</div><p>O empreiteiro precisava com urgencia se desfazer de seu imovel. O tempo para ele naquele momento valia ouro. Entregou-se de corpo e alma a reforma de seu unico bem. Descascou as paredes, tirou o forro de madeira, trocou por gesso com sancas. Nao satisfeito, substituiu todo o piso de tabua corrida por lajotas, tirou os ladrilhos quebrados, e trocou todo o sistema hidraulico e eletrico. Queria melhorar a aparencia daquele recanto. Terminada a reforma, olhou orgulhoso sua obra com a certeza inabalavel de que faria um bom negocio em poucos dias.</p></div><div class="exercise-block"><div class="exercise-num">Texto 2</div><p>Impaciente com sua tendencia a engordar, voce procura um endocrinologista. Exagero? Vaidade extremada? Silhueta desfavoravel? Sao tantas as possibilidades, tao variadas as respostas. E no fim, ao longo de uma penosa bateria de exames medicos, o veredicto: comida quase sem sal, habitos alimentares saudaveis, caminhadas sob o sol, ginastica localizada, reducao drastica de calorias nas refeicoes. Nos finais de semana, talvez, apenas TALVEZ, um copo de refrigerante, ou um copo de duzentos mililitros de cerveja.</p></div><div class="exercise-block"><div class="exercise-num">Texto 3</div><p>Nervosa, a mulher bem vestida equilibrando-se em saltos muito altos gesticulava histerica expondo-se perigosamente na via publica. Seu semblante crispado era uma demonstracao inequivoca de seu deploravel estado psicologico. Gritava obscenidades acompanhadas de gestos nao menos obscenos. As vezes parecia se jogar na frente dos veiculos provocando angustia nas pessoas que testemunhavam a estranha movimentacao. A mulher atraia a curiosidade dos motoristas, que nao diminuiam a marcha para verificar o estranho comportamento.</p></div><div class="exercise-block"><div class="exercise-num">Texto 4</div><p>Benito Falbo, avesso a falcatruas, entregou a freguesia uma sacola de plastico contendo doze itens hortifrutigranjeiros. Dentre eles, dois cachos de uva Italia, doze bananas d\'agua e espinafre. Seu semblante severo sinalizava que havia em seu intimo um intenso conflito. Sem que a freguesia, entre atonita e constrangida, pudesse esbocar o menor gesto que fosse, ouviu Benito murmurar entredentes: o proprietario da barraca ensacava produtos imprestaveis como se fossem vicosos. Para agir assim ele contava com a conivencia dos fiscais.</p></div><div class="exercise-block"><div class="exercise-num">Texto 5</div><p>Durante anos o velho paroco reinou na pequena localidade de Vila Nova Granada, cidadezinha de dois mil e oitocentos habitantes, a sudoeste de Mar de Espanha, Minas Gerais. De idade avancada, conhecia cada morador das cercanias pelos nomes, conhecia-lhes os problemas, para os quais tinha na ponta da lingua uma solucao escavada nos salmos que pregava. Afavel, porem altivo, solicito sem subserviencia, ouvia, mas nao se envolvia, abencoava imbuido de fe, reprovava com um olhar para relevar em seguida com um gesto suave das maos.</p></div><div class="exercise-block"><div class="exercise-num">Texto 6</div><p>Irascivel, aspero, afoito, rispido no limite da grosseria, aquele politico nao tardou a pagar caro por seus erros. Sua indole era conhecida por todos especialmente pela midia, sem excecao. Possuidor de indole psicotica, de ideias ultrapassadas, ostentava uma cultura estranha. Seu passatempo predileto era bizarro: adorava irritar o Cacique Juruna, provocando-o, expondo-o ao ridiculo. Certa vez, durante uma entrevista tumultuada a jornalistas, a maioria estrangeiros, declarou com profundo desdem que o autoctone era um aculturado exotico.</p></div><div class="exercise-block"><div class="exercise-num">Texto 7</div><p>Expedito vivia contando vantagens sobre o seu celibato. Mas finalmente seu dia de homem que procura estabilidade chegou. Terminado o jantar na casa da namorada, ficou de pe, aprumou-se como a ensaiar um discurso, pigarreou e pediu a mao de Tereza em casamento. Recebeu um sonoro &ldquo;NAO&rdquo; como resposta. Chegando em casa, levantou a cabeca, empinou o nariz e disse a mae com estudada indiferenca que uma simples negativa nao lhe tiraria do pareo. Pensando bem, seria melhor estender um pouquinho mais seu reinado de celibatario.</p></div><div class="exercise-block"><div class="exercise-num">Texto 8</div><p>Na antevespera de completar 70 anos o aposentado leu a noticia nos jornais: ALIMENTOS COMUNS ESTAO CHEIOS DE AGROTOXICOS. Contrafeito com o que acabara de ler, chamou sua esposa. Pousou o jornal nos joelhos, retirou os oculos que estavam pendurados na ponta de seu nariz e disparou: nao vamos mais comprar alimentos condenados. A partir de hoje so vou adquirir produtos organicos. Sao mais caros? Sao, nao importa. Tem aspecto feio? Tem, mas tenebroso e o cancer. O gosto e duvidoso? E. O do remedio e pior ainda.</p></div><div class="exercise-block"><div class="exercise-num">Texto 9</div><p>Taifeiro que dedicou toda sua vida ao trabalho em portos, era dado a fantasias e elucubracoes as mais estapafurdias. Nos momentos de reflexao, dizia a si mesmo que era necessario dar um basta a conjeturas vazias. Mas ao se aproximar da ponte movel para ganhar a margem oposta do riacho que passava nos fundos de sua casa, tremia de medo. Suava em bicas. Empacava feito animal quando pressente o perigo. Nao havia quem pudesse lhe convencer que a ponte era segura. Seus olhos assustados provocavam mais riso do que compaixao.</p></div><div class="exercise-block"><div class="exercise-num">Texto 10</div><p>Eueli, Yacana, e Yara, primas entre si em primeiro grau, mineiras oriundas da pequena cidade de Cordisburgo vieram passar as ferias no Rio de Janeiro. Com idades de 21 a 24 anos, mal conseguiam conter o entusiasmo aguardando o onibus que as levaria a percorrer a cidade maravilhosa. Na primeira parada do veiculo junto a um famoso parque de diversoes, resolveram brincar um pouco no tunel dos horrores. Quase morreram de susto ouvindo os gritos, explosoes, gargalhadas medonhas, gemidos e lamentos dentro do apertado tunel de lata.</p></div><div class="exercise-block"><div class="exercise-num">Texto 11</div><p>Viajou 5 horas seguidas, a maior parte do trajeto debaixo de chuvas intensas, sem descansar, sem ao menos descer do carro pra ir ao banheiro. Mas conseguiu realizar o sonho que acalentava desde que era estudante do primario: conhecer a antiga mina de Morro Velho. O que o atraia? O trabalho dos homens no ventre da terra? O desejo de ver uma pepita de ouro? Resoluto, aproximou-se o mais que pode da entrada principal da mina e cantou a linda cancao de Renato Teixeira: &ldquo;ILUMINA A MINA ESCURA E FUNDA O TREM DA NOSSA VIDA...&rdquo;.</p></div><div class="exercise-block"><div class="exercise-num">Texto 12</div><p>Qualquer pessoa educada, com um minimo de bom senso, toca a campainha como toda pessoa faz. Menos Ana Elisa. Impaciente, egoista, dona da verdade, insegura, ela prega sustos na familia esmurrando a porta para chamar a atencao. De nada valem os apelos dos parentes, que sugerem um tratamento psicologico para identificar essa agressividade latente. O temperamento dificil de Ana Elisa a impede de ficar mais do que um mes nos poucos empregos que conseguiu arranjar. Sentindo-se rejeitada, passou a cultivar um odio irracional contra tudo e todos.</p></div><div class="exercise-block"><div class="exercise-num">Texto 13</div><p>Calado, imovel, olhar fixo no infinito, respondeu sem pestanejar as perguntas formuladas pelo psiquiatra. Com gestos calmos, milimetricamente calculados, colocou o telefone celular ao lado do aparelho de fax do medico. Estaria tramando alguma coisa? Estaria insatisfeito com o tratamento recebido? Havia eletricidade no ar abafado dentro do luxuoso consultorio. O silencio era perturbador. O psiquiatra, como que obedecendo a um forte impulso, pos-se de pe, abriu a porta ao paciente, comunicando que a sessao havia terminado.</p></div><div class="exercise-block"><div class="exercise-num">Texto 14</div><p>Entrou no cinema em estado de alegria juvenil. Aguardou a semana inteira pela estreia. Escolheu uma poltrona entre as primeiras fileiras. Agarrado ao pacote de pipocas e um copo cheio de coca cola, olhou para os lados avaliando a plateia naquela primeira sessao matinal. Esperava ver seu astro predileto em cenas arrebatadoras. Porem, logo nos primeiros 15 minutos de filme, o fa de carteirinha do famoso lutador entendeu a mensagem: o filme nada mais era do que um amontoado de cenas de violencia gratuita, brigas, explosoes, correrias.</p></div><div class="exercise-block"><div class="exercise-num">Texto 15</div><p>Ninguem no banco disse uma palavra sequer em favor do funcionario demitido. Clientes e funcionarios pareciam aliviados pela ausencia do recalcitrante colega dispensado por justa causa. Eram constantes as reclamacoes em que ele figurava como figura central. Aspero, impaciente, mal educado, colecionou adversarios dentro e fora do banco. Vivia isolado, ja que ninguem queria sua companhia mesmo na area da copa onde se servia o cafezinho de todas as manhas. Questionado sobre seu comportamento, esquivou-se, dizendo-se estressado e agitado.</p></div><div class="exercise-block"><div class="exercise-num">Texto 16</div><p>Bruna Bia e linda, bem humorada, simpatica, espirituosa, e bastante timida. Seus modos suaves, sua pele muito alva, os olhos de um azul transparente, lembram mais uma princesa, do que uma aplicada aluna do segundo grau. Ela tem prontas, palavras de incentivo, de solidariedade as colegas de classe que sofrem de ansiedade a epoca das provas bimestrais. Nao se nega a ajuda-las. Doa seu tempo sem mostrar qualquer sinal de incomodo. Essa adolescente encantadora se transforma quando volta ao lar pra conviver com sua irma cacula.</p></div><div class="exercise-block"><div class="exercise-num">Texto 17</div><p>Mudar, mudar sempre. Para se renovar. Se reciclar, acompanhar os novos tempos. Para usar uma palavra muito em voga: se reinventar. Mudar inclusive de opiniao. Por que nao? Ha que se defender com unhas e dentes os seus principios? Aquele cantor, ou cantora que sempre nos incomodou, nao podera em algum momento tocar nosso coracao? Mexendo fundo na nossa emocao? E quando esse momento chegar, devemos desembainhar a espada da controversia e dizer nao? A isso chamamos de radicalismo vazio.</p></div><div class="exercise-block"><div class="exercise-num">Texto 18</div><p>Quinze minutos antes do horario previsto o jovem casal estava na fila do cinema. Munidos de um enorme saco de pipoca, chicletes e o indefectivel copo de Coca-Cola, transpiravam ansiedade. Meia hora depois de iniciado o filme, levantaram-se e foram embora cuspindo marimbondos. Alegaram que foram induzidos a erro, pois jamais assistiriam uma droga como aquela. Indignados, taxaram os roteiristas de &ldquo;incompetentes&rdquo; por nao buscarem em classicos da literatura alguma historia que os remetesse a cultura, ao lazer para qualquer faixa etaria.</p></div><div class="exercise-block"><div class="exercise-num">Texto 19</div><p>Onze meses de trabalho ininterrupto e la um belo dia vem o aviso de ferias do RH junto com o contracheque. Exultante, o funcionario publico afrouxa a gravata ainda em pleno expediente. Parar. Interromper a rotina de sai-cedo-de-casa-fica-horas-no-engarrafamento-consegue-uma vaga-na-rua-sai-correndo-e-marca-o-cartao-faltando-um-minuto-pras-nove. Ufa! Finalmente as tao esperadas ferias. Guardar a pasta na escrivaninha de casa, cobrir o computador e dizer tchau! Sair, viajar, sol na pele, dormir tarde, andar sem destino. Isso sim, e que e viver!</p></div><div class="exercise-block"><div class="exercise-num">Texto 20</div><p>O carteiro Max cujo nome rima com o nome da Rua Ajax onde fica o sobrado em que reside desde que nasceu ha cinquenta anos, vai se aposentar. Max esta cobrindo temporariamente a rota do colega Paulo Emilio, antigo nos correios como ele. Paulo contraiu uma virose resistente o que o impede de comparecer ao trabalho desde o inicio do mes. Embora esteja fora de forma, ja que passou aos trabalhos internos, Max comecando a entregar a correspondencia no Leme as quatro e meia acaba o estafante trabalho no mais tardar as cinco e meia.</p></div><div class="exercise-block"><div class="exercise-num">Texto 21</div><p>O governo venezuelano sob a egide do militares quis aumentar o preco da gasolina e do oleo diesel. Sob qual pretexto? O de sempre, a velha desculpa desgastada de que o preco do barril de oleo cru tinha subido muito. O povo recusou. Disse nao. E foi pras ruas mostrar seu desagrado, produzindo um barulhao infernal batendo em panelas, latas vazias, tambores, etc. Teve inicio os enfrentamentos. O povo destemido fincou pe no terreno como se dissesse: &ldquo;daqui so saimos mortos!&rdquo; As forcas de repressao entenderam, e voltaram aos quarteis.</p></div><div class="exercise-block"><div class="exercise-num">Texto 22</div><p>Bebado, esforcando-se para nao cair, o violonista tentou ficar de pe. Mas contou com a paciencia e uma ajuda discreta do maitre que serviu de escora. Sem se incomodar com os olhares que atraia, colocou-se muito perto do carrinho onde o maitre flambava um steak a Diana. Chamou o garcom, pagou a conta sem ao menos conferir. Seu estado etilico nao afetou sua lucidez pois deu generosa gorjeta ao garcom. Entao abracou o maitre, fitou-o com os olhos esgazeados dizendo em tom de discurso que deveria tomar uma saideira e partir.</p></div><div class="exercise-block"><div class="exercise-num">Texto 23</div><p>Faca essa experiencia. Va a um shopping, qualquer shopping e faca o teste. Pare diante de uma vitrine. Demore-se alguns minutos olhando para algum produto exposto. Mas antes, aperte o cronometro do seu relogio. Em menos de dois minutos voce sera abordado por um sorriso estereotipado, padronizado de um vendedor que dira: - &ldquo;ola, meu nome e Diogo, e o seu?&rdquo;. Voce pode eventualmente entrar, ate comprar o produto, ser bem atendido, mas... E necessario dizer seu nome? E voce? Teve vontade de saber o nome do vendedor?</p></div><div class="exercise-block"><div class="exercise-num">Texto 24</div><p>Estressado o ilustrador vivia brigando com a namorada. Aos berros. Temperamental, o rapaz se descontrolava porque a moca reclamava &ndash; e estava coberta de razao &ndash; de seus constantes atrasos, chamando-o de relapso. Mas esta briga em especial tinha um elemento novo: a ameaca da moca de terminar o namoro ja que estava saturada de tanta desavenca. Dirigindo feito um bebado, em alta velocidade, ziguezagueando feito cachorro fugitivo, o namorado parecia desejar que o final do romance deles terminasse em tragedia.</p></div><div class="exercise-block"><div class="exercise-num">Texto 25</div><p>Sera mesmo possivel que tendo 30, 40, 50 canais a cabo a disposicao no controle remoto, alguem nao se interesse em zapear? E possivel que alguem seja tao acomodado? Tanto faz ter um ou 20 canais? E normal sentar-se diante da TV sem demonstrar interesse no que os outros inumeros canais mostram? Tereza Esmeralda e diferente. Nutre verdadeira ojeriza pelos apresentadores de talk shows. Com a sua franqueza peculiar, reclama deles por se acharem mais interessantes e brilhantes que os proprios entrevistados.</p></div><div class="exercise-block"><div class="exercise-num">Texto 26</div><p>Aglutinador. Envolvente. Tentador. Excitante. Disputado. Pode-se dizer tudo isso e tantas outras coisas mais sobre o BAILE DOS COROAS. E um Evento anual promovido no Clube Olimpico. Aguardado com ansiedade pelos socios da terceira idade, e uma tradicao que causa furor em todos os anos de sua realizacao. Porem, a cada ano, avolumam-se as queixas contra a falta de planejamento da festa. Quando os encarregados pela distribuicao do buffet comecam a circular no exiguo espaco do salao de baile, comeca o empurra-empurra.</p></div><div class="exercise-block"><div class="exercise-num">Texto 27</div><p>Do apartamento situado numa zona de trafego intenso a moradora fechou pensativa a janela. Ha semanas debrucada no parapeito do seu imovel no quarto andar, chegou a uma desoladora certeza: os motoristas teimam em desobedecer as regras do transito. O guarda, em seu uniforme impecavel, semblante severo, porem simpatico, completava exausto sua jornada de trabalho. Pessimista, a moradora nao via mais solucao. Mas ela esperava o que? Que os mal educados tivessem consciencia? Que as autoridades nao fossem omissas?</p></div><div class="exercise-block"><div class="exercise-num">Texto 28</div><p>Amplexos contra plexos agitados chegaram ao climax entre os convivas depois de duas horas de exaustiva reuniao. Estavam todos, sem excecao, exultantes. Mais do que exultantes, estavam aliviados. Acoes de solidariedade empreendidas durante o mes foram determinantes. Um grupo de voluntarios, a maioria aposentados, percorreu as redondezas durante dias a fio. A prefeitura entao abriu uma nova escola no bairro para abrigar criancas pobres. Estava em curso um movimento para conduzir essas criancas carentes rumo ao futuro.</p></div><div class="exercise-block"><div class="exercise-num">Texto 29</div><p>Cheirando a Almiscar e a Alfazema, a recem-formada engenheira estava linda. Trajando vestido listrado de bege e azul, saiu apressada do elevador de servico. Seu motorista a aguardava dentro do carro. Quando ele deu partida, a engenheira mudou de ideia, desceu do carro, voltou em casa e trocou de roupa. Agora estava vestida com um conjunto amarelo-ouro e marrom. Olhou-se no espelho. O resultado nao a agradou. Despiu-se de novo. Colocou uma indumentaria de seda que incorporava o roxo e o cinza. Estava pronta pra entrevista.</p></div><div class="exercise-block"><div class="exercise-num">Texto 30</div><p>Altivo o frentista do posto de gasolina parou de abastecer o caminhao. Caprichoso, muito dedicado ao trabalho, era, porem, muito lento. Lerdo o definiria melhor. Ignorando a buzinaria histerica e a impaciencia dos motoristas que aguardavam para tambem abastecer, pos a bomba no automatico. Alheio ao tumulto ao seu redor atendeu a um entregador de pizza. O motoboy estava perdido e queria informacoes sobre determinada rua. O frentista com toda a calma do mundo orientou o entregador como chegar rapido a Praia de Icarai.</p></div><div class="exercise-block"><div class="exercise-num">Texto 31</div><p>Paulo Henrique Espinosa, diretor adjunto de engenharia de trafego do Detran de Juiz de Fora chegou cedo ao trabalho. Com um rapido olhar perscrutou o ambiente a procura de sua secretaria. Nao a viu. Sua linha de raciocinio estava de novo saindo para uma bifurcacao. Conforme observou, um engarrafamento nunca e igual ao anterior. As razoes sao infinitas. Nunca seguem um padrao. Sem duvida, nao ha estrategia especial que possa resolver as intrincadas retencoes verificadas todos os dias entre as ruas Halfeld e Aulus Altamirando.</p></div><div class="exercise-block"><div class="exercise-num">Texto 32</div><p>Junte um abacaxi medio, doze folhas de hortela, tres cerejas, um raminho de dill, e doze gotas de angustura. Bata no liquidificador. Por 10 segundos no maximo. E importante que o abacaxi nao seja totalmente desmanchado. Deixe descansar. Adicione meia fatia de laranja acida, maca verde com a casca, gelo moido, acucar ou adocante. Para enfeitar a borda da taca, prenda uma &ldquo;estrela&rdquo; de carambola. A vodca pode ser a STOLISHNAYA, a WIBOROWA, a ABSOLUT, ou a pobrezinha da SMIRNOFF. Voce tera um delicioso drinque de citricos.</p></div><div class="exercise-block"><div class="exercise-num">Texto 33</div><p>A tarde morria melancolica. No velorio repleto de pessoas proximas a familia do ilustre defunto, la estava o indefectivel Pascoal. Simplorio, sob a acao de incontaveis doses de aguardente, disparava frases de efeito. Esbarrando nos presentes, se desculpava com sua fala entrecortada por solucos etilicos. Movendo-se com dificuldade, esgueirou-se no ambiente apertado, estampou no rosto a expressao que lhe pareceu mais adequada, tomou folego, localizou a viuva amparada pelos filhos a um canto, e disparou: &ldquo;a vida e bela&rdquo; para espanto dos presentes.</p></div>',
+    sections: [{ title: 'Aula e Exercicios', videos: [
+      { name: 'Narracao', ytId: 'Tyw1XYeUCwo' },
+      { name: 'Textos 1-3 pag. 5 com Audio', ytId: 'pYf7ImaCd30' },
+      { name: 'Textos 1-3 pag. 5 sem Audio', ytId: 'qwBzoeE9wcA' },
+      { name: 'Textos 4-6 pag. 6 com Audio', ytId: '2eyBL7-8ePM' },
+      { name: 'Textos 4-6 pag. 6 sem Audio', ytId: 'HTQuezhYECI' },
+      { name: 'Textos 7-9 pag. 7 com Audio', ytId: '2ZtfAXtHL2Y' },
+      { name: 'Textos 7-9 pag. 7 sem Audio', ytId: 'BL5z1CxKQKs' },
+      { name: 'Textos 10-12 pag. 8 com Audio', ytId: 'q1S3i7zriKM' },
+      { name: 'Textos 10-12 pag. 8 sem Audio', ytId: 'eiH-2mogR6g' },
+      { name: 'Textos 13-15 pag. 9 com Audio', ytId: 'HnNemov1XTg' },
+      { name: 'Textos 13-15 pag. 9 sem Audio', ytId: 'ujVZHJGPE4M' },
+      { name: 'Textos 16-18 pag. 10 com Audio', ytId: 'HAtDcqSq0Uw' },
+      { name: 'Textos 16-18 pag. 10 sem Audio', ytId: 'uxwaTJMCBTI' },
+      { name: 'Textos 19-21 pag. 11 com Audio', ytId: 'lOoUiLu5rjg' },
+      { name: 'Textos 19-21 pag. 11 sem Audio', ytId: 'pPHxH5VvtPE' },
+      { name: 'Textos 22-24 pag. 12 com Audio', ytId: '8qFaZSg4z0k' },
+      { name: 'Textos 22-24 pag. 12 sem Audio', ytId: 'BlQZj2nkvbk' },
+      { name: 'Textos 25-27 pag. 13 com Audio', ytId: 'v5UTq7e8FbI' },
+      { name: 'Textos 25-27 pag. 13 sem Audio', ytId: '4b-cVAEqFq0' },
+      { name: 'Textos 28-30 pag. 14 com Audio', ytId: '-b409MaU23Y' },
+      { name: 'Textos 28-30 pag. 14 sem Audio', ytId: 'vV-_WgKvRqo' },
+      { name: 'Textos 31-33 pag. 15 com Audio', ytId: 'HQrM-M9QuBI' },
+      { name: 'Textos 31-33 pag. 15 sem Audio', ytId: 'tlYjEnOhiNU' },
+      { name: 'Textos 34-36 pag. 16 com Audio', ytId: 'OFu89u7w60o' },
+      { name: 'Textos 34-36 pag. 16 sem Audio', ytId: 'DZBlAjDxWJo' },
+      { name: 'Textos 37-39 pag. 17 com Audio', ytId: 'DGCruBZ8WEk' },
+      { name: 'Textos 37-39 pag. 17 sem Audio', ytId: 'dmDHgQmx21c' },
+      { name: 'Textos 40-42 pag. 18 com Audio', ytId: 'jd8jwvEyA00' },
+      { name: 'Textos 40-42 pag. 18 sem Audio', ytId: 'cE9jBvPjZsw' },
+      { name: 'Textos 43-45 pag. 19 com Audio', ytId: 'mnTWH6n9mHY' },
+      { name: 'Textos 43-45 pag. 19 sem Audio', ytId: 'WcQk4ypsRXw' },
+      { name: 'Textos 46-48 pag. 20 com Audio', ytId: 'yaR1sXj_0DU' },
+      { name: 'Textos 46-48 pag. 20 sem Audio', ytId: 'zvSsrZfAt6I' }
+    ]}]
+  },
+  {
+    id: 'voz-soprosa', number: '11', title: 'Modulo 8 — Voz Soprosa', apostila: 'APOSTILA MÓDULOS 10 e 11.pdf',
+    apostilaContent: '<h3>Exercicios de Voz Soprosa &mdash; A Tragedia Nao Manda Aviso</h3><div class="exercise-instruction">Textos curtos para praticar a voz soprosa. Cada texto e uma chamada dramatica para o programa &ldquo;A Tragedia Nao Manda Aviso&rdquo;. Use voz soprosa, carinhosa, suave, com leveza e misterio.</div><div class="exercise-block"><div class="exercise-num">Texto 1</div><p>Alice sentiu uma estranha inquietacao olhando pela janela da cozinha o filho brincando no quintal. Angustiada sem saber o porque, voltou a lavar a louca do cafe. E se distraiu. La fora, o menino nao estava sozinho. Dois homens protegidos pela sombra de uma arvore estavam a espreita. Em poucos minutos um drama terrivel tera inicio.</p><p>Nao perca &ldquo;A TRAGEDIA NAO MANDA AVISO.&rdquo; Quinta, meia noite e meia no Canal Brasil.</p></div><div class="exercise-block"><div class="exercise-num">Texto 2</div><p>Leandro, um bem sucedido empresario desconfiou dos gastos cada vez mais altos da esposa. Contratou um detetive para seguir os passos da mulher. Era a chance que o detetive &ndash; amigo de infancia do empresario &ndash; aguardava. Ele e a mulher de Leandro... arquitetaram um plano diabolico.</p><p>Acompanhe essa historia de traicao e morte em &ldquo;A TRAGEDIA NAO MANDA AVISO&rdquo;. Hoje, meia noite e meia no Canal Brasil.</p></div><div class="exercise-block"><div class="exercise-num">Texto 3</div><p>O professor disse ao aluno displicente que ele nao passaria de ano. Mas cometeu um erro fatal: afirmou que ele deveria ter vergonha dos pais e dos colegas de classe por repetir o ano pela segunda vez. Mauricio, o aluno, nao perdoou o comentario. Ao final da aula proferiu uma frase enigmatica: &ldquo;a salvacao pode estar proxima&rdquo;...</p><p>Nao deixe de assistir &ldquo;A TRAGEDIA NAO MANDA AVISO&rdquo;. Proxima quinta, meia noite e meia no Canal Brasil.</p></div><div class="exercise-block"><div class="exercise-num">Texto 4</div><p>O romance entre a secretaria e o medico chegou ao fim durante o jantar de despedida num restaurante de luxo. O medico nao se comoveu com o desespero de sua secretaria. Mariza percebendo que o amante estava irredutivel revelou o segredo aterrador que teimava em esconder: estaria contaminada pelo virus da AIDS.</p><p>&ldquo;A TRAGEDIA NAO MANDA AVISO&rdquo; &ndash; Nesta quinta, meia noite e meia no Canal Brasil.</p></div><div class="exercise-block"><div class="exercise-num">Texto 5</div><p>Cinco e meia da manha. Lorena respirou fundo, cumprimentou o porteiro e atravessou a rua em direcao a praia. Era uma bela mulher de bem com a vida. Minutos depois, parou num quiosque e pediu agua de coco. Foram seus ultimos momentos. Nunca mais foi vista.</p><p>Nao perca esse drama que mistura incompetencia policial, descaso e bruxaria em: &ldquo;A TRAGEDIA NAO MANDA AVISO&rdquo; - Proxima quinta, meia noite e meia no Canal Brasil.</p></div><div class="exercise-block"><div class="exercise-num">Texto 6</div><p>A festa de aniversario transcorria animada num condominio de luxo na Barra. Rita a ultima convidada, ao se despedir da anfitria, segredou em seu ouvido: &ldquo;nao perca o seu marido de vista, ele e muito sedutor&rdquo;. Rita assinou sua sentenca de morte. Veja ate onde o ciume pode levar uma mulher insegura. &ldquo;A TRAGEDIA NAO MANDA AVISO&rdquo; &ndash; Quinta, meia noite e meia no Canal Brasil.</p></div><div class="exercise-block"><div class="exercise-num">Texto 7</div><p>Avenida Atlantica. Vinte e duas e quarenta e cinco. Uma noite escura e chuvosa de quarta-feira. Parado no sinal, o motorista nao percebe que esta sendo seguido por uma motocicleta com dois individuos. Pensando tratar-se de um pedido de informacao, baixou o vidro... e se deparou com uma arma apontada para sua cabeca. Nao teve tempo de esbocar qualquer reacao.</p><p>&ldquo;A TRAGEDIA NAO MANDA AVISO.&rdquo; Hoje, meia noite e meia no Canal Brasil.</p></div>',
+    sections: [{ title: 'Aula e Exercicios', videos: [
+      { name: 'Voz Soprosa', ytId: '-kpwVMjXzc0' },
+      { name: 'Voz Grave X Gravidade na Voz', ytId: 'd9BuKpXvPH8' },
+      { name: 'Dicas para a Producao da Voz Soprosa', ytId: 'YCbvELwAqA0' },
+      { name: 'Aula Demonstrativa com Trilha Sonora', ytId: 'lw-mstJh9e0' },
+      { name: 'Aula Demonstrativa sem Trilha Sonora', ytId: '4nodXE3ubSw' },
+      { name: 'Textos 1-4 pags. 5-6 com Audio', ytId: 'BN8OGEkVCQw' },
+      { name: 'Textos 1-4 pags. 5-6 sem Audio', ytId: 'ydKky6Dl7FU' },
+      { name: 'Textos 5-7 pags. 6-7 com Audio', ytId: '2NeEM5O3EYg' },
+      { name: 'Textos 5-7 pags. 6-7 sem Audio', ytId: 'T5WJZwwzm9E' },
+      { name: 'Jornal — A Tragedia Nao Manda Aviso — com Audio', ytId: 'BgzGY27cdIY' },
+      { name: 'Jornal — A Tragedia Nao Manda Aviso — sem Audio', ytId: 'KTpJLm9o8Lw' }
+    ]}]
+  },
+  {
+    id: 'palavras-valor', number: '12', title: 'Modulo 9 — Palavras de Valor', apostila: 'APOSTILA MÓDULOS 10 e 11.pdf',
+    apostilaContent: '<h3>Exercicios de Palavras de Valor</h3><div class="exercise-instruction">Textos curtos para praticar a aplicacao de PALAVRAS DE VALOR. Inspire antes de cada texto. Leia aplicando enfase nas palavras que merecem destaque &mdash; as palavras de valor que dao peso e significado a frase.</div><div class="exercise-block"><div class="exercise-num">1o Texto</div><p>O motoboy trafegava na ciclovia a 80 quilometros por hora diante dos guardas que dormiam dentro da viatura policial a sombra de um coqueiro da orla.</p></div><div class="exercise-block"><div class="exercise-num">2o Texto</div><p>De nada valeram os apelos desesperados da mulher gravida de 8 meses para que o taxista a deixasse na porta do hospital por causa do mau tempo. Ele a deixou 100 metros adiante sob a chuva.</p></div><div class="exercise-block"><div class="exercise-num">3o Texto</div><p>Sentindo dores insuportaveis, o paciente chegou ao consultorio medico do proctologista. Nao foi atendido: o medico estava no bar tomando cafe.</p></div><div class="exercise-block"><div class="exercise-num">4o Texto</div><p>A igreja secular trocou os antigos bancos de madeira por cadeiras de plastico.</p></div><div class="exercise-block"><div class="exercise-num">5o Texto</div><p>Um cao pastor, temido por sua ferocidade, ficou quieto quando o garoto de dois anos acariciou sua cabeca.</p></div><div class="exercise-block"><div class="exercise-num">6o Texto</div><p>Lindenberg, o analista, adormeceu ouvindo o sofrimento da cliente deitada no diva.</p></div><div class="exercise-block"><div class="exercise-num">7o Texto</div><p>O pedestre nao se intimidou com a velocidade dos carros na avenida, e atravessou, conseguindo chegar ao outro lado sem um arranhao sequer.</p></div><div class="exercise-block"><div class="exercise-num">8o Texto</div><p>Desorientado, o velhinho estava parado sobre as duas faixas amarelas no asfalto da movimentada avenida. Entretanto rechacava com energia as pessoas que tentavam ajuda-lo.</p></div><div class="exercise-block"><div class="exercise-num">9o Texto</div><p>A mae histerica agredia o filho de 7 anos porque ele tinha tirado apenas 9 e meio na prova de matematica.</p></div><div class="exercise-block"><div class="exercise-num">10o Texto</div><p>Percebendo que nao havia quem o atendesse na padaria, o fregues perguntou se haveria alguem para lhe atender. A moca do caixa respondeu com deboche: &ldquo;O que voce acha?&rdquo; Foi demitida no ato!</p></div><div class="exercise-block"><div class="exercise-num">11o Texto</div><p>O acougueiro pegou a carne com as maos, colocou na bandeja para pesar, cocou a cabeca, pegou de novo na carne, embrulhou e entregou ao fregues.</p></div><div class="exercise-block"><div class="exercise-num">12o Texto</div><p>O menino nao pegou a capa impermeavel, embora olhasse com apreensao as nuvens escuras carregadas de eletricidade e chuva.</p></div><div class="exercise-block"><div class="exercise-num">13o Texto</div><p>Uma placa &ldquo;e proibido fumar&rdquo; nao incomodou o bicheiro que acendeu um charuto em plena praca de alimentacao.</p></div><div class="exercise-block"><div class="exercise-num">14o Texto</div><p>Roubaram o casaco da estudante durante o recreio. Ao reclamar com a diretora ouviu que deveria ter cuidado com seus pertences.</p></div><div class="exercise-block"><div class="exercise-num">15o Texto</div><p>Inculto, indisciplinado, o estudante de teatro trabalhava em figuracao. Resolveu de uma hora pra outra que so aceitaria papeis principais.</p></div><div class="exercise-block"><div class="exercise-num">16o Texto</div><p>Dispersivo, durante o ano letivo, o aluno relapso nao estudava; era o campeao de faltas. Nas provas finais passava de ano com as notas mais altas. Em todas as materias.</p></div><div class="exercise-block"><div class="exercise-num">17o Texto</div><p>Na sala de espera da assistencia tecnica Samsung o rosto irritado dos consumidores contradiz o lema da empresa: &ldquo;sua satisfacao e o nosso compromisso&rdquo;.</p></div><div class="exercise-block"><div class="exercise-num">18o Texto</div><p>Tossindo sem parar, ofegante, os olhos quase saltando das orbitas, o homem tirou do bolso um maco de cigarros e acendeu para espanto de todos na antessala do medico.</p></div><div class="exercise-block"><div class="exercise-num">19o Texto</div><p>Era incapaz de se manter calada durante um dialogo, mas se alguem ousava repreende-la, disparava ironias e sarcasmos que nao raro esbarravam na ofensa.</p></div><div class="exercise-block"><div class="exercise-num">20o Texto</div><p>Insatisfeito com o desempenho de seu carro novo que esmerilhava sem do nem piedade, decidiu troca-lo por outro mais potente. Alegou que se distraiu quando comprou um veiculo tao limitado.</p></div><div class="exercise-block"><div class="exercise-num">21o Texto</div><p>Demonstrando total desrespeito aos clientes que a aguardavam, a recepcionista chegou para abrir a clinica sem dizer palavra. Foi incapaz de pedir desculpas pelo atraso de quase uma hora.</p></div><div class="exercise-block"><div class="exercise-num">22o Texto</div><p>Entregou seu celular pra analise no balcao da autorizada. A funcionaria mascando barulhentamente uma enorme massa de chicletes se recusou a aceitar o aparelho. Motivo: estava sem o carregador.</p></div><div class="exercise-block"><div class="exercise-num">23o Texto</div><p>Num engarrafamento o motorista fazia sinais insistentes para o carro ao lado do seu. O ocupante deste carro olhou com indiferenca e seguiu adiante. Sem perceber que seu pneu estava vazio.</p></div><div class="exercise-block"><div class="exercise-num">24o Texto</div><p>O ator dizia seu texto numa peca de teatro quando parou de atuar. Agressivo, reclamou de uma espectadora na primeira fila que murmurava nos ouvidos de alguem. A senhora subiu ao palco, e explicou que narrava a peca para seu marido cego. Foi aplaudida de pe.</p></div>',
+    sections: [{ title: 'Aula e Exercicios', videos: [
+      { name: 'Palavra de Valor', ytId: 'gcBMIOiaq4w' },
+      { name: 'Textos 1-4 pag. 8 com Audio', ytId: 'EccsgzAt7Wc' },
+      { name: 'Textos 1-4 pag. 8 sem Audio', ytId: 'NCPRIH3Puo4' },
+      { name: 'Textos 5-8 pag. 9 com Audio', ytId: '5s-l1QpjK3w' },
+      { name: 'Textos 5-8 pag. 9 sem Audio', ytId: 'gGo-9Y_OEUI' },
+      { name: 'Textos 9-12 pags. 9-10 com Audio', ytId: 'f4zjZxl5tw8' },
+      { name: 'Textos 9-12 pags. 9-10 sem Audio', ytId: 'TXRBhcIsbfE' },
+      { name: 'Textos 13-16 pags. 10-11 com Audio', ytId: '55qqedIV5KU' },
+      { name: 'Textos 13-16 pags. 10-11 sem Audio', ytId: 'Jqy0Tkw5QYo' },
+      { name: 'Textos 17-20 pags. 11-12 com Audio', ytId: 'floEdkGdL9k' },
+      { name: 'Textos 17-20 pags. 11-12 sem Audio', ytId: 'J21DcbwcYmk' },
+      { name: 'Textos 21-24 pags. 12-13 com Audio', ytId: 'v_yZwQDsnwE' },
+      { name: 'Textos 21-24 pags. 12-13 sem Audio', ytId: 'rivWEmuC9X8' }
+    ]}]
+  },
+  {
+    id: 'vozes-comerciais', number: '13', title: 'Modulo 10 — Vozes e Comerciais', apostila: 'APOSTILA MÓDULO 12.pdf',
+    apostilaContent: '<h3>Interpretacao de Textos Comerciais</h3><p>Chegamos ao ponto maximo do curso <strong>FORMULA DA COMUNICACAO ENVOLVENTE</strong>. A pratica de interpretacao dos textos comerciais e dos noticiarios.</p><p>E impossivel prever um tom de voz especifico que defina com perfeicao a imensa variedade de textos promocionais. Sera a sua vez de mostrar e convencer o criador do texto sobre qual a melhor maneira de ser literalmente o PORTA-VOZ da mensagem que ele criou.</p><h3>Tipos de Voz</h3><div class="exercise-block"><div class="exercise-num">1) Voz Soprosa, Carinhosa, Sorridente</div><p>Utilizada para transmitir simpatia e leveza. Adequada pra gravar produtos de beleza, produtos para crianca, bebes etc.</p></div><div class="exercise-block"><div class="exercise-num">2) Voz Soprosa Dramatica</div><p>Mesmo tom da voz soprosa, mas sem sorriso, de maneira dramatica. Pontuacao pra baixo, fazendo espaco depois das virgulas e nao subindo depois das virgulas.</p></div><div class="exercise-block"><div class="exercise-num">3) Voz Plena Seria</div><p>A voz plena, seria, sem sorriso nenhum e uma voz que sai no seu volume normal de comunicacao com as pessoas. Chega com facilidade ao ouvido de quem esta no ambiente.</p></div><div class="exercise-block"><div class="exercise-num">4) Voz Projetada</div><p>A voz pra varejo. A voz que vende os automoveis, liquidacao de loja, supermercados etc. Um tipo de comercial muito gritado, por isso nunca tem beleza. E feito com muita forca. O tom e sempre pra cima, alto e motiva a venda de uma ideia ou produto.</p></div><h3>Exercicios de Comerciais</h3><div class="exercise-block"><div class="exercise-num">01 &mdash; Edificio Ella Isnard</div><p>O primeiro deles, o mais complexo. Vai exigir muita atencao para escapar das armadilhas da coloquialidade. Nesse texto nao dura 30 segundos, e possivel que voce caia em pelo menos 11 elisoes. A voz e plena, otimista, intermediaria entre SUAVE E PROJETADA. Pense em CREDIBILIDADE.</p><div class="commercial-text">EDIFICIO ELLA ISNARD. ESTA E UMA NOTICIA QUE VAI RELAXAR VOCE. LITERALMENTE. BREVE A CIDADE GANHARA UM CONCEITO NOVO EM SOSSEGO E PRIVACIDADE. UNIDADES COM VARANDA E UMA VAGA DE GARAGEM. SALA E QUARTO DECORADOS, COZINHA ESPACOSA E MULTIFUNCIONAL TOTALMENTE EQUIPADA. CONHECA DE PERTO O APART HOTEL DOS SONHOS. EDIFICIO ELLA ISNARD. INCORPORACAO: MARCELO REZENDE EMPREENDIMENTOS. PEQUENA ENTRADA E O SALDO EM 15 ANOS. VENDAS: ALUNOS DO CURSO FORMULA DA COMUNICACAO ENVOLVENTE.</div></div><div class="exercise-block"><div class="exercise-num">02 &mdash; Lubrax &mdash; Petrobras</div><p>Esse tipo de comercial para radio e TV e bastante comum. E um monologo, uma conversa sem interlocutor. Use um tom amigavel, intimo, num tom de voz agradavel, camarada.</p><div class="commercial-text">CARRO LINDO, HEIN? PINTURA ESTALANDO DE NOVA. ESTOFADOS CHEIRANDO A LAVANDA. MAS... E O MOTOR? QUANDO FOI A ULTIMA VEZ QUE TROCOU O OLEO? ADIANTA CAPRICHAR NA MAQUIAGEM E NAO CUIDAR DA SAUDE DO SEU VEICULO? VA AMANHA MESMO AO PRIMEIRO POSTO PETROBRAS E TROQUE O OLEO DO SEU CARRO POR LUBRAX. PETROBRAS, O DESAFIO E A NOSSA ENERGIA!</div></div><div class="exercise-block"><div class="exercise-num">03 &mdash; Halls Mentho Lyptus</div><p>Leia o texto para a camera vendendo o drops HALLS MENTHO LYPTUS como a oitava maravilha do mundo. Com um sorriso na voz. A voz sera agradavel, plena, bastante ironica.</p><div class="commercial-text">(SORRIDENTE, IRONICO) TENHA SEMPRE COM VOCE O DELICIOSO DROPS HALLS MENTHO LYPTUS. ELE NAO SO PERFUMA O SEU HALITO, COMO PODE LIVRA-LO DE SITUACOES... BEM DESAGRADAVEIS. NOS SABORES CEREJA, ABACAXI, MORANGO E LICHIA, E O COMPANHEIRO DAS HORAS DIFICEIS.</div></div><div class="exercise-block"><div class="exercise-num">04 &mdash; Maritaca Artesanato</div><p>SEM O SORRISO NA VOZ. E um comercial comum. Para ser gravado com VOZ PLENA. Com pontuacoes SEMPRE PRA BAIXO. Com inflexoes serias, convincentes.</p><div class="commercial-text">MARITACA ARTESANATO! ANTES DE ADQUIRIR OBJETOS DE ARTE PARA DECORAR SUA CASA DE FINAL DE SEMANA, VENHA CONHECER O SHOW ROOM DESTA LOJA QUE ESTA PERTINHO DE VOCE. PRODUTOS TAILANDESES DE ALTO LUXO POR PRECOS EXCEPCIONAIS. FACA UMA OPCAO SEGURA POR ARTIGOS DE ALTO LUXO POR PRECOS MUITO CAMARADAS. COMPLETA LINHA DE SABONETES CAPIM LIMAO. CARTOES VISA TEM 5 POR CENTO DE DESCONTO. MARITACA ARTESANATO. UM POINT DE EXTREMO BOM GOSTO EM ITAIPAVA.</div></div><div class="exercise-block"><div class="exercise-num">05 &mdash; Premio Acie</div><p>O tom de voz desse comercial e PROJETADO. E um comunicado da prefeitura. Faca um tom de voz normal, projetado, serio.</p><div class="commercial-text">A PREFEITURA DO RIO DE JANEIRO ESTA PATROCINANDO A SETIMA EDICAO DO PREMIO ACIE DE CINEMA 2010 NO BRASIL. RESERVE O SEU CONVITE PRA ASSISTIR A CERIMONIA. INFORMACOES NA AVENIDA BORGES DE MEDEIROS, 3.512, DE 9 DA MANHA ATE 17 HORAS, INCLUSIVE NOS FINAIS DE SEMANA. PREFEITURA DO RIO DE JANEIRO. MAIS PERTO DO CIDADAO.</div></div><div class="exercise-block"><div class="exercise-num">06 &mdash; Solar do Alferes</div><p>Voce vai suar pra ler este texto. O texto mais dificil da apostila. Exigira articulacao perfeita durante uma leitura muito veloz, num folego, a partir de PRIMEIRO ITALIA. Depois de &ldquo;UFA!&rdquo; inspire com prazer e leia o resto do texto com sorriso, com docura, sorridente.</p><div class="commercial-text">VOCE ENTRA DE FERIAS E VAI PRA EUROPA. OITO PAISES EM DEZ DIAS. PRIMEIRO, ITALIA. ACORDA CEDO, TOMA CAFE, ENTRA NO ONIBUS, DESCE NO COLISEU, VIA APPIA, FONTANA DE TREVI, BATE FOTO, COME SANDUICHE, VOLTA PRO ONIBUS, O GUIA EXPLICA, O ONIBUS PARA, PIAZZA BORGHESE, BATE FOTO, VOLTA PRO ONIBUS, O GUIA FALA, SUA BEXIGA INCOMODA, O ONIBUS PARA, E O VATICANO, VOCE MORRE DE SEDE, BEBE AGUA QUENTE, PROCURA BANHEIRO, O GUIA CHAMA DE VOLTA, UFA!!! PENSE NISSO NAS SUAS PROXIMAS FERIAS. MAS PENSE NO SOLAR DO ALFERES, A MELHOR POUSADA DE OURO PRETO. VA CONHECER A FAMOSA HOSPITALIDADE MINEIRA, E SUA GASTRONOMIA DELICIOSA. SOLAR DO ALFERES DE OURO PRETO.</div></div><div class="exercise-block"><div class="exercise-num">07 &mdash; Justica Eleitoral</div><p>E um comercial pequeno. Nao dura mais do que 20 segundos. Lembre-se de que INVARIAVELMENTE voce ouve os LOCUTORES PROFISSIONAIS finalizarem os comunicados falando &ldquo;JUSTICE LEITORAL.&rdquo; Menos voce, claro.</p><div class="commercial-text">ELEITOR, VALORIZE SEU VOTO. ELE E MUITO IMPORTANTE. FACA UMA OPCAO PELA DEMOCRACIA APOIANDO A CAMPANHA PELA FICHA LIMPA. NO DIA 15 DE OUTUBRO, VOTE CONSCIENTE. JUSTICA ELEITORAL. BRASIL, UM PAIS DE POLITICOS HONESTOS!!!</div></div><div class="exercise-block"><div class="exercise-num">08 &mdash; Colegio Batista Brasileiro</div><p>Use a VOZ PLENA pra ler esse comercial dessa importante instituicao educativa. A voz sera seria. Plena. Convincente.</p><div class="commercial-text">ESSA FELICIDADE QUE PARECE EXPLODIR NO ROSTO DO SEU FILHO NAO E POR CAUSA DO SANDUICHE DE PRESUNTO COM QUEIJO NA MERENDA DELE. E POR CAUSA DO COLEGIO BATISTA BRASILEIRO, QUE ELE ADORA! E NESTA INSTITUICAO TRADICIONAL DO RIO DE JANEIRO QUE SEU FILHO VAI SER LAPIDADO PARA O FUTURO. COMO ALUNO E COMO CIDADAO. COLEGIO BATISTA BRASILEIRO. TIJUCA E SAO CRISTOVAO. TURNOS DA MANHA, TARDE E NOITE. MATRICULAS ABERTAS.</div></div><div class="exercise-block"><div class="exercise-num">09 &mdash; Maquina de Costura Singer</div><p>A voz para ler esse comercial e suave, mas muito sorridente. Voz suave, muito simpatica, sorridente, persuasiva, dinamica.</p><div class="commercial-text">(VOZ PERSUASIVA, SORRIDENTE) O QUE VOCE ESTA ESPERANDO PRA COMPRAR A SUA NOVA SINGER LUBRIFICACAO PERMANENTE? SEUS TRABALHOS EM COSTURA AGORA TEM UM PODEROSO ALIADO: O TEMPO. VOCE VAI CONFECCIONAR E ENTREGAR TODO TIPO DE COSTURA, ESPECIALMENTE OS COMPLICADOS VESTIDOS DE NOIVA NUM ABRIR E FECHAR DE OLHOS. NOVA SINGER LUBRIFICACAO PERMANENTE, MAIS TRABALHO, MENOS CUSTO DE MANUTENCAO. PECA A VISITA DE UM REPRESENTE.</div></div><div class="exercise-block"><div class="exercise-num">10 &mdash; Ponto Frio</div><p>Esse tipo de comercial esta em todas as radios, todas as TVs. E o comercial de varejo. Sempre gravado com VOZ PROJETADA. A voz tem que ser alegre, bem projetada, que venda alegria.</p><div class="commercial-text">(VOZ SORRIDENTE, PROJETADA) NO PONTO FRIO E ASSIM: SAO TANTAS AS VANTAGENS QUE A GENTE ACABA SE ATRAPALHANDO NA HORA DE VENDER PRA VOCE. COMPRE O SEU FOGAO BRASTEMP FLAMEX A VISTA OU EM DOZE PAGAMENTOS SEM JUROS, SEM CORRECAO. SEU CREDITO E APROVADO NA HORA. (VOZ DE FELICIDADE, DE ORGULHO) E BOM VIVER NUMA CIDADE QUE TEM UMA LOJA COMO O PONTO FRIO!</div></div><div class="exercise-block"><div class="exercise-num">11 &mdash; Lojas Americanas</div><p>Use a mesma voz que usou pra ler PONTO FRIO. A voz projetada. Ao anunciar o desconto de 10 por cento empregue todo seu entusiasmo.</p><div class="commercial-text">AMERICANAS.COM, O MELHOR PRESENTE PARA O DIA DOS PAIS ESTA AQUI. FACA SEUS PEDIDOS PELA INTERNET. VOCE TERA UM DESCONTO DE MAIS 10 POR CENTO. NAO PERCA ESSA OPORTUNIDADE. E GANHE DESCONTOS AINDA MAIS VANTAJOSOS ADQUIRINDO O ITAUCARD COM A PRIMEIRA ANUIDADE GRATIS. PECA JA O SEU!</div></div><div class="exercise-block"><div class="exercise-num">12 &mdash; Casa e Video</div><p>Um texto tao pequeno, no entanto vai te dar um bocado de dor de cabeca. A voz para esse comercial tambem e projetada, alegre. Prepare-se para a dificuldade de separar a vogal A da vogal E no encontro CASA E VIDEO.</p><div class="commercial-text">COMPRE O SEU APARELHO DE FAX SAMSUNG COM SECRETARIA ELETRONICA NA OFERTA DE ARRASAR DA CASA E VIDEO POR 199,99 OU EM DOZE PRESTACOES DE 18,99 SEM ENTRADA, SEM MAIS NADA. FELICIDADE E COMPRAR NA CASA E VIDEO!</div></div>',
+    sections: [{ title: 'Aula e Exercicios', videos: [
+      { name: 'Introducao aos Comerciais', ytId: 'kWcpRGLsHJU' },
+      { name: 'Texto 1 pag. 9', ytId: 'saTCUAeoIGc' },
+      { name: 'Texto 2 pag. 10', ytId: 'D_7FhGpb0zg' },
+      { name: 'Texto 3 pag. 11', ytId: 'iuUR9237k7g' },
+      { name: 'Texto 4 pag. 12', ytId: 'p628tORZGnM' },
+      { name: 'Texto 5 pag. 13', ytId: 'UUrhOVxXdSM' },
+      { name: 'Texto 6 pag. 14', ytId: 'ImrxdFoC0DE' },
+      { name: 'Texto 7 pag. 15', ytId: 'vu0NPttiYRY' },
+      { name: 'Texto 8 pag. 16', ytId: 'ZmzDGnTzRyY' },
+      { name: 'Texto 9 pag. 17', ytId: 'tfBcpUEH-mw' },
+      { name: 'Texto 10 pag. 18', ytId: 'V3vPLSPKyJg' },
+      { name: 'Texto 11 pag. 19', ytId: 'YE1C_5XHNKU' },
+      { name: 'Texto 12 pag. 20', ytId: 'bBmSOFUfodY' },
+      { name: 'Texto 13 pag. 21', ytId: 'gtSTWKS414E' },
+      { name: 'Texto 14 pag. 22', ytId: 'MTDLPYXsu6g' },
+      { name: 'Texto 15 pag. 23', ytId: '3N8cSXgM2cI' },
+      { name: 'Texto 16 pag. 24', ytId: 'EkKxaquxzoI' },
+      { name: 'Texto 17 pag. 25', ytId: 'YKkUIsS18wA' },
+      { name: 'Texto 18 pag. 26', ytId: '2O9ZeD7Gy8s' },
+      { name: 'Texto 19 pag. 27', ytId: 'ivpMDbwIKsA' },
+      { name: 'Texto 20 pag. 28', ytId: 'yPcZi8gHw6o' }
+    ]}]
+  },
+  {
+    id: 'noticiarios', number: '14', title: 'Modulo 11 — Noticiarios', apostila: 'APOSTILA MÓDULO 13.pdf',
+    apostilaContent: '<h3>Noticiario 1</h3><div class="exercise-instruction">Para 2 noticiaristas, 3 locutores comerciais e 1 reporter. Simule um programa jornalistico completo com abertura, noticias, comerciais e reportagens de rua.</div><div class="exercise-block"><div class="exercise-num">Abertura</div><p class="dialog-line"><strong>LOC 1:</strong> A Radio Formula da Comunicacao apresenta: Primeira Pagina.</p><p class="dialog-line"><strong>LOC 2:</strong> Oferecimento: Supermercados Prezunic: e muito prazer. Com precos baixos, e melhor ainda.</p><p class="dialog-line"><strong>LOC 1:</strong> Hospital Mater Dei. A solidariedade salva vidas.</p><p class="dialog-line"><strong>LOC 2:</strong> E Canal Combate, o seu canal de lutas. Agora com o sistema Pay-per-view!</p></div><div class="exercise-block"><div class="exercise-num">Noticias e Comerciais</div><p class="dialog-line"><strong>LOC 1:</strong> Esta comecando agora o jornal Primeira Pagina!</p><p class="dialog-line"><strong>LOC 2:</strong> Fique conosco para se manter bem informado!</p><p class="dialog-line"><strong>LOC 1:</strong> Euforia faz o dolar recuar de 3,523 para 3,504!</p><p class="dialog-line"><strong>LOC 2:</strong> Logo apos o intervalo voce vai saber os detalhes desta noticia, aguarde um minuto so.</p><p class="dialog-line"><strong>COM 1:</strong> (VOZ PROJETADA, ALEGRE) O Prezunic e muito prazer, e pascoa e promocao o mes inteiro! File de Cherne, R$ 52,49 o quilo. Bacalhau do Porto R$ 44,12 o quilo. Fanta e Guarana Kuat Pet dois litros sabores R$ 4,49. O Prezunic e diferente, muito diferente!</p><p class="dialog-line"><strong>COM 3:</strong> (VOZ AGRESSIVA. AGIL. TOM MEDIO) Neste sabado a partir das 11 da noite voce tem um encontro explosivo com os maiores lutadores de MMA. Aumente o estoque de cerveja. Chame os amigos. Torca pelo seu idolo. Porque sua tela vai estremecer com os golpes arrasadores destes monstros sagrados. Ao vivo! Sabado a partir das 11 da noite. No Premiere Combate!</p></div><div class="exercise-block"><div class="exercise-num">Reportagem de Rua</div><p class="dialog-line"><strong>REP:</strong> (TOM DE REPORTAGEM DE RUA) Transito lento na Avenida Presidente Vargas ate a Candelaria. Quem pretende chegar ao centro da cidade e ja esta nas imediacioes da Central do Brasil, a melhor opcao e entrar na Rua Afonso Cavalcanti, seguir em frente e virar a esquerda na rua Amoroso Lima, para pegar a Av. Presidente Vargas. Voltamos ao estudio.</p></div><div class="exercise-block"><div class="exercise-num">Noticias Economicas</div><p class="dialog-line"><strong>LOC 1:</strong> O mercado de acoes viveu na tarde de ontem um momento de grande euforia.</p><p class="dialog-line"><strong>LOC 2:</strong> Um anuncio da Ambev de que vai tomar ate um bilhao de dolares em emprestimo no exterior fez o dolar cair 1,26%.</p><p class="dialog-line"><strong>LOC 1:</strong> A queda do dolar provocou uma alta de 3,10% na Bolsa de Valores de Sao Paulo e um recuo forte das taxas futuras de juros.</p><p class="dialog-line"><strong>LOC 2:</strong> A operacao da Ambev sera a primeira captacao de grande porte no mercado externo desde os atentados terroristas de 11 de setembro.</p></div><div class="exercise-block"><div class="exercise-num">Noticias Internacionais</div><p class="dialog-line"><strong>LOC 1:</strong> (T) Organizacao das Nacoes Unidas preocupada com massacres no Afeganistao. Detalhes dentro de instantes.</p><p class="dialog-line"><strong>LOC 1:</strong> Organizacao das Nacoes Unidas preocupada com massacres no Afeganistao!</p><p class="dialog-line"><strong>LOC 2:</strong> Tropas da Alianca do Norte avancam em direcao a Kunduz e teme-se que milhares de combatentes sejam massacrados.</p><p class="dialog-line"><strong>LOC 1:</strong> O medo de que um banho de sangue aconteca aumentou depois da descoberta de 400 a 600 corpos em MAZAR-I-SHARIFF.</p><p class="dialog-line"><strong>LOC 2:</strong> FRANCESC VENDRELL disse que os problemas nao estao apenas no confronto entre Talibas e as forcas da oposicao.</p><p class="dialog-line"><strong>LOC 1:</strong> Maioria dos seguidores de Bin Laden pode ter morrido nos bombardeios americanos.</p></div><div class="exercise-block"><div class="exercise-num">Encerramento</div><p class="dialog-line"><strong>LOC 2:</strong> Chegamos ao final de &ldquo;Primeira Pagina&rdquo;.</p><p class="dialog-line"><strong>LOC 1:</strong> Oferecimento de Supermercados Prezunic, e muito prazer.</p><p class="dialog-line"><strong>LOC 2:</strong> Hospital Mater Dei. A solidariedade salva Vidas.</p><p class="dialog-line"><strong>LOC 1:</strong> E Canal Combate, o seu canal de lutas, agora com o sistema &ldquo;Pay-Per-View.&rdquo;</p><p class="dialog-line"><strong>LOC 2:</strong> Primeira Pagina e uma producao do departamento de jornalismo da Radio Formula da Comunicacao Envolvente.</p></div><div class="exercise-instruction">A apostila contem 4 noticiarios completos (Noticiarios 1 a 4), cada um com estrutura similar: abertura, noticias, comerciais, reportagens e encerramento. Consulte o PDF para os noticiarios 2, 3 e 4.</div>',
+    sections: [{ title: 'Orientacao e Exercicios', videos: [
+      { name: 'Orientacao Noticiarios', ytId: '5K7wzE8XoXU' },
+      { name: 'GUIA Not1', ytId: '4BmxYSmiq5A' },
+      { name: 'GUIA Not2', ytId: 'cnqfATLbje8' },
+      { name: 'GUIA Not3', ytId: '7bIwsy1RMuw' },
+      { name: 'GUIA Not4', ytId: 'eeEE94pq4Cc' },
+      { name: 'LOC1 Not1', ytId: 'DZPq7cy2Qms' },
+      { name: 'LOC1 Not2', ytId: 'dF2D0bAgV4o' },
+      { name: 'LOC1 Not3', ytId: 'vplRJ2qHF-E' },
+      { name: 'LOC1 Not4', ytId: 'eFYDmf-tVSY' },
+      { name: 'LOC2 Not1', ytId: 'TmpdbGw2RLc' },
+      { name: 'LOC2 Not2', ytId: 'O-yOuQ0COq4' },
+      { name: 'LOC2 Not3', ytId: '893ZVl-a9wM' },
+      { name: 'LOC2 Not4', ytId: 'nEv3v8irkNg' },
+      { name: 'COM1 Not1', ytId: 's7Cm3oOOEs4' },
+      { name: 'COM1 Not2', ytId: 'boMgP43eZUI' },
+      { name: 'COM1 Not3', ytId: 'PZ0qlOEUoeM' },
+      { name: 'COM1 Not4', ytId: 'Dp4O0adiOt4' },
+      { name: 'COM2 Not1', ytId: 'LvsIlAB5wLw' },
+      { name: 'COM2 Not2', ytId: 'MABXzglygGY' },
+      { name: 'COM2 Not3', ytId: 'Av7KFZN9e8w' },
+      { name: 'COM2 Not4', ytId: 'xiiSC6sbkVM' },
+      { name: 'COM3 Not1', ytId: 'cRZSQsj9dpY' },
+      { name: 'COM3 Not2', ytId: 'Xch44dYfuB0' },
+      { name: 'COM3 Not3', ytId: 'fIzgeo0mpIU' },
+      { name: 'COM3 Not4', ytId: 'QN-9xmLXado' },
+      { name: 'REP Not1', ytId: 'hhpIwldxlzA' },
+      { name: 'REP Not2', ytId: 'Y1Gsnc6tmVM' },
+      { name: 'REP Not3', ytId: '4dvLPXOICUA' },
+      { name: 'REP Not4', ytId: 'UycSToDjKg0' }
+    ]}]
+  },
+  {
+    id: 'comerciais', number: '15', title: 'Modulo 12 — Comerciais', apostila: 'APOSTILA MÓDULO 14.pdf',
+    apostilaContent: '<h3>Comerciais &mdash; Pecas Teatrais de Gravacao</h3><div class="exercise-instruction">Pecas dramatizadas simulando situacoes reais de gravacao de comerciais. Cada peca tem um narrador, um diretor/redator e locutores. Os textos mostram os vicios de linguagem mais comuns e como corrigi-los em situacao profissional. Pratique todos os papeis.</div><div class="exercise-block"><div class="exercise-num">Lubrax &mdash; Petrobras</div><p class="dialog-line"><strong>RED:</strong> E ai tudo bem, pessoa? Vamos comecar a trabalhar? Tome. Este e o primeiro texto. De uma lida, por favor, pra eu cronometrar.</p><p class="dialog-line"><strong>LOC:</strong> CARRO LIND\'HEIN?</p><p class="dialog-line"><strong>RED:</strong> LIND\'HEIN? (REPETE VARIAS VEZES.) Me poupe, por favor. Nao me assuste. Fale CARRO LINDO HEIN!!! (REPETE VARIAS VEZES)</p><p class="dialog-line"><strong>LOC:</strong> CARRO LINDO HEIN? &ldquo;PINTURESTALANDO&rdquo; DE NOVA...</p><p class="dialog-line"><strong>RED:</strong> Alto la, meu caro, de novo outra escorregada? Cometeu elisao, e suprimiu a vogal A. Fale &ldquo;PINTURA ESTALANDO&rdquo;. Vai, de novo.</p><p class="dialog-line"><strong>LOC:</strong> CARRO LINDO, HEIN? PINTURA ESTALANDO DE NOVA, ESTOFADOS &ldquo;CHEIRANDALAVANDA&rdquo;...</p><p class="dialog-line"><strong>RED:</strong> Um momento. Rapaz a coisa ta ficando complicada. Fale CHEIRANDO A LAVANDA nao, fale CHEIRANDO A LAVANDA! Do inicio, de novo!</p></div><div class="exercise-block"><div class="exercise-num">A Poderosa do Peugeot</div><p><em>Peca completa com NARRADOR, RECEPCIONISTA, MULHER e MARIDO. Uma mulher com profundo conhecimento de mecanica automotiva leva o carro a concessionaria para revisao, intimidando o recepcionista com seu vocabulario tecnico preciso. Exercicio de multiplos registros vocais.</em></p><p class="dialog-line"><strong>NARRADOR:</strong> UM CARRO CHEGA A CONCESSIONARIA PARA REVISAO. QUANDO O SIMPATICO RECEPCIONISTA SE APROXIMA DO VEICULO, A PORTA SE ABRE E DESCE UMA MULHER DE SEMBLANTE CARREGADO, OLHAR HOSTIL...</p><p class="dialog-line"><strong>RECEPC.:</strong> (SIMPATICO) Bom dia, minha senhora, em que posso estar ajudando?</p><p class="dialog-line"><strong>MULHER:</strong> (RISPIDA, FALA RAPIDO) Anotando as verificacoes tecnicas que vou relatar.</p><p class="dialog-line"><strong>MULHER:</strong> (RISPIDA) Tome. Primeira recomendacao: nem chegue perto do carburador! Ouviu bem? So uso gasolina de alta OCTANAGEM para uma queima perfeita na camara de combustao o que prolonga a vida das valvulas.</p></div><div class="exercise-block"><div class="exercise-num">Colegio Batista Brasileiro</div><p><em>Peca com NARRADOR, DIRETORA e LOCUTOR. Um candidato a locutor com vicios do carioca (&ldquo;prisunto&rdquo;, &ldquo;ishpludir&rdquo;, &ldquo;culegio&rdquo;) tenta gravar o comercial de um colegio tradicional. A diretora corrige cada erro.</em></p><p class="dialog-line"><strong>DIR:</strong> Nesta frase que menciona a felicidade do menino, aplique PALAVRA DE VALOR e uma leve ironia, ok?</p><p class="dialog-line"><strong>LOC:</strong> ESSA FELICIDADE QUE PARECE &ldquo;ISHPLUDIR&rdquo;...</p><p class="dialog-line"><strong>DIR:</strong> Nao, nao, &ldquo;ishpludir&rdquo; nao. Por favor, fale EXPLODIR. Vai de novo, da cabeca.</p></div><div class="exercise-block"><div class="exercise-num">Edificio Ella Isnard</div><p><em>Peca com NARRADOR, DIRETOR e LOCUTOR. O irmao do dono da imobiliaria, sem experiencia em locucao, tenta gravar o comercial do empreendimento. Comete elisoes, travas de glote e erros de pronuncia. O diretor corrige pacientemente.</em></p><p class="dialog-line"><strong>LOC.:</strong> (CONFIANTE) Pois nao. EDIFICIO ELLISNARD...</p><p class="dialog-line"><strong>DIR.:</strong> (IMPACIENTE, MAS EDUCADO) Ih, comecamos mal!!! Ja falando com desleixo o nome do empreendimento?? Separe ELLA de ISNARD.</p><p class="dialog-line"><strong>LOC.:</strong> Edificio ELLA...ISNARD, &ldquo;Esse...&rdquo;</p><p class="dialog-line"><strong>DIR.:</strong> (LEVEMENTE GROSSEIRO) Por caridade, &ldquo;ESSE&rdquo; nao!! &ldquo;Esse&rdquo; nao, por tudo que voce ama na vida, &ldquo;esse&rdquo; nao!! Diga ESSA E!</p></div><div class="exercise-block"><div class="exercise-num">Solar das Lajes</div><p><em>Peca com NARRADOR, PRODUTOR e LOCUTOR. Comercial que exige leitura veloz e folego de mergulhador. Todas as informacoes tem que caber em no maximo 45 segundos. O locutor precisa disparar cada palavra em velocidade espantosa e absurdamente clara ate a interjeicao UFA!</em></p><div class="commercial-text">VOCE ENTRA DE FERIAS E VAI PRA EUROPA. 8 PAISES EM 10 DIAS. PRIMEIRO ITALIA. ACORDA CEDO, TOMA CAFE, ENTRA NO ONIBUS, DESCE NO COLISEU, VIA APPIA, FONTANA DE TREVI, BATE FOTO, COME SANDUICHE, VOLTA PRO ONIBUS, O GUIA EXPLICA, O ONIBUS PARA, PIAZZA BORGHESE, BATE FOTO, VOLTA PRO ONIBUS, O GUIA FALA, SUA BEXIGA INCOMODA, O ONIBUS PARA, E O VATICANO, VOCE MORRE DE SEDE, BEBE AGUA QUENTE, PROCURA BANHEIRO, O GUIA CHAMA DE VOLTA, UFA!!! PENSE NISSO NAS SUAS PROXIMAS FERIAS. MAS PENSE NO SOLAR DAS LAJES, A MELHOR POUSADA DE OURO PRETO. SOLAR DAS LAJES DE OURO PRETO. RESERVAS: www.solardaslajes.com.br</div></div><div class="exercise-block"><div class="exercise-num">Ponto Frio</div><p><em>Peca com NARRADOR, DIRETOR e dois LOCUTORES. O diretor e perfeccionista e nao tolera vicios de linguagem. O primeiro locutor comete erros como &ldquo;Flamequisse&rdquo; em vez de Flamex, &ldquo;douze&rdquo; em vez de doze. E substituido por um profissional.</em></p></div><div class="exercise-block"><div class="exercise-num">Lojas Americanas</div><p><em>Peca com NARRADOR, DIRETORA e dois LOCUTORES. A diretora e afavel mas exigente. Corrige &ldquo;Boquisse&rdquo; para BOX, &ldquo;feverero&rdquo; para FEVEREIRO, e outros vicios comuns.</em></p></div><div class="exercise-block"><div class="exercise-num">Casa e Video</div><p><em>Peca com NARRADOR, DIRETOR e dois LOCUTORES. O diretor e aspero, objetivo, impaciente. Corrige &ldquo;cazivideo&rdquo; para CASA E VIDEO, &ldquo;faquisse&rdquo; para FAX, &ldquo;secretareletronica&rdquo; para SECRETARIA ELETRONICA, &ldquo;douze&rdquo; para DOZE.</em></p></div><div class="exercise-block"><div class="exercise-num">Halls Mentho Lyptus</div><p><em>Peca com NARRADOR, SARGENTO, SOLDADO e LOCUTOR. Cena comica num quartel onde um sargento com mau halito grita no nariz do recruta, que descobre o drops Halls Mentho Lyptus.</em></p></div><div class="exercise-block"><div class="exercise-num">Fast Shop</div><p><em>Peca com NARRADOR, DIRETOR e dois LOCUTORES. O diretor e ironico, ferino, mas didatico. Corrige &ldquo;xeroquis&rdquo; para XEROX, &ldquo;Lenoquissi&rdquo; para LENNOX, e outros vicios de pronuncia.</em></p></div>',
+    sections: [{ title: 'Comerciais', videos: [
+      { name: 'Guia A Poderosa do Peugeot', ytId: 'B0JNu3tukx4' },
+      { name: 'Narrador A Poderosa do Peugeot', ytId: 'io4Z3M1NNXk' },
+      { name: 'Mulher A Poderosa do Peugeot', ytId: 'HS7X9Iv4mw8' },
+      { name: 'Marido A Poderosa do Peugeot', ytId: 'nxZYQAj9RRc' },
+      { name: 'Recepcionista A Poderosa do Peugeot', ytId: 'DA8FxTrxDzs' },
+      { name: 'Guia Americanas.com', ytId: 'KSgeCS6HJoE' },
+      { name: 'Diretor Americanas.com', ytId: 'hnj6bULoiuM' },
+      { name: 'Narrador Americanas.com', ytId: 'RqlS3XAlVRM' },
+      { name: 'Locutor1 Americanas.com', ytId: 'PqJhiowK79U' },
+      { name: 'Locutor2 Americanas.com', ytId: 'FwEjySNdEBw' },
+      { name: 'Guia Casa e Video', ytId: '9TdZfTUazaM' },
+      { name: 'Diretor Casa e Video', ytId: 'Xy7Wvo_mJcA' },
+      { name: 'Narrador Casa e Video', ytId: '6IlXaYzrLqM' },
+      { name: 'Locutor1 Casa e Video', ytId: '7ix9kfDyQNM' },
+      { name: 'Locutor2 Casa e Video', ytId: 'FV_zTrgwRMM' },
+      { name: 'Guia Colegio Batista', ytId: '_Xr_OWL5D6o' },
+      { name: 'Diretora Colegio Batista', ytId: '-4CzZhFtQUA' },
+      { name: 'Narrador Colegio Batista', ytId: 'OdTzxaCOGaQ' },
+      { name: 'Guia Ella Isnard', ytId: 'aWPO8h9c5x4' },
+      { name: 'Diretor Ella Isnard', ytId: 'SQm6OuKseK0' },
+      { name: 'Narrador Ella Isnard', ytId: '-Bb_zZpQ3iY' },
+      { name: 'Locutor Ella Isnard', ytId: '4dQ90_bEtzI' },
+      { name: 'Guia Fast Shop', ytId: '8TYE3Gcnf04' },
+      { name: 'Diretor Fast Shop', ytId: 'JpKsofuBRQs' },
+      { name: 'Narrador Fast Shop', ytId: 'XtkZsxHEIuc' },
+      { name: 'Locutor1 Fast Shop', ytId: 'jblwBz77MrQ' },
+      { name: 'Locutor2 Fast Shop', ytId: 'dLGhQh_bDvQ' },
+      { name: 'Guia Halls', ytId: 'xAaEaqxL038' },
+      { name: 'Narrador Halls', ytId: 'GNe-5Py45PQ' },
+      { name: 'Locutor Halls', ytId: 'DoLZN1KzOr4' },
+      { name: 'Sargento Halls', ytId: 'j0mt0vMxk5M' },
+      { name: 'Recruta Halls', ytId: 'q3W9Yv-lF68' },
+      { name: 'Guia Justica Eleitoral', ytId: 'n2d3czcdqpw' },
+      { name: 'Diretor Justica Eleitoral', ytId: 'xjbhoFHYQ6o' },
+      { name: 'Narrador Justica Eleitoral', ytId: '5wFL2tDCOUw' },
+      { name: 'Locutor Justica Eleitoral', ytId: '2b-FTdSTkBU' },
+      { name: 'Guia Lubrax', ytId: 'Kx0tsjhOs-4' },
+      { name: 'Diretor Lubrax', ytId: 'GNB36ZFpCq4' },
+      { name: 'Narrador Lubrax', ytId: '0PGKv-bbN7I' },
+      { name: 'Locutor Lubrax', ytId: 'MFl31sCSYHQ' },
+      { name: 'Guia Ponto Frio', ytId: 'qv0Ba17KWL4' },
+      { name: 'Diretor Ponto Frio', ytId: '5J105HTICvg' },
+      { name: 'Narrador Ponto Frio', ytId: 'zWfwNz0MYt4' },
+      { name: 'Locutor1 Ponto Frio', ytId: 'x8mIKoeOwhc' },
+      { name: 'Locutor2 Ponto Frio', ytId: 'N2hyAt5hiXw' },
+      { name: 'Guia Solar do Alferes', ytId: 'GJ3Nq4JPWfk' },
+      { name: 'Diretor Solar do Alferes', ytId: '11BFAVpxrJU' },
+      { name: 'Narrador Solar do Alferes', ytId: 'cqtCGBn4HPc' },
+      { name: 'Locutor Solar do Alferes', ytId: '2UYv_7DbQDA' }
+    ]}]
+  },
+  {
+    id: 'bonus-fono', number: 'B1', title: 'Bonus — Fonoaudiologia', apostila: null,
+    sections: [
+      { title: '1. Boas Vindas', videos: [{ name: 'Bem-vindo(a) ao Modulo de Fonoaudiologia', ytId: 'ZUU_XLQrlLc' }]},
+      { title: '2. Apresentacao da Fono', videos: [{ name: 'Conhecendo a Fono Leidimar', ytId: 'S2rzV6TjXqg' }]},
+      { title: '3. Aparelho Fonador', videos: [{ name: 'Conhecendo o Aparelho Fonador', ytId: 'wQOO-swjLXc' }]},
+      { title: '4. Aquecimento Vocal', videos: [
+        { name: 'Introducao ao Aquecimento Vocal I', ytId: 'm-MnOGmH9r8' },
+        { name: 'Aquecimento Vocal II', ytId: '6lLowCKgQYE' },
+        { name: 'Aquecimento Vocal III', ytId: 'raZKbtnny4g' },
+        { name: 'Aquecimento Vocal IV', ytId: 'Da4-mLveE-I' },
+        { name: 'Aquecimento Vocal V', ytId: 'XeK6DYON-hU' }
+      ]},
+      { title: '5. Dicas Para a Saude Vocal', videos: [
+        { name: 'Introducao a Saude Vocal I', ytId: 'gLEAcGEnzfE' },
+        { name: 'Dicas para Saude Vocal II', ytId: 'Yv9phe2aYHA' },
+        { name: 'Dicas para Saude Vocal III', ytId: 'JSeTa7rDGsk' }
+      ]}
+    ]
+  },
+  {
+    id: 'bonus-linguagem', number: 'B2', title: 'Bonus — Linguagem e Comunicacao', apostila: null,
+    sections: [
+      { title: '1. Linguagem e seus Contextos', videos: [
+        { name: 'Apresentacao', ytId: 'JBz87iWPpzk' },
+        { name: 'Aula 1', ytId: 'qW2pzDe8BW8' },
+        { name: 'Aula 2', ytId: 'vvXWkoyEDn8' },
+        { name: 'Aula 3', ytId: 'Lj1EDYLlSxU' },
+        { name: 'Aula 4', ytId: 'J-i2YNf12MQ' }
+      ]},
+      { title: '2. Verbos que fogem a regra', videos: [
+        { name: 'Aula 1', ytId: '-BUBqKMfUZg' },
+        { name: 'Aula 2', ytId: 'yXQeUctaJRc' }
+      ]},
+      { title: '3. Adequando o verbo ao seu contexto', videos: [
+        { name: 'Aula 1', ytId: 'jteXJJAir9w' },
+        { name: 'Aula 2', ytId: 'fFMr0VkBXX4' }
+      ]},
+      { title: '4. Concordando o Verbo', videos: [
+        { name: 'Aula 1', ytId: 'DjoO71OKrFQ' }
+      ]}
+    ]
+  },
+  {
+    id: 'bonus-acustica', number: 'B3', title: 'Bonus — Acustica e Equipamentos', apostila: null,
+    sections: [{ title: 'Equipamentos e Acustica', videos: [
+      { name: 'O Computador', ytId: 'dYeQrFxpq_Q' },
+      { name: 'Interface de Audio', ytId: 'Ibv2RnTV2o0' },
+      { name: 'Fones de Ouvido', ytId: 'YctFQdzyJBU' },
+      { name: 'Mesa de Som', ytId: 'gZTMXYRn3Ss' },
+      { name: 'Cabos e Acessorios', ytId: 'fNay9oBZ9Wk' },
+      { name: 'Microfones', ytId: '1QRjpCe1o4I' },
+      { name: 'Audacity', ytId: 'ESCmNmn_IpU' },
+      { name: 'Adobe Audition (DAW)', ytId: 'd0ZGE6zSA4E' },
+      { name: 'Complementos Audacity e Audition', ytId: 'RrTbYBAv8_s' },
+      { name: 'Monitores de Audio', ytId: '23UKdafZnC8' },
+      { name: 'Gravando em Diversos Ambientes', ytId: 'psdb-8NfP3M' }
+    ]}]
+  }
+];
+
+// ─── Progress tracking ───
+const STORAGE_KEY = 'fce_watched';
+function getWatched() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function setWatched(key) {
+  const w = getWatched(); w[key] = true; localStorage.setItem(STORAGE_KEY, JSON.stringify(w));
+}
+function isWatched(key) { return !!getWatched()[key]; }
+
+function getModuleProgress(mod) {
+  let total = 0, done = 0;
+  mod.sections.forEach(s => s.videos.forEach(v => { total++; if (isWatched(v.ytId || v.file)) done++; }));
+  return { total, done };
+}
+
+// ─── Sidebar ───
+let activeModuleId = null;
+
+function buildSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const main = COURSE_MODULES.filter(m => !m.number.startsWith('B'));
+  const bonus = COURSE_MODULES.filter(m => m.number.startsWith('B'));
+
+  let html = '<div class="sidebar-group-title">Curso Principal</div>';
+  main.forEach(m => { html += sidebarItem(m); });
+  html += '<div class="sidebar-group-title">Bonus</div>';
+  bonus.forEach(m => { html += sidebarItem(m); });
+  sidebar.innerHTML = html;
+}
+
+function sidebarItem(mod) {
+  const p = getModuleProgress(mod);
+  const pct = p.total ? Math.round(p.done / p.total * 100) : 0;
+  const cls = mod.id === activeModuleId ? ' active' : '';
+  const progCls = pct === 100 ? ' complete' : '';
+  const progText = pct === 100 ? '100%' : (p.done > 0 ? pct + '%' : '');
+  return `<div class="sidebar-item${cls}" data-id="${mod.id}" onclick="selectModule('${mod.id}')">
+    <span class="sidebar-num">${mod.number}</span>
+    <span class="sidebar-label">${mod.title}</span>
+    ${progText ? `<span class="sidebar-progress${progCls}">${progText}</span>` : ''}
+  </div>`;
+}
+
+// ─── Content ───
+function selectModule(id) {
+  activeModuleId = id;
+  const mod = COURSE_MODULES.find(m => m.id === id);
+  if (!mod) return;
+
+  buildSidebar();
+  renderContent(mod);
+
+  // Close sidebar on mobile
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderContent(mod) {
+  const content = document.getElementById('content');
+  let html = `<div class="module-header">
+    <div class="module-number">${mod.number}</div>
+    <h2>${mod.title}</h2>`;
+
+  if (mod.apostila) {
+    const href = APOSTILA_BASE + encodeURIComponent(mod.apostila);
+    html += `<a class="apostila-btn" href="${href}" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg>
+      Abrir Apostila (PDF)</a>`;
+  }
+  html += '</div>';
+
+  mod.sections.forEach((sec, si) => {
+    html += `<div class="section-block">`;
+    if (mod.sections.length > 1 || sec.title !== mod.title) {
+      html += `<div class="section-title">${sec.title}</div>`;
+    }
+    html += '<div class="video-list">';
+    sec.videos.forEach((v, vi) => {
+      const uid = `${mod.id}-${si}-${vi}`;
+      const videoKey = v.ytId || v.file;
+      const watched = isWatched(videoKey);
+      html += `<div class="video-card" id="vc-${uid}">
+        <div class="video-card-header" onclick="toggleVideo('${uid}', '${videoKey}')">
+          <span class="video-title">${v.name}</span>
+          <span class="video-check${watched ? ' watched' : ''}" id="check-${uid}">&#10003;</span>
+          <span class="video-toggle" id="arrow-${uid}">&#9662;</span>
+        </div>
+        <div class="video-player-wrap" id="vp-${uid}">
+          <iframe src="" data-src="https://www.youtube.com/embed/${v.ytId}?rel=0" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>`;
+    });
+    html += '</div></div>';
+  });
+
+  if (mod.apostilaContent) {
+    html += '<div class="apostila-content">';
+    html += '<div class="section-title">Conteudo da Apostila</div>';
+    html += mod.apostilaContent;
+    html += '</div>';
+  }
+
+  content.innerHTML = html;
+  content.style.animation = 'none';
+  content.offsetHeight;
+  content.style.animation = 'fadeIn 0.4s ease';
+}
+
+function toggleVideo(uid, videoKey) {
+  const wrap = document.getElementById('vp-' + uid);
+  const arrow = document.getElementById('arrow-' + uid);
+  const isOpen = wrap.classList.contains('open');
+
+  // Close all others — clear iframe src to stop playback
+  document.querySelectorAll('.video-player-wrap.open').forEach(el => {
+    el.classList.remove('open');
+    const iframe = el.querySelector('iframe');
+    if (iframe) iframe.src = '';
+  });
+  document.querySelectorAll('.video-toggle.open').forEach(el => el.classList.remove('open'));
+
+  if (!isOpen) {
+    wrap.classList.add('open');
+    arrow.classList.add('open');
+    // Lazy-load: set iframe src on first open
+    const iframe = wrap.querySelector('iframe');
+    if (iframe && !iframe.src.includes('youtube')) {
+      iframe.src = iframe.dataset.src;
+    }
+    // Mark as watched after opening
+    if (videoKey) markWatched(videoKey, uid);
+  }
+}
+
+function markWatched(key, uid) {
+  if (isWatched(key)) return;
+  setWatched(key);
+  const check = document.getElementById('check-' + uid);
+  if (check) check.classList.add('watched');
+  buildSidebar();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+
+// ─── Init ───
+buildSidebar();
+selectModule(COURSE_MODULES[0].id);
+</script>
+</body>
+</html>
