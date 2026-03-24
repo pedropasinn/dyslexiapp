@@ -1,8 +1,7 @@
 // phoneme-audio.js — IPA phoneme audio playback
-// Audio from vocabulary.com CDN
+// Áudio local (baixado do vocabulary.com CDN)
 
-const PHONEME_AUDIO_BASE_C = 'https://cdn.vocabulary.com/media/dictionary/ipa/consonants/';
-const PHONEME_AUDIO_BASE_V = 'https://cdn.vocabulary.com/media/dictionary/ipa/vowels/';
+const PHONEME_AUDIO_BASE = 'audio/ipa/';
 
 const PHONEME_AUDIO_MAP = {
   // ─── Consoantes ───
@@ -71,8 +70,7 @@ function getPhonemeAudioUrl(phoneme) {
   const clean = phoneme.replace(/\//g, '').trim();
   const entry = PHONEME_AUDIO_MAP[clean];
   if (!entry) return null;
-  const base = entry.type === 'v' ? PHONEME_AUDIO_BASE_V : PHONEME_AUDIO_BASE_C;
-  return base + entry.file;
+  return PHONEME_AUDIO_BASE + entry.file;
 }
 
 function playPhoneme(phoneme) {
