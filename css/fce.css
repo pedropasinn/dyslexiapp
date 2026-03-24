@@ -77,7 +77,58 @@
   position: sticky;
   top: 54px;
   box-shadow: 2px 0 20px rgba(26,26,46,0.04);
+  transition: width 0.3s ease, min-width 0.3s ease;
 }
+
+.sidebar.collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-right: none;
+}
+
+/* Collapse/expand buttons */
+.sidebar-collapse-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--cream-deeper);
+  background: var(--cream);
+  color: var(--text-muted);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  z-index: 5;
+}
+.sidebar-collapse-btn:hover { border-color: var(--gold); color: var(--navy); background: rgba(212,165,116,0.1); }
+
+.sidebar-expand-btn {
+  position: fixed;
+  top: 64px;
+  left: 6px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--cream-deeper);
+  background: white;
+  color: var(--text-muted);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.75rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  z-index: 110;
+  box-shadow: var(--shadow-soft);
+}
+.sidebar-expand-btn:hover { border-color: var(--gold); color: var(--navy); background: rgba(212,165,116,0.1); }
+.sidebar-expand-btn.visible { display: flex; }
 
 .sidebar-group-title {
   font-family: var(--font-mono);
@@ -340,6 +391,9 @@
   .menu-toggle { display: block; }
   .header-title { display: none; }
 
+  .sidebar-collapse-btn { display: none; }
+  .sidebar-expand-btn { display: none !important; }
+
   .sidebar {
     position: fixed;
     top: 54px;
@@ -349,8 +403,16 @@
     transition: transform var(--transition);
     z-index: 150;
     box-shadow: 4px 0 30px rgba(26,26,46,0.15);
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
   }
   .sidebar.open { transform: translateX(0); }
+  .sidebar.collapsed {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    overflow-y: auto;
+    border-right: 1px solid var(--cream-deeper);
+  }
 
   .sidebar-overlay {
     display: none;

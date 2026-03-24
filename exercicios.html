@@ -8,34 +8,76 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/exercicios.css">
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════
-     HEADER
-     ═══════════════════════════════════════════ -->
-<header>
-  <div class="container">
+<header class="header-ex">
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <button class="menu-toggle" onclick="toggleExSidebar()" aria-label="Menu">&#9776;</button>
     <a href="index.html" class="logo" style="text-decoration:none">DyslexiApp</a>
-    <nav id="main-nav">
-      <button onclick="showSection('home')" class="active" data-section="home">Início</button>
-      <button onclick="showSection('ran')" data-section="ran">RAN</button>
-      <button onclick="showSection('precisao')" data-section="precisao">Precisão</button>
-      <button onclick="showSection('decodificacao')" data-section="decodificacao">Decodificação</button>
-      <button onclick="showSection('fluencia')" data-section="fluencia">Fluência</button>
-      <button onclick="showSection('texto')" data-section="texto">Texto</button>
-      <button onclick="showSection('historico')" data-section="historico">Histórico</button>
-      <button onclick="showSection('memoria')" data-section="memoria">Memória</button>
-      <button onclick="showSection('tracking')" data-section="tracking">Tracking</button>
-      <button onclick="showSection('inibicao')" data-section="inibicao">Inibição</button>
-      <button onclick="window.location.href='comunicacao-envolvente.html'" data-section="fce">Comunicacao &#8599;</button>
-    </nav>
+  </div>
+  <span class="header-title">Exercicios de Fluencia</span>
+  <div class="header-right">
+    <a href="index.html" class="back-link">&larr; Voltar</a>
   </div>
 </header>
 
-<!-- ═══════════════════════════════════════════
-     HOME
-     ═══════════════════════════════════════════ -->
+<div class="sidebar-overlay" id="ex-sidebar-overlay" onclick="toggleExSidebar()"></div>
+<button class="sidebar-expand-btn" id="ex-expand-btn" onclick="expandExSidebar()" title="Abrir menu">&#10095;</button>
+
+<div class="app">
+  <aside class="sidebar ex-sidebar" id="ex-sidebar">
+    <button class="sidebar-collapse-btn" onclick="collapseExSidebar()" title="Recolher menu">&#10094;</button>
+    <div class="sidebar-group-title">Exercicios</div>
+    <div class="sidebar-item active" data-section="home" onclick="showSection('home')">
+      <span class="sidebar-num">00</span>
+      <span class="sidebar-label">Inicio</span>
+    </div>
+    <div class="sidebar-item" data-section="ran" onclick="showSection('ran')">
+      <span class="sidebar-num">01</span>
+      <span class="sidebar-label">RAN — Nomeacao Rapida</span>
+    </div>
+    <div class="sidebar-item" data-section="precisao" onclick="showSection('precisao')">
+      <span class="sidebar-num">02</span>
+      <span class="sidebar-label">Precisao — Completar Fonemas</span>
+    </div>
+    <div class="sidebar-item" data-section="decodificacao" onclick="showSection('decodificacao')">
+      <span class="sidebar-num">03</span>
+      <span class="sidebar-label">Decodificacao Progressiva</span>
+    </div>
+    <div class="sidebar-item" data-section="fluencia" onclick="showSection('fluencia')">
+      <span class="sidebar-num">04</span>
+      <span class="sidebar-label">Fluencia de Palavras</span>
+    </div>
+    <div class="sidebar-item" data-section="texto" onclick="showSection('texto')">
+      <span class="sidebar-num">05</span>
+      <span class="sidebar-label">Fluencia Textual</span>
+    </div>
+    <div class="sidebar-item" data-section="memoria" onclick="showSection('memoria')">
+      <span class="sidebar-num">06</span>
+      <span class="sidebar-label">Memoria de Trabalho</span>
+    </div>
+    <div class="sidebar-item" data-section="tracking" onclick="showSection('tracking')">
+      <span class="sidebar-num">07</span>
+      <span class="sidebar-label">Rastreamento Ocular</span>
+    </div>
+    <div class="sidebar-item" data-section="inibicao" onclick="showSection('inibicao')">
+      <span class="sidebar-num">08</span>
+      <span class="sidebar-label">Controle Inibitorio</span>
+    </div>
+    <div class="sidebar-item" data-section="historico" onclick="showSection('historico')">
+      <span class="sidebar-num">09</span>
+      <span class="sidebar-label">Historico & Progresso</span>
+    </div>
+    <div class="sidebar-group-title">Extras</div>
+    <div class="sidebar-item" onclick="window.location.href='comunicacao-envolvente.html'">
+      <span class="sidebar-num">&#8599;</span>
+      <span class="sidebar-label">Comunicacao Envolvente</span>
+    </div>
+  </aside>
+  <main class="content ex-content">
+
 <div class="container">
   <section id="sec-home" class="section active">
     <div class="hero">
@@ -411,6 +453,9 @@
       <button class="module-btn" onclick="showHistory('precisao')" id="hist-btn-precisao">Precisão</button>
       <button class="module-btn" onclick="showHistory('fluencia')" id="hist-btn-fluencia">Fluência</button>
       <button class="module-btn" onclick="showHistory('texto')" id="hist-btn-texto">Texto</button>
+      <button class="module-btn" onclick="showHistory('memoria')" id="hist-btn-memoria">Memória</button>
+      <button class="module-btn" onclick="showHistory('tracking')" id="hist-btn-tracking">Tracking</button>
+      <button class="module-btn" onclick="showHistory('inibicao')" id="hist-btn-inibicao">Inibição</button>
     </div>
 
     <div id="historico-content"></div>
@@ -420,6 +465,9 @@
       <button class="btn btn-outline btn-sm" onclick="clearHistory()" style="margin-left:0.5rem; color: var(--rose);">Limpar histórico</button>
     </div>
   </section>
+</div>
+
+  </main>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -447,6 +495,9 @@
 <script src="js/fluencia.js"></script>
 <script src="js/texto.js"></script>
 <script src="js/historico.js"></script>
+<script src="js/memoria.js"></script>
+<script src="js/tracking.js"></script>
+<script src="js/inibicao.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

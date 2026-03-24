@@ -1,4 +1,4 @@
-// app.js — State variables, navigation, module selectors, and init
+// app.js — State variables, navigation, sidebar, module selectors, and init
 
 // ─────────────────────────────────────────
 // STATE
@@ -12,16 +12,46 @@ let fluenciaModule = 0, fluenciaTimer = null, fluenciaStartTime = null, fluencia
 let textoModule = 0, textoTimer = null, textoStartTime = null, textoElapsed = 0;
 
 // ─────────────────────────────────────────
-// NAVIGATION
+// SIDEBAR NAVIGATION
 // ─────────────────────────────────────────
+function toggleExSidebar() {
+  const sidebar = document.getElementById('ex-sidebar');
+  const overlay = document.getElementById('ex-sidebar-overlay');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+
+function collapseExSidebar() {
+  const sidebar = document.getElementById('ex-sidebar');
+  sidebar.classList.add('collapsed');
+  const btn = document.getElementById('ex-expand-btn');
+  if (btn) btn.classList.add('visible');
+}
+
+function expandExSidebar() {
+  const sidebar = document.getElementById('ex-sidebar');
+  sidebar.classList.remove('collapsed');
+  const btn = document.getElementById('ex-expand-btn');
+  if (btn) btn.classList.remove('visible');
+}
+
 function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById('sec-' + id).classList.add('active');
-  document.querySelectorAll('#main-nav button').forEach(b => b.classList.remove('active'));
-  const navBtn = document.querySelector(`#main-nav button[data-section="${id}"]`);
-  if (navBtn) navBtn.classList.add('active');
+
+  // Atualizar sidebar
+  document.querySelectorAll('#ex-sidebar .sidebar-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.section === id);
+  });
+
   currentSection = id;
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Fechar sidebar no mobile
+  const sidebar = document.getElementById('ex-sidebar');
+  const overlay = document.getElementById('ex-sidebar-overlay');
+  if (sidebar) sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
 
   if (id === 'ran') generateRan();
   if (id === 'precisao') renderPrecisao();
@@ -29,6 +59,9 @@ function showSection(id) {
   if (id === 'fluencia') renderFluencia();
   if (id === 'texto') renderTexto();
   if (id === 'historico') showHistory('ran');
+  if (id === 'memoria') initMemoria();
+  if (id === 'tracking') initTracking();
+  if (id === 'inibicao') initInibicao();
 }
 
 // ─────────────────────────────────────────
@@ -36,11 +69,12 @@ function showSection(id) {
 // ─────────────────────────────────────────
 function populateModuleButtons(containerId, dataArray, setterFn) {
   const container = document.getElementById(containerId);
+  if (!container) return;
   container.innerHTML = '';
 
-  // Agrupar módulos por idioma
-  const groups = [];
-  let currentGroup = null;
+  // Agrupar modulos por idioma (merge mesmo idioma nao-contíguo)
+  const groupMap = new Map();
+  const groupOrder = [];
   dataArray.forEach((mod, i) => {
     let lang;
     if (mod.name.startsWith('PT ')) lang = 'Português';
@@ -48,15 +82,15 @@ function populateModuleButtons(containerId, dataArray, setterFn) {
     else if (mod.name.toLowerCase().startsWith('latim')) lang = 'Latim';
     else lang = 'Outros';
 
-    if (!currentGroup || currentGroup.lang !== lang) {
-      currentGroup = { lang, items: [] };
-      groups.push(currentGroup);
+    if (!groupMap.has(lang)) {
+      groupMap.set(lang, []);
+      groupOrder.push(lang);
     }
-    currentGroup.items.push({ mod, index: i });
+    groupMap.get(lang).push({ mod, index: i });
   });
 
-  // Se só tem um grupo, não precisa separar
-  if (groups.length <= 1) {
+  // Se so tem um grupo, nao precisa separar
+  if (groupOrder.length <= 1) {
     dataArray.forEach((mod, i) => {
       const btn = document.createElement('button');
       btn.className = 'module-btn' + (i === 0 ? ' active' : '');
@@ -67,25 +101,25 @@ function populateModuleButtons(containerId, dataArray, setterFn) {
     return;
   }
 
-  groups.forEach(group => {
+  groupOrder.forEach(lang => {
+    const items = groupMap.get(lang);
     const section = document.createElement('div');
     section.className = 'module-group';
 
     const label = document.createElement('div');
     label.className = 'module-group-label';
-    label.textContent = group.lang;
+    label.textContent = lang;
     section.appendChild(label);
 
     const btns = document.createElement('div');
     btns.className = 'module-group-buttons';
-    group.items.forEach(({ mod, index }) => {
+    items.forEach(({ mod, index }) => {
       const btn = document.createElement('button');
       btn.className = 'module-btn' + (index === 0 ? ' active' : '');
-      // Remover prefixo do idioma no botão (já está no header)
-      let label = mod.name;
-      if (label.startsWith('PT ')) label = label.slice(3);
-      else if (label.startsWith('EN ')) label = label.slice(3);
-      btn.textContent = label;
+      let btnLabel = mod.name;
+      if (btnLabel.startsWith('PT ')) btnLabel = btnLabel.slice(3);
+      else if (btnLabel.startsWith('EN ')) btnLabel = btnLabel.slice(3);
+      btn.textContent = btnLabel;
       btn.onclick = () => setterFn(index);
       btns.appendChild(btn);
     });
