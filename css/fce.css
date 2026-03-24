@@ -47,7 +47,6 @@ body { padding-top: 54px; }
   display: flex;
   min-height: calc(100vh - 54px - 80px);
   position: relative;
-  z-index: 1;
 }
 
 /* ═══ SIDEBAR (always overlay, triggered by hamburger) ═══ */
