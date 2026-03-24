@@ -4,7 +4,7 @@ const textoTimerCtrl = createTimer('texto-timer');
 
 function setTextoModule(idx) {
   textoModule = idx;
-  document.querySelectorAll('#texto-modules .module-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  document.querySelectorAll('#texto-modules .module-btn').forEach(b => b.classList.toggle('active', parseInt(b.dataset.index) === idx));
   renderTexto();
   textoTimerCtrl.reset();
   document.getElementById('texto-start-btn').textContent = 'Iniciar leitura';

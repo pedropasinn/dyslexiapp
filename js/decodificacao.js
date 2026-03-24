@@ -4,7 +4,7 @@ const decodeTimerCtrl = createTimer('decode-timer');
 
 function setDecodeModule(idx) {
   decodeModule = idx;
-  document.querySelectorAll('#decode-modules .module-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  document.querySelectorAll('#decode-modules .module-btn').forEach(b => b.classList.toggle('active', parseInt(b.dataset.index) === idx));
   renderDecode();
   decodeTimerCtrl.reset();
   document.getElementById('decode-start-btn').textContent = 'Iniciar';

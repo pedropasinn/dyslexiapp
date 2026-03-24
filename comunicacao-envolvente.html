@@ -13,23 +13,14 @@
 <body>
 
 <header class="header-fce">
-  <div style="display:flex;align-items:center;gap:1rem;">
-    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Menu">&#9776;</button>
-    <a href="index.html" class="logo">DyslexiApp</a>
-  </div>
-  <span class="header-title">Comunicacao Envolvente</span>
-  <div class="header-right">
-    <a href="index.html" class="back-link">&larr; Voltar</a>
-  </div>
+  <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Menu">&#9776;</button>
+  <a href="index.html" class="header-title" style="text-decoration:none">Comunicacao Envolvente</a>
+  <div style="width:36px"></div>
 </header>
 
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
-<button class="sidebar-expand-btn" id="fce-expand-btn" onclick="expandFceSidebar()" title="Abrir menu">&#10095;</button>
-
 <div class="app">
-  <aside class="sidebar" id="sidebar">
-    <button class="sidebar-collapse-btn" onclick="collapseFceSidebar()" title="Recolher menu">&#10094;</button>
-  </aside>
+  <aside class="sidebar" id="sidebar"></aside>
   <main class="content" id="content"></main>
 </div>
 

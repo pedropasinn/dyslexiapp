@@ -4,7 +4,7 @@ const fluenciaTimerCtrl = createTimer('fluencia-timer');
 
 function setFluenciaModule(idx) {
   fluenciaModule = idx;
-  document.querySelectorAll('#fluencia-modules .module-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  document.querySelectorAll('#fluencia-modules .module-btn').forEach(b => b.classList.toggle('active', parseInt(b.dataset.index) === idx));
   fluenciaAttempt = 0;
   renderFluencia();
   fluenciaTimerCtrl.reset();

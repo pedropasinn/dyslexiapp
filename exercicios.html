@@ -13,22 +13,14 @@
 <body>
 
 <header class="header-ex">
-  <div style="display:flex;align-items:center;gap:1rem;">
-    <button class="menu-toggle" onclick="toggleExSidebar()" aria-label="Menu">&#9776;</button>
-    <a href="index.html" class="logo" style="text-decoration:none">DyslexiApp</a>
-  </div>
-  <span class="header-title">Exercicios de Fluencia</span>
-  <div class="header-right">
-    <a href="index.html" class="back-link">&larr; Voltar</a>
-  </div>
+  <button class="menu-toggle" onclick="toggleExSidebar()" aria-label="Menu">&#9776;</button>
+  <a href="index.html" class="header-title" style="text-decoration:none">Exercicios de Fluencia</a>
+  <div style="width:36px"></div>
 </header>
 
 <div class="sidebar-overlay" id="ex-sidebar-overlay" onclick="toggleExSidebar()"></div>
-<button class="sidebar-expand-btn" id="ex-expand-btn" onclick="expandExSidebar()" title="Abrir menu">&#10095;</button>
-
 <div class="app">
   <aside class="sidebar ex-sidebar" id="ex-sidebar">
-    <button class="sidebar-collapse-btn" onclick="collapseExSidebar()" title="Recolher menu">&#10094;</button>
     <div class="sidebar-group-title">Exercicios</div>
     <div class="sidebar-item active" data-section="home" onclick="showSection('home')">
       <span class="sidebar-num">00</span>
@@ -66,8 +58,12 @@
       <span class="sidebar-num">08</span>
       <span class="sidebar-label">Controle Inibitorio</span>
     </div>
-    <div class="sidebar-item" data-section="historico" onclick="showSection('historico')">
+    <div class="sidebar-item" data-section="latim-quiz" onclick="showSection('latim-quiz')">
       <span class="sidebar-num">09</span>
+      <span class="sidebar-label">Quiz de Latim</span>
+    </div>
+    <div class="sidebar-item" data-section="historico" onclick="showSection('historico')">
+      <span class="sidebar-num">10</span>
       <span class="sidebar-label">Historico & Progresso</span>
     </div>
     <div class="sidebar-group-title">Extras</div>
@@ -134,8 +130,14 @@
         <p>Pare de adivinhar palavras. Treine a decodificação completa e a detecção de erros em textos.</p>
         <span class="card-tag">inibição · precisão</span>
       </div>
-      <div class="card" onclick="showSection('historico')">
+      <div class="card" onclick="showSection('latim-quiz')">
         <div class="card-number">09</div>
+        <h3>Quiz de Latim</h3>
+        <p>Teste seu vocabulário latino. Traduza palavras e frases entre latim e português.</p>
+        <span class="card-tag">latim · tradução · quiz</span>
+      </div>
+      <div class="card" onclick="showSection('historico')">
+        <div class="card-number">10</div>
         <h3>Histórico & Progresso</h3>
         <p>Acompanhe sua evolução ao longo do tempo. Visualize tempos, acertos e tendências.</p>
         <span class="card-tag">dados · progresso</span>
@@ -153,7 +155,7 @@
        RAN
        ═══════════════════════════════════════════ -->
   <section id="sec-ran" class="section">
-    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+
     <div class="section-header">
       <h2>RAN — Nomeação Automática Rápida</h2>
       <p>Leia cada número da esquerda para a direita, linha por linha, o mais rápido que puder. Cronometre do primeiro ao último item.</p>
@@ -163,6 +165,10 @@
       <button class="module-btn active" onclick="setRanLevel(0)">Nível 1</button>
       <button class="module-btn" onclick="setRanLevel(1)">Nível 2</button>
       <button class="module-btn" onclick="setRanLevel(2)">Nível 3</button>
+      <button class="module-btn" onclick="setRanLevel(3)">Nível 4</button>
+      <button class="module-btn" onclick="setRanLevel(4)">Nível 5</button>
+      <button class="module-btn" onclick="setRanLevel(5)">Nível 6</button>
+      <button class="module-btn" onclick="setRanLevel(6)">Nível 7</button>
     </div>
 
     <div class="info-box">
@@ -200,7 +206,7 @@
        PRECISÃO
        ═══════════════════════════════════════════ -->
   <section id="sec-precisao" class="section">
-    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+
     <div class="section-header">
       <h2>Precisão — Completar Fonemas</h2>
       <p>Complete cada palavra com o fonema correto. Clique na opção que preenche a lacuna.</p>
@@ -225,7 +231,7 @@
        DECODIFICAÇÃO
        ═══════════════════════════════════════════ -->
   <section id="sec-decodificacao" class="section">
-    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+
     <div class="section-header">
       <h2>Decodificação Progressiva</h2>
       <p>Clique em cada palavra para revelá-la progressivamente: robô → orador → maiúsculas.</p>
@@ -256,7 +262,7 @@
        FLUÊNCIA DE PALAVRAS
        ═══════════════════════════════════════════ -->
   <section id="sec-fluencia" class="section">
-    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+
     <div class="section-header">
       <h2>Fluência de Palavras</h2>
       <p>Leia as palavras o mais rápido possível em cada estilo visual. Registre 3 tentativas.</p>
@@ -283,7 +289,7 @@
        FLUÊNCIA TEXTUAL
        ═══════════════════════════════════════════ -->
   <section id="sec-texto" class="section">
-    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+
     <div class="section-header">
       <h2>Fluência Textual + Compreensão</h2>
       <p>Leia o texto cronometrando. Após a leitura, responda às perguntas de compreensão.</p>
@@ -321,7 +327,7 @@
        MEMÓRIA DE TRABALHO
        ═══════════════════════════════════════════ -->
   <section id="sec-memoria" class="section">
-    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+
     <div class="section-header">
       <h2>Memória de Trabalho</h2>
       <p>Retenha sequências na memória e reproduza-as. A dificuldade aumenta progressivamente.</p>
@@ -363,7 +369,7 @@
        RASTREAMENTO OCULAR
        ═══════════════════════════════════════════ -->
   <section id="sec-tracking" class="section">
-    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+
     <div class="section-header">
       <h2>Rastreamento Ocular</h2>
       <p>Treine sacadas precisas, busca visual e retorno de linha para leitura mais fluente.</p>
@@ -402,7 +408,7 @@
        CONTROLE INIBITÓRIO
        ═══════════════════════════════════════════ -->
   <section id="sec-inibicao" class="section">
-    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+
     <div class="section-header">
       <h2>Controle Inibitório</h2>
       <p>Treine a resistência à adivinhação e force a decodificação completa de cada palavra.</p>
@@ -439,10 +445,52 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
+       QUIZ DE LATIM
+       ═══════════════════════════════════════════ -->
+  <section id="sec-latim-quiz" class="section">
+
+    <div class="section-header">
+      <h2>Quiz de Latim</h2>
+      <p>Teste e amplie seu vocabulário latino. Traduza palavras e frases entre latim e português.</p>
+    </div>
+
+    <div class="module-selector" id="latim-quiz-modes">
+      <button class="module-btn active" data-mode="lat-to-pt" onclick="setLatimQuizMode('lat-to-pt')">Latim → Português</button>
+      <button class="module-btn" data-mode="pt-to-lat" onclick="setLatimQuizMode('pt-to-lat')">Português → Latim</button>
+    </div>
+
+    <div class="module-selector" id="latim-quiz-levels">
+      <button class="module-btn" onclick="setLatimQuizLevel(0)">Básicas</button>
+      <button class="module-btn" onclick="setLatimQuizLevel(1)">Intermediárias</button>
+      <button class="module-btn" onclick="setLatimQuizLevel(2)">Expressões</button>
+      <button class="module-btn active" onclick="setLatimQuizLevel(3)">Todas</button>
+    </div>
+
+    <div class="controls">
+      <div class="timer-display" id="latim-quiz-timer">00:00.0</div>
+      <button class="btn btn-primary" id="latim-quiz-start-btn" onclick="toggleLatimQuizTimer()">Iniciar</button>
+      <button class="btn btn-outline" onclick="initLatimQuiz()">Novo quiz</button>
+    </div>
+
+    <div id="latim-quiz-score" class="score-display hidden" style="margin-bottom:1rem">
+      <span class="score-num" id="latim-quiz-correct">0</span>
+      <span class="score-total">/ <span id="latim-quiz-total">0</span></span>
+    </div>
+
+    <div id="latim-quiz-area"></div>
+
+    <div class="controls" style="display:none" id="latim-quiz-save-row">
+      <button class="btn btn-gold btn-sm" onclick="saveLatimQuizAttempt()">Salvar tentativa</button>
+    </div>
+
+    <div class="history-section" id="latim-quiz-history"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
        HISTÓRICO
        ═══════════════════════════════════════════ -->
   <section id="sec-historico" class="section">
-    <button class="back-btn" onclick="showSection('home')">← Voltar ao início</button>
+
     <div class="section-header">
       <h2>Histórico & Progresso</h2>
       <p>Acompanhe a evolução dos seus tempos e acertos ao longo das sessões.</p>
@@ -488,6 +536,7 @@
 <script src="js/data/fluencia-data.js"></script>
 <script src="js/data/texto-data.js"></script>
 <script src="js/data/checklist-data.js"></script>
+<script src="js/data/latim-quiz-data.js"></script>
 <script src="js/timer.js"></script>
 <script src="js/ran.js"></script>
 <script src="js/precisao.js"></script>
@@ -498,6 +547,7 @@
 <script src="js/memoria.js"></script>
 <script src="js/tracking.js"></script>
 <script src="js/inibicao.js"></script>
+<script src="js/latim-quiz.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -21,20 +21,6 @@ function toggleExSidebar() {
   overlay.classList.toggle('open');
 }
 
-function collapseExSidebar() {
-  const sidebar = document.getElementById('ex-sidebar');
-  sidebar.classList.add('collapsed');
-  const btn = document.getElementById('ex-expand-btn');
-  if (btn) btn.classList.add('visible');
-}
-
-function expandExSidebar() {
-  const sidebar = document.getElementById('ex-sidebar');
-  sidebar.classList.remove('collapsed');
-  const btn = document.getElementById('ex-expand-btn');
-  if (btn) btn.classList.remove('visible');
-}
-
 function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById('sec-' + id).classList.add('active');
@@ -62,6 +48,7 @@ function showSection(id) {
   if (id === 'memoria') initMemoria();
   if (id === 'tracking') initTracking();
   if (id === 'inibicao') initInibicao();
+  if (id === 'latim-quiz') initLatimQuiz();
 }
 
 // ─────────────────────────────────────────
@@ -94,6 +81,7 @@ function populateModuleButtons(containerId, dataArray, setterFn) {
     dataArray.forEach((mod, i) => {
       const btn = document.createElement('button');
       btn.className = 'module-btn' + (i === 0 ? ' active' : '');
+      btn.dataset.index = i;
       btn.textContent = mod.name;
       btn.onclick = () => setterFn(i);
       container.appendChild(btn);
@@ -116,6 +104,7 @@ function populateModuleButtons(containerId, dataArray, setterFn) {
     items.forEach(({ mod, index }) => {
       const btn = document.createElement('button');
       btn.className = 'module-btn' + (index === 0 ? ' active' : '');
+      btn.dataset.index = index;
       let btnLabel = mod.name;
       if (btnLabel.startsWith('PT ')) btnLabel = btnLabel.slice(3);
       else if (btnLabel.startsWith('EN ')) btnLabel = btnLabel.slice(3);

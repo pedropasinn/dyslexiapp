@@ -19,27 +19,12 @@ function getModuleProgress(mod) {
 // ─── Sidebar ───
 let activeModuleId = null;
 
-function collapseFceSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  sidebar.classList.add('collapsed');
-  const btn = document.getElementById('fce-expand-btn');
-  if (btn) btn.classList.add('visible');
-}
-
-function expandFceSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  sidebar.classList.remove('collapsed');
-  const btn = document.getElementById('fce-expand-btn');
-  if (btn) btn.classList.remove('visible');
-}
-
 function buildSidebar() {
   const sidebar = document.getElementById('sidebar');
   const main = COURSE_MODULES.filter(m => !m.number.startsWith('B'));
   const bonus = COURSE_MODULES.filter(m => m.number.startsWith('B'));
 
-  let html = '<button class="sidebar-collapse-btn" onclick="collapseFceSidebar()" title="Recolher menu">&#10094;</button>';
-  html += '<div class="sidebar-group-title">Curso Principal</div>';
+  let html = '<div class="sidebar-group-title">Curso Principal</div>';
   main.forEach(m => { html += sidebarItem(m); });
   html += '<div class="sidebar-group-title">Bonus</div>';
   bonus.forEach(m => { html += sidebarItem(m); });

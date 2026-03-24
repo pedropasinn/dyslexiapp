@@ -2,7 +2,7 @@
 
 function setPrecisaoModule(idx) {
   precisaoModule = idx;
-  document.querySelectorAll('#precisao-modules .module-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  document.querySelectorAll('#precisao-modules .module-btn').forEach(b => b.classList.toggle('active', parseInt(b.dataset.index) === idx));
   resetPrecisao();
 }
 

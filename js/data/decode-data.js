@@ -44,19 +44,164 @@ const DECODE_MODULES = [
       { robot: 'fur · ther · more', word: 'furthermore' },
     ]
   },
+  // ── Latim ae/oe ──
   {
-    name: 'Latim',
+    name: 'Latim ae/oe',
     words: [
       { robot: 'cae · lum', word: 'caelum' },
-      { robot: 'gra · ti · a', word: 'gratia' },
-      { robot: 'ec · cle · si · a', word: 'ecclesia' },
-      { robot: 're · gi · na', word: 'regina' },
-      { robot: 'ma · gni · fi · cat', word: 'magnificat' },
       { robot: 'poe · ni · ten · ti · a', word: 'poenitentia' },
       { robot: 'prae · di · ca · ti · o', word: 'praedicatio' },
-      { robot: 'de · scen · dit', word: 'descendit' },
+      { robot: 'ae · ter · nus', word: 'aeternus' },
+      { robot: 'coe · na', word: 'coena' },
+      { robot: 'prae · sen · ti · a', word: 'praesentia' },
+      { robot: 'cae · re · mo · ni · a', word: 'caeremonia' },
+      { robot: 'prae · cep · tum', word: 'praeceptum' },
+      { robot: 'cae · les · tis', word: 'caelestis' },
+      { robot: 'poe · na', word: 'poena' },
+    ]
+  },
+  // ── Latim ti+vogal ──
+  {
+    name: 'Latim ti+vogal',
+    words: [
+      { robot: 'gra · ti · a', word: 'gratia' },
       { robot: 'ius · ti · ti · a', word: 'iustitia' },
+      { robot: 'pa · ti · en · ti · a', word: 'patientia' },
       { robot: 're · demp · ti · o', word: 'redemptio' },
+      { robot: 'ab · so · lu · ti · o', word: 'absolutio' },
+      { robot: 'o · ra · ti · o', word: 'oratio' },
+      { robot: 'na · ti · o', word: 'natio' },
+      { robot: 'con · di · ti · o', word: 'conditio' },
+      { robot: 'tri · bu · la · ti · o', word: 'tribulatio' },
+      { robot: 'sa · lu · ta · ti · o', word: 'salutatio' },
+    ]
+  },
+  // ── Latim c+e/i ──
+  {
+    name: 'Latim c+e/i',
+    words: [
+      { robot: 'cae · lum', word: 'caelum' },
+      { robot: 'pec · ca · tum', word: 'peccatum' },
+      { robot: 'ci · bus', word: 'cibus' },
+      { robot: 'ec · cle · si · a', word: 'ecclesia' },
+      { robot: 'ce · le · bra · ti · o', word: 'celebratio' },
+      { robot: 'ci · vi · tas', word: 'civitas' },
+      { robot: 'cen · tu · ri · o', word: 'centurio' },
+      { robot: 'cer · ti · tu · do', word: 'certitudo' },
+      { robot: 'con · ci · li · um', word: 'concilium' },
+      { robot: 'pac · ci · fi · cus', word: 'paccificus' },
+    ]
+  },
+  // ── Latim g+e/i ──
+  {
+    name: 'Latim g+e/i',
+    words: [
+      { robot: 're · gi · na', word: 'regina' },
+      { robot: 'an · ge · lus', word: 'angelus' },
+      { robot: 'ge · ni · tor', word: 'genitor' },
+      { robot: 'vir · gi · ni · tas', word: 'virginitas' },
+      { robot: 'ge · ne · ra · ti · o', word: 'generatio' },
+      { robot: 'ge · hen · na', word: 'gehenna' },
+      { robot: 'ge · nu · fle · xi · o', word: 'genuflexio' },
+      { robot: 'gi · gne · re', word: 'gignere' },
+      { robot: 'in · dul · gen · ti · a', word: 'indulgentia' },
+      { robot: 'in · tel · li · gen · ti · a', word: 'intelligentia' },
+    ]
+  },
+  // ── Latim gn ──
+  {
+    name: 'Latim gn',
+    words: [
+      { robot: 'ag · nus', word: 'agnus' },
+      { robot: 'ma · gni · fi · cat', word: 'magnificat' },
+      { robot: 'dig · nus', word: 'dignus' },
+      { robot: 'be · nig · nus', word: 'benignus' },
+      { robot: 'ma · lig · nus', word: 'malignus' },
+      { robot: 'sig · num', word: 'signum' },
+      { robot: 'reg · num', word: 'regnum' },
+      { robot: 'ig · nis', word: 'ignis' },
+      { robot: 'cog · nos · ce · re', word: 'cognoscere' },
+      { robot: 'ig · no · ran · ti · a', word: 'ignorantia' },
+    ]
+  },
+  // ── Latim sc+e/i ──
+  {
+    name: 'Latim sc+e/i',
+    words: [
+      { robot: 'de · scen · dit', word: 'descendit' },
+      { robot: 'a · scen · dit', word: 'ascendit' },
+      { robot: 'sci · en · ti · a', word: 'scientia' },
+      { robot: 'con · sci · en · ti · a', word: 'conscientia' },
+      { robot: 'sus · ci · pe', word: 'suscipe' },
+      { robot: 'sus · ci · ta · re', word: 'suscitare' },
+      { robot: 'a · scen · si · o', word: 'ascensio' },
+      { robot: 'dis · ci · pu · lus', word: 'discipulus' },
+      { robot: 'om · ni · sci · ens', word: 'omnisciens' },
+      { robot: 'de · scen · si · o', word: 'descensio' },
+    ]
+  },
+  // ── Latim x ──
+  {
+    name: 'Latim x',
+    words: [
+      { robot: 'ex · cel · sis', word: 'excelsis' },
+      { robot: 'ex · au · di', word: 'exaudi' },
+      { robot: 'ex · em · plum', word: 'exemplum' },
+      { robot: 'cru · ci · fi · xus', word: 'crucifixus' },
+      { robot: 'ex · sul · ta · te', word: 'exsultate' },
+      { robot: 'ex · or · ci · smus', word: 'exorcismus' },
+      { robot: 'ex · com · mu · ni · ca · ti · o', word: 'excommunicatio' },
+      { robot: 'ex · e · ge · sis', word: 'exegesis' },
+      { robot: 'ex · o · dus', word: 'exodus' },
+      { robot: 'ex · er · ci · ti · um', word: 'exercitium' },
+    ]
+  },
+  // ── Latim ph ──
+  {
+    name: 'Latim ph',
+    words: [
+      { robot: 'phi · lo · so · phi · a', word: 'philosophia' },
+      { robot: 'pha · ri · sae · us', word: 'pharisaeus' },
+      { robot: 'pro · phe · ta', word: 'propheta' },
+      { robot: 'phan · tas · ma', word: 'phantasma' },
+      { robot: 'e · pi · pha · ni · a', word: 'epiphania' },
+      { robot: 'se · pul · chrum', word: 'sepulchrum' },
+      { robot: 'blas · phe · mi · a', word: 'blasphemia' },
+      { robot: 'ne · o · phy · tus', word: 'neophytus' },
+      { robot: 'phi · lan · thro · pi · a', word: 'philanthropia' },
+      { robot: 'a · po · stro · phe', word: 'apostrophe' },
+    ]
+  },
+  // ── Latim qu ──
+  {
+    name: 'Latim qu',
+    words: [
+      { robot: 'qui', word: 'qui' },
+      { robot: 'quo · ni · am', word: 'quoniam' },
+      { robot: 're · qui · em', word: 'requiem' },
+      { robot: 'qua · re', word: 'quare' },
+      { robot: 'quin · que', word: 'quinque' },
+      { robot: 'quae · ri · mus', word: 'quaerimus' },
+      { robot: 'qua · dra · ge · si · ma', word: 'quadragesima' },
+      { robot: 'con · se · quen · ti · a', word: 'consequentia' },
+      { robot: 'e · lo · quen · ti · a', word: 'eloquentia' },
+      { robot: 'quod · li · bet', word: 'quodlibet' },
+    ]
+  },
+  // ── Latim h ──
+  {
+    name: 'Latim h',
+    words: [
+      { robot: 'ho · mo', word: 'homo' },
+      { robot: 'ho · di · e', word: 'hodie' },
+      { robot: 'Hie · ru · sa · lem', word: 'Hierusalem' },
+      { robot: 'ho · no · ra · re', word: 'honorare' },
+      { robot: 'hu · mi · li · tas', word: 'humilitas' },
+      { robot: 'hae · re · sis', word: 'haeresis' },
+      { robot: 'ho · lo · caus · tum', word: 'holocaustum' },
+      { robot: 'ho · san · na', word: 'hosanna' },
+      { robot: 'ha · bi · ta · re', word: 'habitare' },
+      { robot: 'ho · nes · tas', word: 'honestas' },
     ]
   },
   // ── PT /λ/ vs /j/ ──
