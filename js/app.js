@@ -57,6 +57,7 @@ function showSection(id) {
   if (id === 'vocabulario') initVocabulario();
   if (id === 'silabica') renderSilabica();
   if (id === 'compreensao') renderCompreensao();
+  if (id === 'estrutura')   renderEstrutura();
 }
 
 // ─────────────────────────────────────────
@@ -146,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
   populateModuleButtons('vocabulario-modules', VOCABULARIO_MODULES, setVocabularioModule);
   populateModuleButtons('silabica-modules', SILABICA_MODULES, setSilabicaModule);
   populateModuleButtons('compreensao-modules', COMPREENSAO_MODULES, setCompreensaoModule);
+  populateModuleButtons('estrutura-modules',  ESTRUTURA_MODULES,  setEstruturaModule);
 
   // Renderizar badges de mestria em todos os seletores de módulo
   Progressao.renderMasteryBadges('precisao-modules',      'precisao',      'fluencia_precisao');
@@ -156,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
   Progressao.renderMasteryBadges('texto-modules',         'texto',         'fluencia_texto');
   Progressao.renderMasteryBadges('prosodia-modules',      'prosodia',      'fluencia_prosodia');
   Progressao.renderMasteryBadges('compreensao-modules',   'compreensao',   'fluencia_compreensao');
+  Progressao.renderMasteryBadges('estrutura-modules',     'estrutura',     'fluencia_estrutura');
 
   // Renderizar card de progresso na home
   Progressao.renderProgressCard('progress-overview');

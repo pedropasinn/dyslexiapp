@@ -135,26 +135,30 @@ Exercicio de pares minimos cronometrado:
 
 ## FASE 3 — Infraestrutura e UX
 
-### 3.1 Progressao Adaptativa
-- [ ] Criterio de maestria: 80-90% para avancar de nivel (Goldsworthy)
-- [ ] Recomendacao automatica de proximo exercicio baseada em desempenho
-- [ ] Dificuldade ajusta automaticamente (mais erros = mais treino naquele nivel)
+### 3.1 Progressao Adaptativa ✅ IMPLEMENTADO Sprint 4
+- [x] Criterio de maestria: 80% sobre ultimas 3 sessoes (Goldsworthy)
+- [x] Recomendacao automatica de proximo exercicio baseada em desempenho
+- [x] Badges visuais de maestria em todos os botoes de modulo (estrela/ponto)
+- [x] Card de progresso na home com estatisticas e recomendacao clicavel
 
-### 3.2 Estrutura de Sessao
-- [ ] Sugerir rotina: aquecimento (RAN 2min) → principal (ex. Texto 10min) → revisao (Checklist)
-- [ ] Timer de sessao total
-- [ ] Resumo pos-sessao com metricas
+### 3.2 Estrutura de Sessao ✅ IMPLEMENTADO Sprint 4
+- [x] 3 rotinas guiadas: Rapida (10min), Padrao (20min), Completa (30min)
+- [x] Timer de sessao total (barra fixa no rodape)
+- [x] Resumo pos-sessao com metricas (modal)
+- [x] Navegacao passo a passo para cada exercicio
 
 ### 3.3 Integracao entre Exercicios
 - [ ] Mesmas palavras aparecem em RAN → Precisao → Decodificacao → Texto
 - [ ] Morfemas aprendidos em Morfologia reaparecem nos textos
 - [ ] Vocabulario Tier 2 ensinado aparece nos textos de fluencia
 
-### 3.4 Acessibilidade
-- [ ] Opcao de fonte para dislexia (OpenDyslexic ou similar)
-- [ ] Controle de espacamento entre linhas e palavras
-- [ ] Modo alto contraste
-- [ ] Tamanho de fonte ajustavel
+### 3.4 Acessibilidade ✅ IMPLEMENTADO Sprint 4
+- [x] Opcao de fonte para dislexia (OpenDyslexic via CDN)
+- [x] Controle de espacamento entre linhas, palavras e letras (sliders)
+- [x] 4 esquemas de cor: padrao, alto contraste, sepia, escuro
+- [x] Tamanho de fonte ajustavel (14-24px)
+- [x] Regua de leitura (highlight horizontal que segue o mouse)
+- [x] Todas as configs persistem em localStorage
 
 ### 3.5 Audio/TTS
 - [ ] Integrar Web Speech API para leitura de modelos

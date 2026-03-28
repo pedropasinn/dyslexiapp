@@ -86,8 +86,12 @@
       <span class="sidebar-num">15</span>
       <span class="sidebar-label">Compreensão Ativa</span>
     </div>
-    <div class="sidebar-item" data-section="historico" onclick="showSection('historico')">
+    <div class="sidebar-item" data-section="estrutura" onclick="showSection('estrutura')">
       <span class="sidebar-num">16</span>
+      <span class="sidebar-label">Estrutura Textual</span>
+    </div>
+    <div class="sidebar-item" data-section="historico" onclick="showSection('historico')">
+      <span class="sidebar-num">17</span>
       <span class="sidebar-label">Histórico & Progresso</span>
     </div>
     <div class="sidebar-group-title">Extras</div>
@@ -200,8 +204,14 @@
         <p>Protocolo guiado de leitura ativa: antes, durante e depois. Treina as 7 estratégias de compreensão do leitor proficiente (Shaywitz cap. 19).</p>
         <span class="card-tag">compreensão · estratégias · metacognição</span>
       </div>
-      <div class="card" onclick="showSection('historico')">
+      <div class="card" onclick="showSection('estrutura')">
         <div class="card-number">16</div>
+        <h3>Estrutura Textual</h3>
+        <p>Identifique estruturas de textos informativos, organize informações em gráficos e pratique resumos. Treina compreensão de textos expositivos (Shaywitz cap. 19).</p>
+        <span class="card-tag">estrutura · organizador · resumo</span>
+      </div>
+      <div class="card" onclick="showSection('historico')">
+        <div class="card-number">17</div>
         <h3>Histórico & Progresso</h3>
         <p>Acompanhe sua evolução ao longo do tempo. Visualize tempos, acertos e tendências.</p>
         <span class="card-tag">dados · progresso</span>
@@ -965,6 +975,46 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
+       ESTRUTURA TEXTUAL
+       ═══════════════════════════════════════════ -->
+  <section id="sec-estrutura" class="section">
+
+    <div class="section-header">
+      <h2>Estrutura Textual</h2>
+      <p>Reconheça e use as cinco estruturas de textos informativos: causa-efeito, comparação, problema-solução, sequência e descrição. Baseado em Shaywitz cap. 19.</p>
+    </div>
+
+    <!-- Seletor de módulos -->
+    <div class="module-selector" id="estrutura-modules"></div>
+
+    <!-- Info box dinâmico -->
+    <div class="info-box" id="estrutura-info"></div>
+
+    <!-- Contador de itens -->
+    <div class="est-item-counter" id="estrutura-counter"></div>
+
+    <!-- Texto de referência -->
+    <div class="est-text-display" id="estrutura-text"></div>
+
+    <!-- Área de exercício (identificar / organizador / resumo) -->
+    <div id="estrutura-area"></div>
+
+    <!-- Controles -->
+    <div class="controls" style="margin-top:1.5rem">
+      <button class="btn btn-gold" id="estrutura-verificar" onclick="estruturaVerificar()" style="display:none">Verificar</button>
+      <button class="btn btn-primary" id="estrutura-proximo" onclick="nextEstrutura()" style="display:none">Próximo</button>
+      <button class="btn btn-outline btn-sm" onclick="renderEstrutura()">Recomeçar</button>
+    </div>
+
+    <!-- Pontuação final -->
+    <div class="score-display" id="estrutura-score" style="display:none">
+      <span class="score-num">0</span>
+      <span class="score-total">/ <span>0</span></span>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
        HISTÓRICO
        ═══════════════════════════════════════════ -->
   <section id="sec-historico" class="section">
@@ -988,6 +1038,7 @@
       <button class="module-btn" onclick="showHistory('prosodia')" id="hist-btn-prosodia">Prosódia</button>
       <button class="module-btn" onclick="showHistory('silabica')" id="hist-btn-silabica">Silábica</button>
       <button class="module-btn" onclick="showHistory('compreensao')" id="hist-btn-compreensao">Compreensão</button>
+      <button class="module-btn" onclick="showHistory('estrutura')" id="hist-btn-estrutura">Estrutura</button>
     </div>
 
     <div id="historico-content"></div>
@@ -1055,6 +1106,8 @@
 <script src="js/silabica.js"></script>
 <script src="js/data/compreensao-data.js"></script>
 <script src="js/compreensao.js"></script>
+<script src="js/data/estrutura-data.js"></script>
+<script src="js/estrutura.js"></script>
 <script src="js/progressao.js"></script>
 <script src="js/acessibilidade.js"></script>
 <script src="js/sessao.js"></script>

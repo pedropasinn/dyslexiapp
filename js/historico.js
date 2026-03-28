@@ -75,6 +75,7 @@ function _buildDashboard() {
     prosodia:      Storage.get('fluencia_prosodia'),
     silabica:      Storage.get('fluencia_silabica'),
     compreensao:   Storage.get('fluencia_compreensao'),
+    estrutura:     Storage.get('fluencia_estrutura'),
   };
 
   const totalSessions = Object.values(all).reduce((s, arr) => s + arr.length, 0);
@@ -375,8 +376,25 @@ function _chartSilabica(data) {
   });
 }
 
+function _chartEstrutura(data) {
+  const recent = data.slice(-20);
+  const items = recent.map(e => ({
+    value: e.pct != null ? e.pct : _pct(e.correct, e.total),
+    label: _dateLabel(e.date),
+    title: `${e.pct != null ? e.pct : _pct(e.correct, e.total)}% (${e.correct}/${e.total}) — ${e.type || ''} — ${e.module || ''}`,
+    extraClass: (e.pct != null ? e.pct : _pct(e.correct, e.total)) >= 80 ? 'hist-bar-above-meta' : 'hist-bar-below-meta',
+  }));
+  return _buildBarChart(items, {
+    title: 'Precisão por sessão — Estrutura Textual (%)',
+    unit: '%',
+    maxValue: 100,
+    metaValue: 80,
+    metaLabel: 'Meta',
+  });
+}
+
 function showHistory(type) {
-  ['ran','precisao','fluencia','texto','memoria','tracking','inibicao','morfologia','discriminacao','vocabulario','prosodia','silabica','compreensao'].forEach(t => {
+  ['ran','precisao','fluencia','texto','memoria','tracking','inibicao','morfologia','discriminacao','vocabulario','prosodia','silabica','compreensao','estrutura'].forEach(t => {
     const btn = document.getElementById(`hist-btn-${t}`);
     if (btn) btn.classList.toggle('active', t === type);
   });
@@ -409,6 +427,7 @@ function showHistory(type) {
   if (type === 'prosodia')      html += _chartProsodia(data);
   if (type === 'silabica')      html += _chartSilabica(data);
   if (type === 'compreensao')   html += _chartCompreensao(data);
+  if (type === 'estrutura')     html += _chartEstrutura(data);
 
   // Table
   html += '<table class="history-table"><thead><tr><th>Data</th>';
@@ -425,6 +444,7 @@ function showHistory(type) {
   if (type === 'prosodia')      html += '<th>Módulo</th><th>Tipo</th><th>Acertos</th><th>Total</th><th>%</th><th>Tempo</th>';
   if (type === 'silabica')      html += '<th>Módulo</th><th>Tipo</th><th>Acertos</th><th>Total</th><th>%</th>';
   if (type === 'compreensao')   html += '<th>Módulo</th><th>Fase</th><th>Acertos</th><th>Total</th><th>%</th><th>Tempo</th>';
+  if (type === 'estrutura')     html += '<th>Módulo</th><th>Tipo</th><th>Acertos</th><th>Total</th><th>%</th>';
   html += '</tr></thead><tbody>';
 
   data.slice().reverse().slice(0, 30).forEach(e => {
@@ -444,6 +464,7 @@ function showHistory(type) {
     if (type === 'prosodia')      html += `<td>${_fmt(e.module)}</td><td>${_fmt(e.type)}</td><td>${_fmt(e.correct)}</td><td>${_fmt(e.total)}</td><td>${_fmt(e.pct)}%</td><td>${_fmt(e.timeFormatted)}</td>`;
     if (type === 'silabica')      html += `<td>${_fmt(e.module)}</td><td>${_fmt(e.type)}</td><td>${_fmt(e.correct)}</td><td>${_fmt(e.total)}</td><td>${e.pct != null ? e.pct : _pct(e.correct, e.total)}%</td>`;
     if (type === 'compreensao')   html += `<td>${_fmt(e.module)}</td><td>${_fmt(e.phase)}</td><td>${_fmt(e.correct)}</td><td>${_fmt(e.total)}</td><td>${_fmt(e.pct)}%</td><td>${_fmt(e.timeFormatted)}</td>`;
+    if (type === 'estrutura')     html += `<td>${_fmt(e.module)}</td><td>${_fmt(e.type)}</td><td>${_fmt(e.correct)}</td><td>${_fmt(e.total)}</td><td>${e.pct != null ? e.pct : _pct(e.correct, e.total)}%</td>`;
     html += '</tr>';
   });
 
@@ -469,6 +490,7 @@ function exportData() {
     prosodia:      Storage.get('fluencia_prosodia'),
     silabica:      Storage.get('fluencia_silabica'),
     compreensao:   Storage.get('fluencia_compreensao'),
+    estrutura:     Storage.get('fluencia_estrutura'),
     exported:      new Date().toISOString(),
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -482,7 +504,7 @@ function exportData() {
 
 function clearHistory() {
   if (!confirm('Deseja realmente limpar todo o histórico? Esta ação não pode ser desfeita.')) return;
-  ['fluencia_ran','fluencia_precisao','fluencia_fluencia','fluencia_texto','fluencia_checklist','fluencia_memoria','fluencia_tracking','fluencia_inibicao','fluencia_morfologia','fluencia_discriminacao','fluencia_vocabulario','fluencia_prosodia','fluencia_silabica','fluencia_compreensao']
+  ['fluencia_ran','fluencia_precisao','fluencia_fluencia','fluencia_texto','fluencia_checklist','fluencia_memoria','fluencia_tracking','fluencia_inibicao','fluencia_morfologia','fluencia_discriminacao','fluencia_vocabulario','fluencia_prosodia','fluencia_silabica','fluencia_compreensao','fluencia_estrutura']
     .forEach(k => Storage.remove(k));
   showHistory('ran');
 }
