@@ -5,6 +5,7 @@
 // ─────────────────────────────────────────
 let currentSection = 'home';
 let ranLevel = 0;
+let ranType = 'numeros'; // 'numeros' | 'cores' | 'letras'
 let ranTimer = null, ranStartTime = null, ranElapsed = 0;
 let decodeModule = 0, decodeTimer = null, decodeStartTime = null, decodeElapsed = 0;
 let precisaoModule = 0, precisaoAnswered = 0, precisaoCorrect = 0;
@@ -49,6 +50,10 @@ function showSection(id) {
   if (id === 'tracking') initTracking();
   if (id === 'inibicao') initInibicao();
   if (id === 'latim-quiz') initLatimQuiz();
+  if (id === 'morfologia') renderMorfologia();
+  if (id === 'discriminacao') renderDiscriminacao();
+  if (id === 'prosodia') renderProsodia();
+  if (id === 'vocabulario') initVocabulario();
 }
 
 // ─────────────────────────────────────────
@@ -126,6 +131,17 @@ document.addEventListener('DOMContentLoaded', () => {
   populateModuleButtons('decode-modules', DECODE_MODULES, setDecodeModule);
   populateModuleButtons('fluencia-modules', FLUENCIA_MODULES, setFluenciaModule);
   populateModuleButtons('texto-modules', TEXTO_MODULES, setTextoModule);
+  populateModuleButtons('morfologia-modules', MORFOLOGIA_MODULES, setMorfologiaModule);
+  populateModuleButtons('prosodia-modules', PROSODIA_MODULES, setProsodiaModule);
+  populateModuleButtons('discriminacao-modules', DISCRIMINACAO_MODULES, setDiscriminacaoModule);
+  populateModuleButtons('vocabulario-modules', VOCABULARIO_MODULES, setVocabularioModule);
+
+  // Inicializar campo de meta WPM com valor salvo
+  const wpmMetaInput = document.getElementById('wpm-meta-input');
+  if (wpmMetaInput) {
+    const savedMeta = Storage.get('wpm_meta', 150);
+    wpmMetaInput.value = savedMeta;
+  }
 
   // Entry animations
   const cards = document.querySelectorAll('.card');

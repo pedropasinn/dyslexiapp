@@ -62,8 +62,24 @@
       <span class="sidebar-num">09</span>
       <span class="sidebar-label">Quiz de Latim</span>
     </div>
-    <div class="sidebar-item" data-section="historico" onclick="showSection('historico')">
+    <div class="sidebar-item" data-section="morfologia" onclick="showSection('morfologia')">
       <span class="sidebar-num">10</span>
+      <span class="sidebar-label">Morfologia</span>
+    </div>
+    <div class="sidebar-item" data-section="discriminacao" onclick="showSection('discriminacao')">
+      <span class="sidebar-num">11</span>
+      <span class="sidebar-label">Discriminação Fonêmica</span>
+    </div>
+    <div class="sidebar-item" data-section="vocabulario" onclick="showSection('vocabulario')">
+      <span class="sidebar-num">12</span>
+      <span class="sidebar-label">Vocabulário Tier 2</span>
+    </div>
+    <div class="sidebar-item" data-section="prosodia" onclick="showSection('prosodia')">
+      <span class="sidebar-num">13</span>
+      <span class="sidebar-label">Prosódia</span>
+    </div>
+    <div class="sidebar-item" data-section="historico" onclick="showSection('historico')">
+      <span class="sidebar-num">14</span>
       <span class="sidebar-label">Histórico & Progresso</span>
     </div>
     <div class="sidebar-group-title">Extras</div>
@@ -136,8 +152,32 @@
         <p>Teste seu vocabulário latino. Traduza palavras e frases entre latim e português.</p>
         <span class="card-tag">latim · tradução · quiz</span>
       </div>
-      <div class="card" onclick="showSection('historico')">
+      <div class="card" onclick="showSection('morfologia')">
         <div class="card-number">10</div>
+        <h3>Morfologia</h3>
+        <p>Decomponha palavras em morfemas e explore famílias etimológicas. Treina consciência morfológica com raízes latinas e gregas.</p>
+        <span class="card-tag">morfologia · etimologia</span>
+      </div>
+      <div class="card" onclick="showSection('discriminacao')">
+        <div class="card-number">11</div>
+        <h3>Discriminação Fonêmica</h3>
+        <p>Decida se dois pares mínimos são iguais ou diferentes. Treina a percepção fonêmica fina com medição de tempo de reação.</p>
+        <span class="card-tag">fonologia · pares mínimos · tempo de reação</span>
+      </div>
+      <div class="card" onclick="showSection('vocabulario')">
+        <div class="card-number">12</div>
+        <h3>Vocabulário Tier 2</h3>
+        <p>Expanda seu vocabulário acadêmico com palavras de alta frequência. Ensino temático com contexto, uso e revisão espaçada em flashcards.</p>
+        <span class="card-tag">vocabulário · semântica · revisão</span>
+      </div>
+      <div class="card" onclick="showSection('prosodia')">
+        <div class="card-number">13</div>
+        <h3>Prosódia</h3>
+        <p>Treine entonação, pausas e expressividade. A prosódia transforma decodificação em leitura verdadeiramente fluente.</p>
+        <span class="card-tag">prosódia · entonação · pausas</span>
+      </div>
+      <div class="card" onclick="showSection('historico')">
+        <div class="card-number">14</div>
         <h3>Histórico & Progresso</h3>
         <p>Acompanhe sua evolução ao longo do tempo. Visualize tempos, acertos e tendências.</p>
         <span class="card-tag">dados · progresso</span>
@@ -158,9 +198,17 @@
 
     <div class="section-header">
       <h2>RAN — Nomeação Automática Rápida</h2>
-      <p>Leia cada número da esquerda para a direita, linha por linha, o mais rápido que puder. Cronometre do primeiro ao último item.</p>
+      <p>Nomeie cada item da esquerda para a direita, linha por linha, o mais rápido que puder. Cronometre do primeiro ao último item.</p>
     </div>
 
+    <!-- Seletor de tipo -->
+    <div class="module-selector ran-type-selector" id="ran-types">
+      <button class="module-btn active" data-type="numeros" onclick="setRanType('numeros')">Números</button>
+      <button class="module-btn" data-type="cores" onclick="setRanType('cores')">Cores</button>
+      <button class="module-btn" data-type="letras" onclick="setRanType('letras')">Letras</button>
+    </div>
+
+    <!-- Seletor de nível — Números -->
     <div class="module-selector" id="ran-levels">
       <button class="module-btn active" onclick="setRanLevel(0)">Nível 1</button>
       <button class="module-btn" onclick="setRanLevel(1)">Nível 2</button>
@@ -171,8 +219,17 @@
       <button class="module-btn" onclick="setRanLevel(6)">Nível 7</button>
     </div>
 
+    <!-- Seletor de nível — Letras -->
+    <div class="module-selector" id="ran-letter-levels" style="display:none">
+      <button class="module-btn active" onclick="setRanLetterLevel(0)">Vogais</button>
+      <button class="module-btn" onclick="setRanLetterLevel(1)">Consoantes fáceis</button>
+      <button class="module-btn" onclick="setRanLetterLevel(2)">Consoantes variáveis</button>
+      <button class="module-btn" onclick="setRanLetterLevel(3)">Confusão visual (b/d/p/q)</button>
+      <button class="module-btn" onclick="setRanLetterLevel(4)">Maiúsculas/minúsculas</button>
+    </div>
+
     <div class="info-box">
-      <strong>Instrução:</strong> "Leia cada número da esquerda para a direita, linha por linha, sem pular nenhum. Comece quando disser <em>Já</em>."
+      <strong>Instrução:</strong> "<span id="ran-instrucao">Leia cada número da esquerda para a direita, linha por linha, sem pular nenhum. Comece quando disser Já.</span>"
     </div>
 
     <div class="ran-grid" id="ran-grid"></div>
@@ -197,6 +254,7 @@
         <button onclick="adjustCounter('ran-autocorr', 1)">+</button>
       </div>
       <button class="btn btn-gold btn-sm" onclick="saveRanAttempt()">Salvar tentativa</button>
+      <span class="ran-ipm-display" id="ran-ipm"></span>
     </div>
 
     <div class="history-section" id="ran-history"></div>
@@ -214,9 +272,13 @@
 
     <div class="module-selector" id="precisao-modules"></div>
 
+    <!-- Label de contraste fonêmico -->
+    <div class="precisao-contrast-label" id="precisao-contrast"></div>
+
     <div id="precisao-score" class="score-display hidden">
       <span class="score-num" id="precisao-correct">0</span>
       <span class="score-total">/ <span id="precisao-total">0</span></span>
+      <span class="precisao-rt-display" id="precisao-reaction-time"></span>
     </div>
 
     <div class="precisao-grid" id="precisao-grid"></div>
@@ -297,11 +359,30 @@
 
     <div class="module-selector" id="texto-modules"></div>
 
+    <div class="controls" style="flex-wrap: wrap; gap: 0.5rem;">
+      <button class="btn btn-outline btn-sm" id="texto-repeat-toggle" onclick="toggleRepeatedMode()">Modo: Leitura Unica</button>
+      <div class="wpm-meta-control">
+        <label for="wpm-meta-input">Meta PPM</label>
+        <input type="number" id="wpm-meta-input" class="wpm-meta-input" min="50" max="600" step="10" value="150" onchange="setWpmMeta(this.value)" oninput="setWpmMeta(this.value)">
+        <span class="wpm-meta-suffix">PPM</span>
+      </div>
+    </div>
+
+    <!-- Tracker de leitura repetida -->
+    <div class="attempt-tracker" id="texto-repeat-tracker" style="display:none">
+      <div class="attempt-card active"><span class="attempt-label">1a leitura</span><span class="attempt-time">—</span></div>
+      <div class="attempt-card"><span class="attempt-label">2a leitura</span><span class="attempt-time">—</span></div>
+      <div class="attempt-card"><span class="attempt-label">3a leitura</span><span class="attempt-time">—</span></div>
+    </div>
+
     <div class="controls">
       <div class="timer-display" id="texto-timer">00:00.0</div>
       <button class="btn btn-primary" id="texto-start-btn" onclick="toggleTextoTimer()">Iniciar leitura</button>
       <button class="btn btn-rose btn-sm" onclick="finishTextoReading()">Terminei</button>
     </div>
+
+    <!-- Preview de vocabulario (mostrado antes da leitura) -->
+    <div id="texto-vocab-preview"></div>
 
     <div class="text-passage" id="texto-passage"></div>
 
@@ -311,14 +392,27 @@
       <div class="text-stat"><span class="text-stat-value" id="texto-time-final">—</span><span class="text-stat-label">tempo</span></div>
     </div>
 
+    <!-- Mini-grafico de evolucao WPM -->
+    <div id="texto-wpm-chart"></div>
+
+    <!-- Comparacao de leitura repetida -->
+    <div id="texto-repeat-comparison" style="display:none"></div>
+
+    <!-- Score de compreensao -->
+    <div id="texto-compreensao-score" class="score-display hidden" style="display:none; margin-top:1rem">
+      <span class="score-num">0</span>
+      <span class="score-total">/ <span>0</span></span>
+    </div>
+
     <div class="questions-container" id="texto-questions"></div>
 
     <!-- Checklist Metacognitivo -->
     <div class="checklist" id="checklist-section" style="display:none">
       <h3>Checklist Metacognitivo</h3>
+      <p class="text-sm text-muted" style="margin-bottom:1rem">Avalie sua leitura em cada dimensao (Shaywitz: precisao + velocidade + prosodia = fluencia)</p>
       <div id="checklist-items"></div>
       <div class="mt-3">
-        <button class="btn btn-gold" onclick="saveChecklist()">Salvar autoavaliação</button>
+        <button class="btn btn-gold" onclick="saveChecklist()">Salvar autoavaliacao</button>
       </div>
     </div>
   </section>
@@ -487,6 +581,166 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
+       MORFOLOGIA
+       ═══════════════════════════════════════════ -->
+  <section id="sec-morfologia" class="section">
+
+    <div class="section-header">
+      <h2>Consciência Morfológica</h2>
+      <p>Decomponha palavras em morfemas (prefixo, raiz, sufixo) e explore famílias etimológicas.</p>
+    </div>
+
+    <div class="module-selector" id="morfologia-modules"></div>
+
+    <div class="info-box">
+      <strong>Instrução:</strong> Clique nos morfemas na ordem correta para preencher os slots. Clique num slot preenchido para limpá-lo.
+    </div>
+
+    <div id="morfologia-score" class="score-display" style="display:none; margin-bottom:1rem">
+      <span class="score-num">0</span>
+      <span class="score-total">/ <span>0</span></span>
+    </div>
+
+    <div class="controls" style="justify-content:center">
+      <span id="morfologia-progress" style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-light)">1 / 5</span>
+    </div>
+
+    <div class="morfologia-word" id="morfologia-word"></div>
+
+    <div class="morfologia-root" id="morfologia-root"></div>
+
+    <div class="morfema-slots" id="morfologia-slots"></div>
+
+    <div class="morfema-choices" id="morfologia-choices"></div>
+
+    <div class="controls" style="justify-content:center">
+      <button class="btn btn-gold" id="morfologia-check-btn" onclick="checkMorfologia()">Verificar</button>
+      <button class="btn btn-primary" id="morfologia-next-btn" onclick="nextMorfologia()" style="display:none">Próxima →</button>
+    </div>
+
+    <div id="morfologia-family" style="display:none; margin-top:1.5rem"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       DISCRIMINAÇÃO FONÊMICA
+       ═══════════════════════════════════════════ -->
+  <section id="sec-discriminacao" class="section">
+
+    <div class="section-header">
+      <h2>Discriminação Fonêmica</h2>
+      <p>Observe dois pares mínimos e decida: os fonemas-alvo são <strong>iguais</strong> ou <strong>diferentes</strong>? Responda o mais rápido que puder.</p>
+    </div>
+
+    <div class="module-selector" id="discriminacao-modules"></div>
+
+    <div class="info-box">
+      <strong>Instrução:</strong> Dois pares de palavras aparecem na tela. Clique <strong>IGUAL</strong> se o fonema-alvo é o mesmo nas duas palavras, ou <strong>DIFERENTE</strong> se é distinto. Velocidade e precisão são medidas.
+      <br><span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-light); margin-top:0.4rem; display:block">Contraste: <span id="disc-contrast-label"></span></span>
+    </div>
+
+    <div id="disc-score" class="score-display hidden" style="margin-bottom:1rem; gap:1rem; align-items:center; flex-wrap:wrap">
+      <span>
+        <span class="score-num" id="disc-score-num">0</span>
+        <span class="score-total">/ <span id="disc-score-total">0</span></span>
+      </span>
+      <span id="disc-score-pct" style="font-family:var(--font-mono); font-size:1.1rem; color:var(--navy); font-weight:700"></span>
+      <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-light)">TR médio: <span id="disc-score-rt"></span></span>
+    </div>
+
+    <div class="controls" style="justify-content:center; margin-bottom:0.5rem">
+      <span id="disc-progress" style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-light)">0 / 20</span>
+    </div>
+
+    <div id="discriminacao-pair" class="disc-pair-area"></div>
+
+    <div class="controls" style="justify-content:center; margin-top:1.25rem">
+      <button class="btn btn-primary" id="disc-start-btn" onclick="startDiscriminacao()">Iniciar exercício</button>
+    </div>
+
+    <div id="disc-btn-area" class="disc-buttons" style="display:none">
+      <button class="btn disc-btn-igual" id="disc-btn-igual" onclick="answerDiscriminacao('igual')">IGUAL</button>
+      <button class="btn disc-btn-diferente" id="disc-btn-diferente" onclick="answerDiscriminacao('diferente')">DIFERENTE</button>
+    </div>
+
+    <div id="discriminacao-results"></div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       VOCABULÁRIO TIER 2
+       ═══════════════════════════════════════════ -->
+  <section id="sec-vocabulario" class="section">
+
+    <div class="section-header">
+      <h2>Vocabulário Tier 2</h2>
+      <p>Aprenda vocabulário acadêmico de alta frequência. Apresentação + exercícios de contexto e uso + revisão em flashcards.</p>
+    </div>
+
+    <!-- Seletor de módulo temático -->
+    <div class="module-selector" id="vocabulario-modules"></div>
+
+    <!-- Indicador de fase -->
+    <div class="vocab-phase-indicator" id="vocab-phase-indicator"></div>
+
+    <!-- Barra de progresso -->
+    <div class="vocab-progress">
+      <div class="vocab-progress-bar-wrap">
+        <div class="vocab-progress-bar" id="vocab-progress-bar"></div>
+      </div>
+      <span class="vocab-progress-label" id="vocab-progress-label">Palavra 1 de 8</span>
+    </div>
+
+    <!-- Score -->
+    <div id="vocabulario-score" class="score-display" style="display:none; margin-bottom:1rem">
+      <span class="score-num">0</span>
+      <span class="score-total">/ <span>0</span></span>
+    </div>
+
+    <!-- Área de apresentação (cartão da palavra) -->
+    <div id="vocabulario-presentation"></div>
+
+    <!-- Área de exercício (lacuna + múltipla escolha) -->
+    <div id="vocabulario-exercise" style="display:none"></div>
+
+    <!-- Área de revisão (flashcards + resultado final) -->
+    <div id="vocabulario-review" style="display:none"></div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PROSÓDIA
+       ═══════════════════════════════════════════ -->
+  <section id="sec-prosodia" class="section">
+
+    <div class="section-header">
+      <h2>Prosódia — Entonação e Pausas</h2>
+      <p>Treine intonação, pausas naturais e expressividade. A prosódia é o componente que transforma decodificação em leitura fluente (Shaywitz, cap. 18 e 21).</p>
+    </div>
+
+    <div class="module-selector" id="prosodia-modules"></div>
+
+    <div class="info-box" id="prosodia-info">
+      Selecione um módulo acima para começar.
+    </div>
+
+    <div class="controls" id="prosodia-timer-row" style="display:none">
+      <div class="timer-display" id="prosodia-timer">00:00.0</div>
+    </div>
+
+    <div id="prosodia-score-display" class="score-display" style="display:none; margin-bottom:1rem"></div>
+
+    <div id="prosodia-feedback" class="prosodia-feedback" style="display:none"></div>
+
+    <div id="prosodia-area"></div>
+
+    <div class="controls" style="margin-top:1.5rem">
+      <button class="btn btn-gold" id="prosodia-verify-btn" style="display:none">Verificar</button>
+      <button class="btn btn-primary" id="prosodia-next-btn" style="display:none">Próxima →</button>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
        HISTÓRICO
        ═══════════════════════════════════════════ -->
   <section id="sec-historico" class="section">
@@ -504,6 +758,10 @@
       <button class="module-btn" onclick="showHistory('memoria')" id="hist-btn-memoria">Memória</button>
       <button class="module-btn" onclick="showHistory('tracking')" id="hist-btn-tracking">Tracking</button>
       <button class="module-btn" onclick="showHistory('inibicao')" id="hist-btn-inibicao">Inibição</button>
+      <button class="module-btn" onclick="showHistory('morfologia')" id="hist-btn-morfologia">Morfologia</button>
+      <button class="module-btn" onclick="showHistory('discriminacao')" id="hist-btn-discriminacao">Discriminação</button>
+      <button class="module-btn" onclick="showHistory('vocabulario')" id="hist-btn-vocabulario">Vocabulário</button>
+      <button class="module-btn" onclick="showHistory('prosodia')" id="hist-btn-prosodia">Prosódia</button>
     </div>
 
     <div id="historico-content"></div>
@@ -537,6 +795,8 @@
 <script src="js/data/texto-data.js"></script>
 <script src="js/data/checklist-data.js"></script>
 <script src="js/data/latim-quiz-data.js"></script>
+<script src="js/data/morfologia-data.js"></script>
+<script src="js/data/discriminacao-data.js"></script>
 <script src="js/timer.js"></script>
 <script src="js/ran.js"></script>
 <script src="js/precisao.js"></script>
@@ -548,6 +808,12 @@
 <script src="js/tracking.js"></script>
 <script src="js/inibicao.js"></script>
 <script src="js/latim-quiz.js"></script>
+<script src="js/morfologia.js"></script>
+<script src="js/discriminacao.js"></script>
+<script src="js/data/prosodia-data.js"></script>
+<script src="js/prosodia.js"></script>
+<script src="js/data/vocabulario-data.js"></script>
+<script src="js/vocabulario.js"></script>
 <script src="js/phoneme-audio.js"></script>
 <script src="js/app.js"></script>
 </body>
