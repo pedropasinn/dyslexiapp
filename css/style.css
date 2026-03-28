@@ -1089,6 +1089,158 @@ footer button:hover { color: var(--gold); }
 .span-dot.failed { background: var(--rose); }
 
 /* ═══════════════════════════════════════════
+   READING SPAN TEST
+   ═══════════════════════════════════════════ */
+
+/* Cabeçalho de nível/conjunto */
+.rspan-header {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding: 0.5rem 1rem;
+}
+
+/* Wrapper da frase */
+.rspan-sentence-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.5rem 2rem;
+  width: 100%;
+}
+
+.rspan-sentence-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-light);
+}
+
+/* Frase principal — leitura confortável */
+.rspan-sentence {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  line-height: 1.7;
+  color: var(--navy);
+  text-align: center;
+  max-width: 680px;
+  animation: rspanFadeIn 0.4s ease;
+}
+
+@keyframes rspanFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Botão "Li" */
+.rspan-li-btn {
+  background: var(--navy);
+  color: var(--gold-light);
+  border: none;
+  padding: 0.6rem 2.2rem;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 3px 12px rgba(26,26,46,0.2);
+}
+.rspan-li-btn:hover {
+  background: var(--navy-light);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 18px rgba(26,26,46,0.25);
+}
+.rspan-li-btn:active { transform: translateY(0); }
+
+/* Tela de recordação */
+.rspan-recall-prompt {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--navy);
+  text-align: center;
+  padding: 1rem 1.5rem 0.5rem;
+  line-height: 1.5;
+}
+
+.rspan-recall-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Grade de inputs de recordação */
+.rspan-recall-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.rspan-recall-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.rspan-recall-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+  min-width: 60px;
+  text-align: right;
+}
+
+/* Herda estilos de .memoria-input.word-input; ajuste mínimo */
+.rspan-recall-input {
+  width: 200px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+/* Resultado final */
+.rspan-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1.5rem;
+}
+
+.rspan-result-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-light);
+}
+
+.rspan-result-value {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 6rem);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.rspan-result-sub {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════
    RASTREAMENTO OCULAR
    ═══════════════════════════════════════════ */
 .tracking-grid {

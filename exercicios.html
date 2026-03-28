@@ -78,8 +78,16 @@
       <span class="sidebar-num">13</span>
       <span class="sidebar-label">Prosódia</span>
     </div>
-    <div class="sidebar-item" data-section="historico" onclick="showSection('historico')">
+    <div class="sidebar-item" data-section="silabica" onclick="showSection('silabica')">
       <span class="sidebar-num">14</span>
+      <span class="sidebar-label">Consciência Silábica</span>
+    </div>
+    <div class="sidebar-item" data-section="compreensao" onclick="showSection('compreensao')">
+      <span class="sidebar-num">15</span>
+      <span class="sidebar-label">Compreensão Ativa</span>
+    </div>
+    <div class="sidebar-item" data-section="historico" onclick="showSection('historico')">
+      <span class="sidebar-num">16</span>
       <span class="sidebar-label">Histórico & Progresso</span>
     </div>
     <div class="sidebar-group-title">Extras</div>
@@ -176,8 +184,20 @@
         <p>Treine entonação, pausas e expressividade. A prosódia transforma decodificação em leitura verdadeiramente fluente.</p>
         <span class="card-tag">prosódia · entonação · pausas</span>
       </div>
-      <div class="card" onclick="showSection('historico')">
+      <div class="card" onclick="showSection('silabica')">
         <div class="card-number">14</div>
+        <h3>Consciência Silábica</h3>
+        <p>Manipule sílabas: conte, segmente, delete e substitua. Treina a consciência fonológica no nível silábico.</p>
+        <span class="card-tag">sílabas · fonologia · manipulação</span>
+      </div>
+      <div class="card" onclick="showSection('compreensao')">
+        <div class="card-number">15</div>
+        <h3>Compreensão Ativa</h3>
+        <p>Protocolo guiado de leitura ativa: antes, durante e depois. Treina as 7 estratégias de compreensão do leitor proficiente (Shaywitz cap. 19).</p>
+        <span class="card-tag">compreensão · estratégias · metacognição</span>
+      </div>
+      <div class="card" onclick="showSection('historico')">
+        <div class="card-number">16</div>
         <h3>Histórico & Progresso</h3>
         <p>Acompanhe sua evolução ao longo do tempo. Visualize tempos, acertos e tendências.</p>
         <span class="card-tag">dados · progresso</span>
@@ -431,13 +451,16 @@
       <button class="module-btn active" onclick="setMemoriaLevel(0)">Span Direto (dígitos)</button>
       <button class="module-btn" onclick="setMemoriaLevel(1)">Span Inverso (dígitos)</button>
       <button class="module-btn" onclick="setMemoriaLevel(2)">Span de Palavras</button>
+      <button class="module-btn" onclick="setMemoriaLevel(3)">Reading Span</button>
     </div>
 
     <div class="info-box" id="memoria-info">
       <strong>Instrução:</strong> Observe a sequência que aparecerá. Quando ela desaparecer, digite os itens <strong>na mesma ordem</strong>.
     </div>
 
-    <div class="span-progress" id="memoria-progress"></div>
+    <div id="span-progress-row">
+      <div class="span-progress" id="memoria-progress"></div>
+    </div>
 
     <div class="memoria-display" id="memoria-display">
       <span class="memoria-ready">Pressione "Iniciar" para começar</span>
@@ -741,6 +764,203 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
+       CONSCIÊNCIA SILÁBICA
+       ═══════════════════════════════════════════ -->
+  <section id="sec-silabica" class="section">
+
+    <div class="section-header">
+      <h2>Consciência Silábica</h2>
+      <p>Manipulação silábica em quatro níveis: contagem, segmentação, deleção e substituição. Baseado em Goldsworthy Sourcebook Vol. III.</p>
+    </div>
+
+    <div class="module-selector" id="silabica-modules"></div>
+
+    <div class="info-box" id="silabica-info">
+      Selecione um módulo acima para começar.
+    </div>
+
+    <div class="silabica-meta-row">
+      <span class="silabica-progress-label" id="silabica-progress"></span>
+      <div id="silabica-score-display" class="score-display" style="display:none; margin-bottom:0"></div>
+    </div>
+
+    <div id="silabica-feedback" class="sil-feedback" style="display:none"></div>
+
+    <div id="silabica-word-area"></div>
+
+    <div id="silabica-answer-area"></div>
+
+    <div class="controls" id="silabica-controls" style="margin-top:1.5rem">
+      <button class="btn btn-gold" id="silabica-verify-btn" style="display:none" onclick="checkSilabica()">Verificar</button>
+      <button class="btn btn-primary" id="silabica-next-btn" style="display:none" onclick="nextSilabica()">Próxima →</button>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       COMPREENSÃO ATIVA
+       ═══════════════════════════════════════════ -->
+  <section id="sec-compreensao" class="section">
+
+    <div class="section-header">
+      <h2>Compreensão Ativa</h2>
+      <p>Protocolo guiado de leitura: <strong>Antes</strong> (ativar e predizer) → <strong>Durante</strong> (visualizar, questionar, monitorar) → <strong>Depois</strong> (resumir, conectar, compreensão). Baseado nas 7 estratégias de Shaywitz cap. 19.</p>
+    </div>
+
+    <!-- Seletor de módulo -->
+    <div class="module-selector" id="compreensao-modules"></div>
+
+    <!-- Indicador de fase -->
+    <div class="comp-phase-indicator">
+      <div class="comp-phase-step" id="comp-phase-antes">
+        <span class="comp-phase-dot"></span>
+        <span class="comp-phase-label">Antes</span>
+      </div>
+      <div class="comp-phase-connector"></div>
+      <div class="comp-phase-step" id="comp-phase-durante">
+        <span class="comp-phase-dot"></span>
+        <span class="comp-phase-label">Durante</span>
+      </div>
+      <div class="comp-phase-connector"></div>
+      <div class="comp-phase-step" id="comp-phase-depois">
+        <span class="comp-phase-dot"></span>
+        <span class="comp-phase-label">Depois</span>
+      </div>
+    </div>
+
+    <!-- ── FASE: ANTES ─────────────────────────── -->
+    <div id="comp-antes">
+      <div class="comp-phase-header">
+        <span class="comp-phase-icon">◎</span>
+        <div>
+          <div class="comp-phase-title">Antes da Leitura</div>
+          <div class="comp-phase-desc">Ative seu conhecimento prévio e formule uma predição.</div>
+        </div>
+      </div>
+
+      <div class="comp-topic-card">
+        <div class="comp-topic-title" id="comp-title">—</div>
+        <div class="comp-topic-hint" id="comp-topic-hint">—</div>
+      </div>
+
+      <!-- Estratégia 1: Ativar conhecimento prévio -->
+      <div class="comp-strategy-card">
+        <div class="comp-strategy-header">
+          <span class="comp-strategy-icon">✦</span>
+          <span class="comp-strategy-name">Ativar conhecimento prévio</span>
+        </div>
+        <div class="comp-strategy-prompt" id="comp-knowledge-prompt">O que você já sabe sobre este tema?</div>
+        <textarea class="comp-textarea" id="comp-knowledge-area" placeholder="Escreva livremente o que você já conhece sobre o assunto..." rows="3"></textarea>
+      </div>
+
+      <!-- Estratégia 2: Predizer -->
+      <div class="comp-strategy-card">
+        <div class="comp-strategy-header">
+          <span class="comp-strategy-icon">→</span>
+          <span class="comp-strategy-name">Predizer</span>
+        </div>
+        <div class="comp-strategy-prompt" id="comp-prediction-prompt">O que você espera encontrar no texto?</div>
+        <textarea class="comp-textarea" id="comp-prediction-area" placeholder="Escreva suas predições sobre o conteúdo..." rows="3"></textarea>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-primary" onclick="startCompreensaoReading()">Iniciar leitura →</button>
+      </div>
+    </div>
+
+    <!-- ── FASE: DURANTE ───────────────────────── -->
+    <div id="comp-durante" style="display:none">
+      <div class="comp-phase-header">
+        <span class="comp-phase-icon">◉</span>
+        <div>
+          <div class="comp-phase-title">Durante a Leitura</div>
+          <div class="comp-phase-desc">Leia o texto e responda às estratégias de acompanhamento.</div>
+        </div>
+      </div>
+
+      <div class="controls" style="justify-content:space-between; flex-wrap:wrap; gap:0.5rem">
+        <span class="comp-word-count-badge" id="comp-word-count">— palavras</span>
+        <div class="comp-timer-inline" id="comp-timer-display">00:00</div>
+      </div>
+
+      <!-- Texto da passagem -->
+      <div class="comp-text-display" id="comp-text-display"></div>
+
+      <!-- Estratégias durante a leitura (uma de cada vez) -->
+      <div id="comp-strategy-area"></div>
+
+      <div class="controls" style="margin-top:1rem">
+        <button class="btn btn-outline btn-sm" id="comp-strategy-prev" onclick="prevCompreensaoStrategy()" style="display:none">← Anterior</button>
+        <button class="btn btn-primary btn-sm" id="comp-strategy-next" onclick="nextCompreensaoStrategy()">Próxima estratégia →</button>
+        <button class="btn btn-rose btn-sm" id="comp-finish-reading-btn" onclick="finishCompreensaoReading()" style="display:none">Terminei a leitura</button>
+      </div>
+    </div>
+
+    <!-- ── FASE: DEPOIS ────────────────────────── -->
+    <div id="comp-depois" style="display:none">
+      <div class="comp-phase-header">
+        <span class="comp-phase-icon">●</span>
+        <div>
+          <div class="comp-phase-title">Depois da Leitura</div>
+          <div class="comp-phase-desc">Consolide o aprendizado: resuma, conecte e responda às questões.</div>
+        </div>
+      </div>
+
+      <!-- Comparação: predição vs. realidade -->
+      <div class="comp-strategy-card comp-prediction-compare">
+        <div class="comp-strategy-header">
+          <span class="comp-strategy-icon">≈</span>
+          <span class="comp-strategy-name">Comparar predição</span>
+        </div>
+        <div id="comp-prediction-comparison"></div>
+      </div>
+
+      <!-- Estratégia 6: Resumir -->
+      <div class="comp-strategy-card">
+        <div class="comp-strategy-header">
+          <span class="comp-strategy-icon">≡</span>
+          <span class="comp-strategy-name">Resumir</span>
+        </div>
+        <div class="comp-strategy-prompt" id="comp-summary-prompt">Resuma a ideia principal em uma frase:</div>
+        <textarea class="comp-textarea" id="comp-summary-area" placeholder="Escreva seu resumo antes de revelar os pontos-chave..." rows="3"></textarea>
+        <div class="comp-key-reveal" id="comp-summary-key" style="display:none">
+          <div class="comp-key-label">Ideia central:</div>
+          <div class="comp-key-text" id="comp-summary-key-text"></div>
+        </div>
+        <div class="controls" style="margin-top:0.75rem; justify-content:flex-start">
+          <button class="btn btn-gold btn-sm" id="comp-reveal-key-btn" onclick="checkCompreensaoSummary()">Revelar ideia central</button>
+        </div>
+      </div>
+
+      <!-- Estratégia 7: Conectar -->
+      <div class="comp-strategy-card">
+        <div class="comp-strategy-header">
+          <span class="comp-strategy-icon">⟳</span>
+          <span class="comp-strategy-name">Conectar</span>
+        </div>
+        <div class="comp-strategy-prompt" id="comp-connect-prompt">Como isso se relaciona com o que você já sabe?</div>
+        <textarea class="comp-textarea" id="comp-connect-area" placeholder="Escreva suas conexões com conhecimentos anteriores ou experiências pessoais..." rows="3"></textarea>
+      </div>
+
+      <!-- Score -->
+      <div id="comp-score-display" class="score-display" style="display:none; margin: 1rem 0">
+        <span class="score-num">0</span>
+        <span class="score-total">/ <span>0</span></span>
+      </div>
+
+      <!-- Questões de compreensão -->
+      <div id="comp-questions"></div>
+
+      <!-- Botões finais -->
+      <div class="controls" style="margin-top:1.5rem">
+        <button class="btn btn-gold" id="comp-save-btn" onclick="finishCompreensao()" style="display:none">Salvar sessão</button>
+        <button class="btn btn-outline btn-sm" onclick="renderCompreensao()">Recomeçar</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
        HISTÓRICO
        ═══════════════════════════════════════════ -->
   <section id="sec-historico" class="section">
@@ -762,6 +982,8 @@
       <button class="module-btn" onclick="showHistory('discriminacao')" id="hist-btn-discriminacao">Discriminação</button>
       <button class="module-btn" onclick="showHistory('vocabulario')" id="hist-btn-vocabulario">Vocabulário</button>
       <button class="module-btn" onclick="showHistory('prosodia')" id="hist-btn-prosodia">Prosódia</button>
+      <button class="module-btn" onclick="showHistory('silabica')" id="hist-btn-silabica">Silábica</button>
+      <button class="module-btn" onclick="showHistory('compreensao')" id="hist-btn-compreensao">Compreensão</button>
     </div>
 
     <div id="historico-content"></div>
@@ -804,6 +1026,7 @@
 <script src="js/fluencia.js"></script>
 <script src="js/texto.js"></script>
 <script src="js/historico.js"></script>
+<script src="js/data/memoria-data.js"></script>
 <script src="js/memoria.js"></script>
 <script src="js/tracking.js"></script>
 <script src="js/inibicao.js"></script>
@@ -815,6 +1038,10 @@
 <script src="js/data/vocabulario-data.js"></script>
 <script src="js/vocabulario.js"></script>
 <script src="js/phoneme-audio.js"></script>
+<script src="js/data/silabica-data.js"></script>
+<script src="js/silabica.js"></script>
+<script src="js/data/compreensao-data.js"></script>
+<script src="js/compreensao.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

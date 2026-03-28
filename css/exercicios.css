@@ -1895,3 +1895,604 @@ body { padding-top: 54px; }
   margin: 0 auto 2rem;
   line-height: 1.6;
 }
+
+/* ═══════════════════════════════════════════
+   CONSCIÊNCIA SILÁBICA
+   ═══════════════════════════════════════════ */
+
+/* Meta row (progresso + score inline) */
+.silabica-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.silabica-progress-label {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Large word display */
+.sil-word-display {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  font-weight: 600;
+  color: var(--navy);
+  text-align: center;
+  letter-spacing: 0.04em;
+  padding: 1.5rem 1rem 0.5rem;
+  line-height: 1.2;
+}
+
+/* Deleção: label below word */
+.sil-del-label {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Highlighted target syllable (deleção / substituição) */
+.sil-target {
+  display: inline-block;
+  background: var(--rose);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 0 0.35em;
+  font-weight: 700;
+  margin: 0 0.05em;
+}
+
+/* Substitution instruction row */
+.sil-subst-instruction {
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin: 0.6rem 0 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.sil-arrow {
+  font-size: 1.3rem;
+  color: var(--gold-dark);
+  font-weight: 700;
+  margin: 0 0.2em;
+}
+
+.sil-replacement {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 0.1em 0.45em;
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.05em;
+}
+
+/* Counting buttons */
+.sil-count-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 0.5rem;
+}
+
+.sil-count-btn {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 2px solid var(--cream-deeper);
+  background: white;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sil-count-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: var(--cream-dark);
+  transform: scale(1.1);
+}
+
+.sil-count-btn.correct {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+
+.sil-count-btn.wrong {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: white;
+}
+
+.sil-count-btn:disabled {
+  cursor: default;
+  transform: none;
+}
+
+/* Syllable breakdown strip */
+.sil-syllable-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.8rem 0.5rem 0.4rem;
+  font-family: var(--font-display);
+}
+
+.sil-syllable {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  border-radius: var(--radius);
+  background: var(--cream-dark);
+  color: var(--navy);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.sil-syllable.correct {
+  background: var(--green);
+  color: white;
+}
+
+.sil-syllable.wrong {
+  background: var(--rose);
+  color: white;
+}
+
+.sil-sep {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  font-weight: 700;
+  user-select: none;
+  padding: 0 0.1em;
+}
+
+/* Text input */
+.sil-input {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 0.8rem auto 0.2rem;
+  padding: 0.7rem 1rem;
+  border: 2px solid var(--cream-deeper);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--navy);
+  background: white;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.sil-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212,165,116,0.15);
+}
+
+.sil-input:disabled {
+  background: var(--cream-dark);
+  color: var(--text-muted);
+}
+
+/* Feedback banner */
+.sil-feedback {
+  border-radius: var(--radius);
+  padding: 0.65rem 1rem;
+  margin: 0.8rem 0;
+  font-size: 0.95rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.sil-feedback-correct {
+  background: rgba(90,138,106,0.12);
+  color: var(--green);
+  border: 1px solid rgba(90,138,106,0.25);
+}
+
+.sil-feedback-wrong {
+  background: rgba(201,72,91,0.08);
+  color: var(--rose);
+  border: 1px solid rgba(201,72,91,0.2);
+}
+
+.sil-pct {
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+
+/* Result screen */
+.sil-result {
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.sil-result-icon {
+  font-size: 2.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.sil-result-score {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.sil-result-pct {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--gold-dark);
+  margin: 0.3rem 0 1rem;
+}
+
+.sil-result-msg {
+  color: var(--text-muted);
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* ═══════════════════════════════════════════
+   COMPREENSÃO ATIVA — Protocolo Antes/Durante/Depois
+   ═══════════════════════════════════════════ */
+
+/* Indicador de fase (3 steps) */
+.comp-phase-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 1.5rem 0 2rem;
+}
+
+.comp-phase-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  position: relative;
+}
+
+.comp-phase-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--cream-deeper);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.comp-phase-step.active .comp-phase-dot {
+  background: var(--navy);
+  border-color: var(--navy);
+  box-shadow: 0 0 0 4px rgba(26,26,46,0.1);
+}
+
+.comp-phase-step.done .comp-phase-dot {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.comp-phase-step.active .comp-phase-dot::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+}
+
+.comp-phase-step.done .comp-phase-dot::after {
+  content: '✓';
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.comp-phase-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.comp-phase-step.active .comp-phase-label { color: var(--navy); font-weight: 700; }
+.comp-phase-step.done .comp-phase-label   { color: var(--gold-dark); }
+
+.comp-phase-connector {
+  width: 60px;
+  height: 2px;
+  background: var(--cream-deeper);
+  margin: 0 4px;
+  margin-bottom: 18px; /* align with center of dot */
+  flex-shrink: 0;
+}
+
+/* Cabeçalho da fase */
+.comp-phase-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--cream);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--navy);
+}
+
+.comp-phase-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--navy);
+  min-width: 1.6rem;
+  text-align: center;
+}
+
+.comp-phase-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.comp-phase-desc {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 0.15rem;
+}
+
+/* Card do tópico */
+.comp-topic-card {
+  padding: 1.25rem 1.5rem;
+  background: var(--navy);
+  border-radius: var(--radius);
+  margin-bottom: 1.25rem;
+}
+
+.comp-topic-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  margin-bottom: 0.35rem;
+}
+
+.comp-topic-hint {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Cartão de estratégia */
+.comp-strategy-card {
+  background: white;
+  border: 1px solid var(--cream-deeper);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.comp-strategy-card:hover {
+  border-color: var(--gold-light);
+  box-shadow: 0 2px 12px rgba(212,165,116,0.1);
+}
+
+.comp-strategy-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.comp-strategy-icon {
+  font-size: 1rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  color: var(--navy);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.comp-strategy-name {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.comp-strategy-progress {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-light);
+}
+
+.comp-strategy-prompt {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+/* Texto da passagem */
+.comp-text-display {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--text);
+  padding: 1.5rem 1.75rem;
+  background: white;
+  border: 1px solid var(--cream-deeper);
+  border-radius: var(--radius);
+  margin: 1rem 0;
+  white-space: pre-line;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.03);
+  letter-spacing: 0.01em;
+}
+
+/* Contador de palavras */
+.comp-word-count-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-light);
+  background: var(--cream);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  border: 1px solid var(--cream-deeper);
+}
+
+/* Timer inline */
+.comp-timer-inline {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--navy);
+  background: var(--cream);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--cream-deeper);
+  min-width: 60px;
+  text-align: center;
+}
+
+/* Textareas para resposta */
+.comp-textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--cream-deeper);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--cream);
+  resize: vertical;
+  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+.comp-textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(212,165,116,0.15);
+}
+
+.comp-textarea::placeholder {
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* Revelação da ideia central */
+.comp-key-reveal {
+  margin-top: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: rgba(76,175,80,0.07);
+  border: 1px solid rgba(76,175,80,0.25);
+  border-radius: var(--radius);
+  animation: compReveal 0.3s ease;
+}
+
+@keyframes compReveal {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.comp-key-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #2e7d32;
+  margin-bottom: 0.3rem;
+}
+
+.comp-key-text {
+  font-size: 0.92rem;
+  color: #1b5e20;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+/* Card de comparação predição */
+.comp-prediction-compare .comp-comparison-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-light);
+  margin-bottom: 0.3rem;
+}
+
+.comp-prediction-compare .comp-comparison-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.5;
+  padding: 0.6rem 0.8rem;
+  background: var(--cream);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.comp-prediction-compare .comp-comparison-hint {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  line-height: 1.45;
+}
+
+/* Título de seção dentro da fase Depois */
+.comp-section-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 1.5rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--cream-deeper);
+}
+

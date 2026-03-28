@@ -54,6 +54,8 @@ function showSection(id) {
   if (id === 'discriminacao') renderDiscriminacao();
   if (id === 'prosodia') renderProsodia();
   if (id === 'vocabulario') initVocabulario();
+  if (id === 'silabica') renderSilabica();
+  if (id === 'compreensao') renderCompreensao();
 }
 
 // ─────────────────────────────────────────
@@ -135,6 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
   populateModuleButtons('prosodia-modules', PROSODIA_MODULES, setProsodiaModule);
   populateModuleButtons('discriminacao-modules', DISCRIMINACAO_MODULES, setDiscriminacaoModule);
   populateModuleButtons('vocabulario-modules', VOCABULARIO_MODULES, setVocabularioModule);
+  populateModuleButtons('silabica-modules', SILABICA_MODULES, setSilabicaModule);
+  populateModuleButtons('compreensao-modules', COMPREENSAO_MODULES, setCompreensaoModule);
 
   // Inicializar campo de meta WPM com valor salvo
   const wpmMetaInput = document.getElementById('wpm-meta-input');
