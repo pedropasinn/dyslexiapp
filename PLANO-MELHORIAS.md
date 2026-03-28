@@ -42,7 +42,7 @@ e auditoria dos modulos existentes.
 - [ ] Mostrar tendencia ao longo das sessoes
 
 ### 1.6 Memoria de Trabalho
-- [ ] Reading Span Test: lembrar ultima palavra de cada frase (correlacao forte com compreensao)
+- [x] Reading Span Test: lembrar ultima palavra de cada frase (Daneman & Carpenter) ✅ Sprint 3
 - [ ] Span de pseudopalavras (isolar WM fonologica de memoria semantica)
 - [ ] Efeito de similaridade fonologica (palavras que rimam vs nao rimam)
 
@@ -84,14 +84,14 @@ Exercicio de pares minimos cronometrado:
 - [x] Medir tempo de reacao + acerto (performance.now())
 - [ ] Progressao: fonemas isolados → silabas → palavras → pseudopalavras
 
-### 2.2 Consciencia Silabica (NOVO)
+### 2.2 Consciencia Silabica ✅ IMPLEMENTADO Sprint 3
 **Base: Goldsworthy Vol III — atividades de silaba**
 
-- Contagem de silabas (bater palmas)
-- Delecao de silaba (tirar primeira/ultima silaba)
-- Substituicao de silaba
-- Combinacao de silabas para formar palavras
-- Palavras do vocabulario intelectual
+- [x] Contagem de silabas (botoes clicaveis 1-10)
+- [x] Segmentacao (digitar silabas separadas por hifen)
+- [x] Delecao de silaba (tirar primeira/ultima silaba)
+- [x] Substituicao de silaba
+- [x] 8 modulos com vocabulario intelectual
 
 ### 2.3 Prosodia ✅ IMPLEMENTADO Sprint 2
 **Base: Shaywitz cap. 18, 21 — prosodia como componente de fluencia**
@@ -122,19 +122,14 @@ Exercicio de pares minimos cronometrado:
 - Exercicio: resumir em uma frase a ideia principal
 - Mapas conceituais interativos
 
-### 2.6 Estrategias de Compreensao Ativa (NOVO)
+### 2.6 Estrategias de Compreensao Ativa ✅ IMPLEMENTADO Sprint 3
 **Base: Shaywitz cap. 19 — 7 estrategias do leitor ativo**
 
-Treinar explicitamente:
-1. Ativar conhecimento previo
-2. Predizer
-3. Visualizar
-4. Questionar
-5. Monitorar ("Estou entendendo?")
-6. Resumir
-7. Fazer conexoes
-
-Implementar como protocolo guiado antes/durante/apos a leitura do modulo Texto.
+- [x] Protocolo guiado em 3 fases: Antes / Durante / Depois
+- [x] Ativar conhecimento previo + Predizer (fase Antes)
+- [x] Visualizar + Questionar + Monitorar (fase Durante)
+- [x] Resumir + Fazer conexoes + Perguntas de compreensao (fase Depois)
+- [x] 6 modulos (Filosofia, Teologia, Economia, Historia, Latim, Epistemologia)
 
 ---
 

@@ -15,7 +15,7 @@
 <header class="header-ex">
   <button class="menu-toggle" onclick="toggleExSidebar()" aria-label="Menu">&#9776;</button>
   <a href="index.html" class="header-title" style="text-decoration:none">Exercícios de Fluência</a>
-  <div style="width:36px"></div>
+  <button class="a11y-toggle" onclick="Acessibilidade.toggle()" aria-label="Configurações de acessibilidade" title="Acessibilidade">&#9881;</button>
 </header>
 
 <div class="sidebar-overlay" id="ex-sidebar-overlay" onclick="toggleExSidebar()"></div>
@@ -104,6 +104,10 @@
       <h1>Exercícios de <em>Fluencia</em></h1>
       <p class="hero-subtitle">Exercícios baseados em evidência para o desenvolvimento da fluência leitora, adaptados ao perfil adulto e intelectual.</p>
     </div>
+
+    <div id="progress-overview" class="progress-overview"></div>
+
+    <div id="sessao-area"></div>
 
     <div class="cards-grid">
       <div class="card" onclick="showSection('ran')">
@@ -999,6 +1003,15 @@
 </div>
 
 <!-- ═══════════════════════════════════════════
+     BARRA DE SESSÃO (fixed bottom)
+     ═══════════════════════════════════════════ -->
+<div id="sessao-bar" class="sessao-bar" style="display:none">
+  <span class="sessao-bar-timer" id="sessao-bar-timer">00:00</span>
+  <span class="sessao-bar-step" id="sessao-bar-step">Sessão em andamento</span>
+  <button class="btn btn-sm sessao-bar-encerrar" onclick="Sessao.finish()">Encerrar</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
      FOOTER
      ═══════════════════════════════════════════ -->
 <footer>
@@ -1042,6 +1055,9 @@
 <script src="js/silabica.js"></script>
 <script src="js/data/compreensao-data.js"></script>
 <script src="js/compreensao.js"></script>
+<script src="js/progressao.js"></script>
+<script src="js/acessibilidade.js"></script>
+<script src="js/sessao.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

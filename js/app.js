@@ -40,6 +40,7 @@ function showSection(id) {
   if (sidebar) sidebar.classList.remove('open');
   if (overlay) overlay.classList.remove('open');
 
+  if (id === 'home') Progressao.renderProgressCard('progress-overview');
   if (id === 'ran') generateRan();
   if (id === 'precisao') renderPrecisao();
   if (id === 'decodificacao') renderDecode();
@@ -128,6 +129,12 @@ function populateModuleButtons(containerId, dataArray, setterFn) {
 // INIT
 // ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  // Inicializar acessibilidade (aplica prefs salvas antes de renderizar)
+  if (typeof Acessibilidade !== 'undefined') Acessibilidade.init();
+
+  // Inicializar sugestão de sessão guiada
+  if (typeof Sessao !== 'undefined') Sessao.renderSuggestion('sessao-area');
+
   // Populate module selectors dynamically
   populateModuleButtons('precisao-modules', PRECISAO_MODULES, setPrecisaoModule);
   populateModuleButtons('decode-modules', DECODE_MODULES, setDecodeModule);
@@ -139,6 +146,19 @@ document.addEventListener('DOMContentLoaded', () => {
   populateModuleButtons('vocabulario-modules', VOCABULARIO_MODULES, setVocabularioModule);
   populateModuleButtons('silabica-modules', SILABICA_MODULES, setSilabicaModule);
   populateModuleButtons('compreensao-modules', COMPREENSAO_MODULES, setCompreensaoModule);
+
+  // Renderizar badges de mestria em todos os seletores de módulo
+  Progressao.renderMasteryBadges('precisao-modules',      'precisao',      'fluencia_precisao');
+  Progressao.renderMasteryBadges('discriminacao-modules', 'discriminacao', 'fluencia_discriminacao');
+  Progressao.renderMasteryBadges('morfologia-modules',    'morfologia',    'fluencia_morfologia');
+  Progressao.renderMasteryBadges('vocabulario-modules',   'vocabulario',   'fluencia_vocabulario');
+  Progressao.renderMasteryBadges('silabica-modules',      'silabica',      'fluencia_silabica');
+  Progressao.renderMasteryBadges('texto-modules',         'texto',         'fluencia_texto');
+  Progressao.renderMasteryBadges('prosodia-modules',      'prosodia',      'fluencia_prosodia');
+  Progressao.renderMasteryBadges('compreensao-modules',   'compreensao',   'fluencia_compreensao');
+
+  // Renderizar card de progresso na home
+  Progressao.renderProgressCard('progress-overview');
 
   // Inicializar campo de meta WPM com valor salvo
   const wpmMetaInput = document.getElementById('wpm-meta-input');
