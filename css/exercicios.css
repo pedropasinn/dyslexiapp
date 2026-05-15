@@ -136,11 +136,6 @@ body { padding-top: 54px; }
 }
 
 /* ═══ RAN CENTERING ═══ */
-#sec-ran .ran-grid {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 #sec-ran .module-selector {
   justify-content: center;
 }
