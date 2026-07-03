@@ -113,14 +113,14 @@ Exercicio de pares minimos cronometrado:
 - [ ] Minimo 4 encontros por palavra; 12 para fluencia (espacamento)
 - [ ] Integrar com textos do modulo de Fluencia Textual
 
-### 2.5 Estrutura Textual (NOVO)
+### 2.5 Estrutura Textual ✅ IMPLEMENTADO
 **Base: Shaywitz cap. 19 — textos informativos**
 
-- Ensinar estruturas: causa-efeito, comparacao, problema-solucao, sequencia
-- Exercicio: identificar a estrutura de um paragrafo
-- Exercicio: organizar informacoes num organizador grafico
-- Exercicio: resumir em uma frase a ideia principal
-- Mapas conceituais interativos
+- [x] Identificar estruturas: causa-efeito, comparacao, problema-solucao, sequencia, descricao (18 textos)
+- [x] Organizador grafico: arrastar elementos para slots da estrutura correta (12 textos)
+- [x] Resumo em uma frase: escrever + comparar com modelo + score de keywords (15 textos)
+- [x] 9 modulos, 45 itens total, vocabulario de filosofia, teologia, economia, historia
+- [ ] Mapas conceituais interativos (futuro)
 
 ### 2.6 Estrategias de Compreensao Ativa ✅ IMPLEMENTADO Sprint 3
 **Base: Shaywitz cap. 19 — 7 estrategias do leitor ativo**
